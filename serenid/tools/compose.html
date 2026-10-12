@@ -12,6 +12,8 @@
   :root { --encre: #1F3A4D; --bleu: #4F7A96; --brume: #C9DBE6; --abricot: #E8A07A; --coquille: #F7F5F1; }
   html, body { margin: 0; overflow: hidden; background: #C9DBE6; }
   .stage { position: relative; width: 1200px; height: 1200px; overflow: hidden; }
+  .stage.wide { width: 1488px; height: 992px; background-size: cover; }
+  .stage.wide .obj { filter: sepia(.06) saturate(1.02) brightness(.98); }
   .bg-brume { background: radial-gradient(120% 90% at 30% 22%, #D3E2EA 0%, #CADCE6 45%, #C1D3DE 100%); }
   .bg-coquille { background: radial-gradient(120% 90% at 30% 22%, #FBFAF7 0%, #F4F1EC 50%, #E9E6E0 100%); }
   .obj { position: absolute; transform: translate(-50%, -100%); display: block; }
@@ -48,12 +50,13 @@ const stage = document.getElementById('stage');
 const C = 'cutouts/';
 // Largeur à l’écran pour 1 « unité » = largeur d’une Pastille vue de 3/4
 const RATIO = { pastille: 1, nid: 1.42, 'nid-back': 1.42, cle: 0.44 };
-const SRC = (k) => ({ pastille: `${C}pastille-${FINISH}.webp`, nid: `${C}nid.webp`, 'nid-back': `${C}nid-back.webp`, cle: `${C}cle-coquille.webp`, 'cle-encre': `${C}cle-encre.webp` }[k]);
+const SRC = (k) => ({ 'pastille-brume': `${C}pastille-brume.webp`, pastille: `${C}pastille-${FINISH}.webp`, nid: `${C}nid.webp`, 'nid-back': `${C}nid-back.webp`, cle: `${C}cle-coquille.webp`, 'cle-encre': `${C}cle-encre.webp` }[k]);
 
 function shadow(x, y, w, h, cls) {
   const s = document.createElement('div'); s.className = 'shadow ' + cls;
   Object.assign(s.style, { left: x + 'px', top: y + 'px', width: w + 'px', height: h + 'px' }); stage.appendChild(s);
 }
+function backdrop(file) { stage.classList.add('wide'); stage.style.backgroundImage = `url(backdrops/${file})`; }
 function put(kind, x, y, u, opt = {}) {
   const w = (RATIO[kind] || RATIO[kind.split('-')[0]] || 1) * u;
   // Ombres : contact sous l’arête basse + ombre portée vers la droite (lumière en haut à gauche)
@@ -118,6 +121,21 @@ const SHOTS = {
     put('nid', 820, 700, 230); put('nid', 1005, 745, 230);
     pastilleRows([[6, 840, 0.5, 160, 175], [5, 965, 0.55, 210, 190], [5, 1105, 0.6, 140, 210]], 260);
   },
+  // Scènes : produits détourés posés dans un décor photographié (tools/backdrops)
+  'chambre': () => {
+    backdrop('chambre.jpg');
+    put('nid', 1135, 588, 172);
+  },
+  'entree': () => {
+    backdrop('entree.jpg');
+    put('nid', 1070, 640, 200);
+  },
+  'gamme': () => {
+    stage.classList.add('wide', 'bg-brume');
+    put('nid', 760, 600, 330);
+    put('pastille', 400, 760, 300, { r: -2 }); put('pastille', 560, 880, 280, { r: 3, src: 'pastille-brume' });
+    put('cle', 1060, 760, 330, { r: -4 }); put('cle', 1180, 790, 320, { r: 5, src: 'cle-encre' });
+  },
   'plus': () => {
     stage.classList.add('bg-brume');
     phone(680, 1040, 380);
@@ -125,7 +143,8 @@ const SHOTS = {
   },
 };
 SHOTS[SHOT]();
-Promise.all([...document.images].map((i) => i.complete ? 1 : new Promise((r) => { i.onload = i.onerror = r; }))).then(() => { window.__done = true; });
+const bgs = [...document.querySelectorAll('.stage.wide')].map((st) => { const i = new Image(); i.src = getComputedStyle(st).backgroundImage.slice(5, -2); return i; });
+Promise.all([...document.images, ...bgs].map((i) => i.complete ? 1 : new Promise((r) => { i.onload = i.onerror = r; }))).then(() => { window.__done = true; });
 </script>
 </body>
 </html>

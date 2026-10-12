@@ -83,7 +83,7 @@
       price: round2(329 * 0.85), compareAt: 329, badges: [['-15 %', ''], ['Le plus choisi', 'encre']],
       short: '1 Nid, 10 Pastilles et 2 Clés pour une maison de plain-pied ou un grand appartement.',
       contents: { nids: 1, pastilles: 10, cles: 2 }, rating: 4.7, reviews: 486, variants: FINISH,
-      gallery: ['kit', 'nid', 'pastille', 'cle', 'scene', 'salon'],
+      gallery: ['kit', 'nid', 'pastille', 'cle', 'scene', 'chambre'],
       description: [
         'Le Kit Famille couvre les pièces de vie d’un logement sur un niveau : cuisine, salle de bain, entrée et fenêtres. Le Nid perçoit votre enfant, les Pastilles ne se ferment qu’à son approche.',
         'Deux Clés Sérénid sont incluses, pour les grands-parents et la personne qui garde votre enfant.',
@@ -100,7 +100,7 @@
       price: 189, badges: [],
       short: '1 Nid, 4 Pastilles et 1 Clé : l’essentiel pour un appartement ou une première pièce.',
       contents: { nids: 1, pastilles: 4, cles: 1 }, rating: 4.6, reviews: 212, variants: FINISH,
-      gallery: ['kit', 'nid', 'pastille', 'cle', 'scene'],
+      gallery: ['kit', 'nid', 'pastille', 'cle', 'scene', 'salon'],
       description: [
         'Le Kit Découverte réunit tout ce qu’il faut pour commencer : un Nid pour percevoir, quatre Pastilles pour les zones les plus sensibles et une Clé Sérénid pour vos proches.',
         'Idéal pour sécuriser d’abord la cuisine et la salle de bain, puis compléter au fil du temps avec des packs de Pastilles.',
@@ -117,7 +117,7 @@
       price: 549, badges: [['2 étages', 'soft']],
       short: '2 Nids, 16 Pastilles et 3 Clés pour une maison sur deux niveaux, escalier compris.',
       contents: { nids: 2, pastilles: 16, cles: 3 }, rating: 4.5, reviews: 138, variants: FINISH,
-      gallery: ['kit', 'nid', 'nid-back', 'pastille', 'salon', 'scene'],
+      gallery: ['kit', 'nid', 'pastille', 'detail-usbc', 'entree', 'chambre'],
       description: [
         'Le Kit Maison place un Nid à chaque niveau. Ensemble, ils suivent votre enfant d’un étage à l’autre et sécurisent l’escalier, les salles de bain et les fenêtres.',
         'Trois Clés Sérénid sont incluses pour toute la famille élargie.',
@@ -134,7 +134,7 @@
       price: 59, badges: [],
       short: 'Quatre serrures adhésives supplémentaires pour placards, tiroirs, portes ou fenêtres.',
       contents: { pastilles: 4 }, rating: 4.4, reviews: 171, variants: FINISH,
-      gallery: ['pack', 'pastille', 'scene'],
+      gallery: ['pack', 'pastille', 'detail-cadenas', 'scene'],
       description: [
         'Ajoutez des zones sensibles à votre installation. Chaque Pastille se colle sans perçage et ne se ferme qu’à l’approche de votre enfant.',
         'Conception fail-secure : en cas de coupure ou de pile faible, une Pastille verrouillée reste verrouillée.',
@@ -151,7 +151,7 @@
       price: 99, badges: [],
       short: 'Un Nid de plus pour couvrir un étage, un sous-sol ou une grande pièce ouverte.',
       contents: { nids: 1 }, rating: 4.6, reviews: 94, variants: null,
-      gallery: ['nid', 'nid-back', 'salon'],
+      gallery: ['nid', 'nid-back', 'detail-led', 'detail-usbc', 'chambre', 'salon'],
       description: [
         'Le Nid perçoit la position et le mouvement de votre enfant grâce à un radar 60 GHz. Aucune image, aucun son : un simple point sur votre plan.',
         'Ajoutez-en un par niveau ou pour une pièce de plus de 60 m².',
@@ -172,7 +172,7 @@
         { id: 'coquille', name: 'Coquille', swatch: '#F7F5F1' },
         { id: 'encre', name: 'Encre', swatch: '#1F3A4D' },
       ] },
-      gallery: ['cle', 'scene'],
+      gallery: ['cle', 'detail-cle', 'scene'],
       description: [
         'Posée contre une Pastille, la Clé Sérénid l’ouvre immédiatement. Sans pile, sans appairage, sans code à retenir.',
         'Elle ouvre aussi en cas de coupure de courant : c’est le complément naturel de la conception fail-secure.',
@@ -188,7 +188,7 @@
       price: 3.99, unit: '/mois', badges: [['Nouveau', 'soft']],
       short: 'Historique sur 12 mois, plusieurs domiciles et assistance prioritaire. Sans engagement.',
       contents: {}, rating: 4.3, reviews: 58, variants: null,
-      gallery: ['plus', 'salon'],
+      gallery: ['plus', 'chambre', 'salon'],
       description: [
         'L’application Sérénid est gratuite et complète. Sérénid+ ajoute ce qui sert aux familles qui veulent aller plus loin : historique long, rapports détaillés, plusieurs domiciles.',
         'Sans engagement : vous arrêtez quand vous voulez depuis l’application.',
@@ -249,7 +249,8 @@
 
   /* ---------- Photos produit (assets/img : version grande + « -s » pour les vignettes) ---------- */
   const IMG = 'assets/img/';
-  const WIDE_PHOTOS = ['scene-cuisine', 'scene-salon'];
+  // Dimensions des fichiers : [largeur, hauteur, largeur de la version -s]
+  const photoSize = (f) => (f.startsWith('scene-') ? [1264, 848, 640] : f === 'gamme' ? [1264, 843, 640] : f.startsWith('detail-') ? [720, 720, 360] : [1000, 1000, 480]);
   const finishOf = (variant) => (variant === 'brume' ? 'brume' : 'coquille');
   const finishName = (variant) => (variant === 'brume' ? 'Brume' : 'Coquille');
   function contentsText(c) {
@@ -273,6 +274,15 @@
         return [`cle-${encre ? 'encre' : 'coquille'}`, `La Clé Sérénid ${encre ? 'Encre' : 'Coquille'} : porte-clé magnétique en forme de goutte avec anneau métal`];
       }
       case 'scene': return ['scene-cuisine', 'Une Pastille posée en haut d’un placard de cuisine sous l’évier, des cubes d’éveil au sol'];
+      case 'chambre': return ['scene-chambre', 'Le Nid posé sur une commode blanche dans une chambre d’enfant : ni caméra ni micro'];
+      case 'entree': return ['scene-entree', 'Le Nid posé sur une console en bois clair, dans l’entrée de la maison'];
+      case 'detail-led': return ['detail-led', 'Gros plan sur le voyant abricot du Nid et son liseré gris-bleu'];
+      case 'detail-usbc': return ['detail-usbc', 'Gros plan sur le port USB-C au dos du Nid'];
+      case 'detail-cadenas': return ['detail-cadenas', 'Gros plan sur le bouton de la Pastille et son pictogramme cadenas'];
+      case 'detail-cle': {
+        const encre = p.id === 'cle' && variant === 'encre';
+        return [`detail-cle${encre ? '-encre' : ''}`, `Gros plan sur la gravure de la Clé Sérénid ${encre ? 'Encre' : 'Coquille'} : un petit toit et un point abricot`];
+      }
       case 'salon': return ['scene-salon', 'Le Nid posé sur une étagère murale dans un salon lumineux'];
       case 'plus': return ['plus', 'Sérénid+ : l’application Sérénid sur smartphone, à côté du Nid'];
       default: return photoFor(p, p.gallery[0], variant);
@@ -280,9 +290,25 @@
   }
   // <img> responsive ; alt vide si l’image est décorative (nom du produit déjà affiché à côté)
   function photoHTML(file, alt, { sizes = '(min-width: 1000px) 40vw, 90vw', lazy = true, cls = '' } = {}) {
-    const wide = WIDE_PHOTOS.includes(file);
-    const [W, H, w] = wide ? [1264, 848, 640] : [1000, 1000, 480];
+    const [W, H, w] = photoSize(file);
     return `<img${cls ? ` class="${cls}"` : ''} src="${IMG}${file}.jpg" srcset="${IMG}${file}-s.jpg ${w}w, ${IMG}${file}.jpg ${W}w" sizes="${sizes}" width="${W}" height="${H}" alt="${esc(alt)}"${lazy ? ' loading="lazy"' : ''} decoding="async">`;
+  }
+  // « Dans la boîte » : contenu réel du colis, avec vignettes photo
+  function boxHTML(p, variant) {
+    const c = p.contents, fin = finishOf(variant), rows = [];
+    if (c.nids) rows.push(['nid-s', `${c.nids} Nid${c.nids > 1 ? 's' : ''}`, 'Radar 60 GHz, voyant abricot']);
+    if (c.pastilles) rows.push([`pastille-${fin}-s`, `${c.pastilles} Pastilles`, `Finition ${finishName(variant)}, pile ≈ 2 ans`]);
+    if (c.cles) rows.push([p.id === 'cle' && variant === 'encre' ? 'cle-encre-s' : 'cle-coquille-s', `${c.cles} Clé${c.cles > 1 ? 's' : ''} Sérénid`, 'Magnétique, sans pile']);
+    if (!rows.length) return '';
+    const extra = [];
+    if (c.nids) extra.push(`${c.nids > 1 ? c.nids + ' câbles' : 'Câble'} USB-C`);
+    if (c.pastilles) extra.push('adhésifs de rechange');
+    extra.push('guide de pose illustré');
+    return `<div class="inbox" data-inbox>
+      <h2 class="inbox__title">Dans la boîte</h2>
+      <ul class="inbox__list">${rows.map((r) => `<li><img src="${IMG}${r[0]}.jpg" width="480" height="480" alt="" loading="lazy" decoding="async"><span><strong>${esc(r[1])}</strong><small>${esc(r[2])}</small></span></li>`).join('')}</ul>
+      <p class="inbox__extra">${icon('i-check')}Et aussi : ${esc(extra.join(', '))}.</p>
+    </div>`;
   }
   function productArt(p, view = 'main', variant, opts) {
     const [file, alt] = photoFor(p, view, variant);
@@ -294,7 +320,7 @@
     const [file] = photoFor(p, view, variant);
     return `<img src="${IMG}${file}-s.jpg" width="480" height="480" alt="" loading="lazy" decoding="async">`;
   }
-  const viewName = { kit: 'Coffret et contenu', pack: 'Le pack', nid: 'Le Nid', 'nid-back': 'Vue de dos', pastille: 'La Pastille', cle: 'La Clé', scene: 'Dans la cuisine', salon: 'Au salon', plus: 'Sérénid+' };
+  const viewName = { kit: 'Coffret et contenu', pack: 'Le pack', nid: 'Le Nid', 'nid-back': 'Vue de dos', pastille: 'La Pastille', cle: 'La Clé', scene: 'Dans la cuisine', salon: 'Au salon', chambre: 'Dans la chambre', entree: 'Dans l’entrée', 'detail-led': 'Le voyant', 'detail-usbc': 'Le port USB-C', 'detail-cadenas': 'Le bouton', 'detail-cle': 'La gravure', plus: 'Sérénid+' };
 
   const starsHTML = (r) => {
     let s = '<span class="stars" aria-hidden="true">';
@@ -1047,11 +1073,14 @@
             </div>
             <ul class="assure">
               <li>${icon('i-truck')}Expédié sous 24 h ouvrées · offert dès 200 €</li>
-              <li>${icon('i-return')}Retours gratuits sous 30 jours</li>
+              <li>${icon('i-return')}Retours gratuits sous 30 jours, même ouvert</li>
               <li>${icon('i-shield')}Garantie 2 ans · assistance en français</li>
+              <li>${icon('i-camera-off')}Sans caméra ni micro · traitement dans le Nid</li>
             </ul>
           </div>
         </div>
+
+        ${boxHTML(p, variant)}
 
         <div class="tabs">
           <div class="tabs__list" role="tablist" aria-label="Informations produit" data-tabs="pdp">
@@ -1112,6 +1141,8 @@
       $('[data-variant-name]', pdp).textContent = p.variants.options.find((o) => o.id === current).name;
       $$('.gallery__view', pdp).forEach((v) => { v.innerHTML = productArt(p, v.dataset.view, current, { lazy: false, sizes: '(min-width: 1000px) 46vw, 92vw' }); });
       $$('.gallery__thumb', pdp).forEach((t, k) => { t.innerHTML = productArt(p, views[k], current, { decorative: true, sizes: '120px' }); });
+      const box = $('[data-inbox]', pdp);
+      if (box) box.outerHTML = boxHTML(p, current);
     }));
     // Quantité
     const qInput = $('[data-pdp-qty-input]', pdp);
