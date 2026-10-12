@@ -400,23 +400,14 @@
 
       <div class="kit__layout">
         <div class="kit__visual" data-kit-visual>
-          <svg class="kit__scene" viewBox="0 0 640 520" role="img" aria-label="Composition du kit : le Nid, les Pastilles, la Clé Sérénid et l’application">
-            <ellipse cx="320" cy="470" rx="290" ry="26" fill="url(#g-shadow)" opacity=".7"/>
-            <rect x="40" y="70" width="560" height="390" rx="48" class="kit__tray"/>
-            <g class="kit__item" data-kit-item="nid"><use href="#ill-nid" x="190" y="96" width="260" height="260"/></g>
-            <g class="kit__item" data-kit-item="pastilles">
-              <use href="#ill-pastille" x="56" y="250" width="150" height="150"/>
-              <use href="#ill-pastille" x="120" y="310" width="150" height="150"/>
-              <use href="#ill-pastille" x="60" y="112" width="130" height="130"/>
-            </g>
-            <g class="kit__item" data-kit-item="cle"><use href="#ill-cle" x="410" y="264" width="170" height="170"/></g>
-            <g class="kit__item" data-kit-item="app"><use href="#ill-phone" x="440" y="70" width="190" height="190"/></g>
-            <!-- Repères -->
-            <g class="hotspot" data-hotspot="nid" transform="translate(320 168)"><circle r="16"/><text y="5">1</text></g>
-            <g class="hotspot" data-hotspot="pastilles" transform="translate(150 290)"><circle r="16"/><text y="5">2</text></g>
-            <g class="hotspot" data-hotspot="cle" transform="translate(540 330)"><circle r="16"/><text y="5">3</text></g>
-            <g class="hotspot" data-hotspot="app" transform="translate(586 120)"><circle r="16"/><text y="5">4</text></g>
-          </svg>
+          <figure class="kit__photos">
+            <img class="kit__photo is-active" data-kit-photo="all" src="assets/img/kit-famille-coquille.jpg" srcset="assets/img/kit-famille-coquille-s.jpg 480w, assets/img/kit-famille-coquille.jpg 1000w" sizes="(min-width: 1000px) 52vw, 92vw" width="1000" height="1000" alt="Le Kit Famille : coffret Sérénid, le Nid, dix Pastilles et deux Clés" loading="lazy" decoding="async">
+            <img class="kit__photo" data-kit-photo="nid" src="assets/img/nid.jpg" srcset="assets/img/nid-s.jpg 480w, assets/img/nid.jpg 1000w" sizes="(min-width: 1000px) 52vw, 92vw" width="1000" height="1000" alt="Le Nid : galet blanc coquille avec voyant abricot" loading="lazy" decoding="async" aria-hidden="true">
+            <img class="kit__photo" data-kit-photo="pastilles" src="assets/img/pack-coquille.jpg" srcset="assets/img/pack-coquille-s.jpg 480w, assets/img/pack-coquille.jpg 1000w" sizes="(min-width: 1000px) 52vw, 92vw" width="1000" height="1000" alt="Quatre Pastilles blanc coquille avec leur bouton cadenas" loading="lazy" decoding="async" aria-hidden="true">
+            <img class="kit__photo" data-kit-photo="cle" src="assets/img/cle-coquille.jpg" srcset="assets/img/cle-coquille-s.jpg 480w, assets/img/cle-coquille.jpg 1000w" sizes="(min-width: 1000px) 52vw, 92vw" width="1000" height="1000" alt="La Clé Sérénid : porte-clé magnétique en forme de goutte" loading="lazy" decoding="async" aria-hidden="true">
+            <img class="kit__photo" data-kit-photo="app" src="assets/img/plus.jpg" srcset="assets/img/plus-s.jpg 480w, assets/img/plus.jpg 1000w" sizes="(min-width: 1000px) 52vw, 92vw" width="1000" height="1000" alt="L’application Sérénid sur smartphone, à côté du Nid" loading="lazy" decoding="async" aria-hidden="true">
+            <figcaption class="kit__caption" data-kit-caption>Le Kit Famille</figcaption>
+          </figure>
         </div>
 
         <div class="kit__list" role="tablist" aria-label="Éléments du kit" aria-orientation="vertical" data-tabs="kit">
@@ -451,6 +442,33 @@
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- Ambiance : bande de photos -->
+  <section class="ambiance" aria-labelledby="amb-title">
+    <div class="container">
+      <header class="section-head section-head--split">
+        <div>
+          <p class="eyebrow">Chez vous</p>
+          <h2 class="h2" id="amb-title" data-reveal>La maison garde son allure,<br>votre enfant sa liberté.</h2>
+        </div>
+        <p class="lead" data-reveal>Une Pastille en haut d’un placard, un Nid sur une étagère : Sérénid se fond dans le décor et ne se manifeste que lorsque c’est utile.</p>
+      </header>
+      <ul class="ambiance__strip" aria-label="Sérénid en situation">
+        <li class="ambiance__item ambiance__item--wide" data-reveal>
+          <figure>
+            <img src="assets/img/scene-cuisine.jpg" srcset="assets/img/scene-cuisine-s.jpg 640w, assets/img/scene-cuisine.jpg 1264w" sizes="(min-width: 900px) 58vw, 86vw" width="1264" height="848" alt="Une Pastille posée en haut d’un placard de cuisine blanc sous l’évier, des cubes d’éveil colorés au sol" loading="lazy" decoding="async">
+            <figcaption><strong>Cuisine</strong> La Pastille ne se ferme que lorsque votre enfant approche du placard.</figcaption>
+          </figure>
+        </li>
+        <li class="ambiance__item" data-reveal>
+          <figure>
+            <img src="assets/img/scene-salon.jpg" srcset="assets/img/scene-salon-s.jpg 640w, assets/img/scene-salon.jpg 1264w" sizes="(min-width: 900px) 38vw, 86vw" width="1264" height="848" alt="Le Nid posé sur une étagère murale dans un salon lumineux, un canapé bleu brume en arrière-plan" loading="lazy" decoding="async">
+            <figcaption><strong>Salon</strong> Le Nid perçoit les déplacements, sans caméra ni micro.</figcaption>
+          </figure>
+        </li>
+      </ul>
     </div>
   </section>
 

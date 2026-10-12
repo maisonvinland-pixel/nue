@@ -83,7 +83,7 @@
       price: round2(329 * 0.85), compareAt: 329, badges: [['-15 %', ''], ['Le plus choisi', 'encre']],
       short: '1 Nid, 10 Pastilles et 2 Clés pour une maison de plain-pied ou un grand appartement.',
       contents: { nids: 1, pastilles: 10, cles: 2 }, rating: 4.7, reviews: 486, variants: FINISH,
-      gallery: ['kit', 'nid', 'scene', 'cle'],
+      gallery: ['kit', 'nid', 'pastille', 'cle', 'scene', 'salon'],
       description: [
         'Le Kit Famille couvre les pièces de vie d’un logement sur un niveau : cuisine, salle de bain, entrée et fenêtres. Le Nid perçoit votre enfant, les Pastilles ne se ferment qu’à son approche.',
         'Deux Clés Sérénid sont incluses, pour les grands-parents et la personne qui garde votre enfant.',
@@ -100,7 +100,7 @@
       price: 189, badges: [],
       short: '1 Nid, 4 Pastilles et 1 Clé : l’essentiel pour un appartement ou une première pièce.',
       contents: { nids: 1, pastilles: 4, cles: 1 }, rating: 4.6, reviews: 212, variants: FINISH,
-      gallery: ['kit', 'nid', 'scene', 'pastille'],
+      gallery: ['kit', 'nid', 'pastille', 'cle', 'scene'],
       description: [
         'Le Kit Découverte réunit tout ce qu’il faut pour commencer : un Nid pour percevoir, quatre Pastilles pour les zones les plus sensibles et une Clé Sérénid pour vos proches.',
         'Idéal pour sécuriser d’abord la cuisine et la salle de bain, puis compléter au fil du temps avec des packs de Pastilles.',
@@ -117,7 +117,7 @@
       price: 549, badges: [['2 étages', 'soft']],
       short: '2 Nids, 16 Pastilles et 3 Clés pour une maison sur deux niveaux, escalier compris.',
       contents: { nids: 2, pastilles: 16, cles: 3 }, rating: 4.5, reviews: 138, variants: FINISH,
-      gallery: ['kit', 'nid', 'scene', 'cle'],
+      gallery: ['kit', 'nid', 'nid-back', 'pastille', 'salon', 'scene'],
       description: [
         'Le Kit Maison place un Nid à chaque niveau. Ensemble, ils suivent votre enfant d’un étage à l’autre et sécurisent l’escalier, les salles de bain et les fenêtres.',
         'Trois Clés Sérénid sont incluses pour toute la famille élargie.',
@@ -134,7 +134,7 @@
       price: 59, badges: [],
       short: 'Quatre serrures adhésives supplémentaires pour placards, tiroirs, portes ou fenêtres.',
       contents: { pastilles: 4 }, rating: 4.4, reviews: 171, variants: FINISH,
-      gallery: ['pastille', 'scene', 'pack'],
+      gallery: ['pack', 'pastille', 'scene'],
       description: [
         'Ajoutez des zones sensibles à votre installation. Chaque Pastille se colle sans perçage et ne se ferme qu’à l’approche de votre enfant.',
         'Conception fail-secure : en cas de coupure ou de pile faible, une Pastille verrouillée reste verrouillée.',
@@ -151,7 +151,7 @@
       price: 99, badges: [],
       short: 'Un Nid de plus pour couvrir un étage, un sous-sol ou une grande pièce ouverte.',
       contents: { nids: 1 }, rating: 4.6, reviews: 94, variants: null,
-      gallery: ['nid', 'nid-side'],
+      gallery: ['nid', 'nid-back', 'salon'],
       description: [
         'Le Nid perçoit la position et le mouvement de votre enfant grâce à un radar 60 GHz. Aucune image, aucun son : un simple point sur votre plan.',
         'Ajoutez-en un par niveau ou pour une pièce de plus de 60 m².',
@@ -188,7 +188,7 @@
       price: 3.99, unit: '/mois', badges: [['Nouveau', 'soft']],
       short: 'Historique sur 12 mois, plusieurs domiciles et assistance prioritaire. Sans engagement.',
       contents: {}, rating: 4.3, reviews: 58, variants: null,
-      gallery: ['plus', 'app'],
+      gallery: ['plus', 'salon'],
       description: [
         'L’application Sérénid est gratuite et complète. Sérénid+ ajoute ce qui sert aux familles qui veulent aller plus loin : historique long, rapports détaillés, plusieurs domiciles.',
         'Sans engagement : vous arrêtez quand vous voulez depuis l’application.',
@@ -247,79 +247,54 @@
     ]],
   ];
 
-  /* ---------- Illustrations produit ---------- */
-  const useArt = (id, label, style = '') =>
-    `<svg viewBox="0 0 240 240" ${label ? `role="img" aria-label="${esc(label)}"` : 'aria-hidden="true"'} ${style ? `style="${style}"` : ''}><use href="#${id}"/></svg>`;
-
-  function finishStyle(p, variant) {
-    if (!variant) return '';
-    if (p.id === 'cle' && variant === 'encre') return '--fob:url(#g-shell-encre);--fob-mark:#4F7A96';
-    if (variant === 'brume') return '--shell:url(#g-shell-brume)';
-    return '';
+  /* ---------- Photos produit (assets/img : version grande + « -s » pour les vignettes) ---------- */
+  const IMG = 'assets/img/';
+  const WIDE_PHOTOS = ['scene-cuisine', 'scene-salon'];
+  const finishOf = (variant) => (variant === 'brume' ? 'brume' : 'coquille');
+  const finishName = (variant) => (variant === 'brume' ? 'Brume' : 'Coquille');
+  function contentsText(c) {
+    const parts = [];
+    if (c.nids) parts.push(`${c.nids} Nid${c.nids > 1 ? 's' : ''}`);
+    if (c.pastilles) parts.push(`${c.pastilles} Pastilles`);
+    if (c.cles) parts.push(`${c.cles} Clé${c.cles > 1 ? 's' : ''}`);
+    return parts.join(', ');
   }
-
-  function kitArt(c, label, style = '') {
-    const nids = c.nids || 0, pas = c.pastilles || 0, keys = c.cles || 0;
-    let s = `<svg viewBox="0 0 400 300" ${label ? `role="img" aria-label="${esc(label)}"` : 'aria-hidden="true"'} style="${style}">`;
-    s += '<ellipse cx="200" cy="272" rx="178" ry="14" fill="url(#g-shadow)"/>';
-    s += '<rect x="20" y="28" width="360" height="232" rx="36" fill="#F7F5F1" stroke="#C9DBE6" stroke-width="1.5"/>';
-    for (let i = 0; i < Math.min(pas, 10); i++) {
-      const col = i % 2, row = Math.floor(i / 2);
-      const cx = 56 + col * 46, cy = (pas > 6 ? 58 : 84) + row * (pas > 6 ? 38 : 46);
-      s += `<use href="#ill-pastille" x="${cx - 30}" y="${cy - 34}" width="60" height="60"/>`;
-    }
-    if (nids === 1) s += '<use href="#ill-nid" x="118" y="44" width="172" height="172"/>';
-    if (nids >= 2) s += '<use href="#ill-nid" x="112" y="70" width="118" height="118"/><use href="#ill-nid" x="186" y="56" width="118" height="118"/>';
-    for (let i = 10; i < pas; i++) {
-      const j = i - 10, col = j % 2, row = Math.floor(j / 2);
-      s += `<use href="#ill-pastille" x="${300 + col * 40 - 26}" y="${54 + row * 34 - 30}" width="52" height="52"/>`;
-    }
-    for (let i = 0; i < keys; i++) {
-      s += `<use href="#ill-cle" x="${(pas > 10 ? 262 : 280) + i * 24}" y="${pas > 10 ? 150 : 120}" width="${pas > 10 ? 84 : 92}" height="${pas > 10 ? 84 : 92}"/>`;
-    }
-    return s + '</svg>';
-  }
-
-  function sceneArt(label) {
-    return `<svg viewBox="0 0 240 240" ${label ? `role="img" aria-label="${esc(label)}"` : 'aria-hidden="true"'}>
-      <rect x="18" y="44" width="204" height="12" rx="3" fill="#1F3A4D"/>
-      <rect x="28" y="56" width="184" height="140" rx="6" fill="#F7F5F1" stroke="#4F7A96" stroke-width="2"/>
-      <path d="M120 56v140" stroke="#4F7A96" stroke-width="2"/>
-      <rect x="104" y="112" width="5" height="26" rx="2.5" fill="#4F7A96"/><rect x="131" y="112" width="5" height="26" rx="2.5" fill="#4F7A96"/>
-      <path d="M8 206h224" stroke="#C9DBE6" stroke-width="3" stroke-linecap="round"/>
-      <circle cx="120" cy="74" r="40" fill="none" stroke="#E8A07A" stroke-width="2" stroke-dasharray="4 6"/>
-      <use href="#ill-pastille" x="88" y="40" width="64" height="64"/>
-      <circle cx="58" cy="196" r="14" fill="#E8A07A" opacity=".25"/><circle cx="58" cy="196" r="7" fill="#E8A07A"/>
-    </svg>`;
-  }
-
-  function productArt(p, view = 'main', variant) {
-    const st = finishStyle(p, variant);
-    const label = `${p.name}`;
+  // Renvoie [fichier, texte alternatif] pour une vue d’un produit
+  function photoFor(p, view, variant) {
+    const fin = finishOf(variant);
     switch (view) {
-      case 'kit': return kitArt(p.contents, `${label} : composition du kit`, st);
-      case 'pack': return kitArt({ pastilles: 4 }, `${label} : 4 Pastilles`, st);
-      case 'nid': return useArt('ill-nid', `${label} : le Nid`);
-      case 'nid-side': return `<svg viewBox="0 0 240 240" role="img" aria-label="Le Nid posé sur une étagère"><rect x="20" y="168" width="200" height="10" rx="3" fill="#1F3A4D"/><use href="#ill-nid" x="40" y="10" width="160" height="160"/><path d="M48 80a76 76 0 0 1 0 0" /><circle cx="120" cy="90" r="70" fill="none" stroke="#4F7A96" stroke-width="1.5" stroke-dasharray="3 8" opacity=".6"/></svg>`;
-      case 'pastille': return useArt('ill-pastille', `${label} : une Pastille`, st);
-      case 'cle': return useArt('ill-cle', `${label} : la Clé Sérénid`, p.id === 'cle' ? st : '');
-      case 'scene': return sceneArt(`${label} : Pastille posée sur un placard`);
-      case 'app': return useArt('ill-phone', 'Application Sérénid');
-      case 'plus': return useArt('ill-plus', 'Sérénid+');
-      default: {
-        const v = p.gallery[0];
-        return productArt(p, v, variant);
+      case 'kit': return [`${p.id}-${fin}`, `${p.name} : coffret Sérénid et son contenu (${contentsText(p.contents)}), Pastilles finition ${finishName(variant)}`];
+      case 'pack': return [`pack-${fin}`, `Quatre Pastilles Sérénid, finition ${finishName(variant)}`];
+      case 'pastille': return [`pastille-${fin}`, `Une Pastille Sérénid finition ${finishName(variant)} : serrure adhésive aux coins arrondis, bouton cadenas et point lumineux abricot`];
+      case 'nid': return ['nid', 'Le Nid Sérénid : galet blanc coquille avec voyant abricot, sans caméra ni écran'];
+      case 'nid-back': return ['nid-back', 'Le Nid vu de dos : port USB-C au-dessus du liseré gris-bleu'];
+      case 'cle': {
+        const encre = p.id === 'cle' && variant === 'encre';
+        return [`cle-${encre ? 'encre' : 'coquille'}`, `La Clé Sérénid ${encre ? 'Encre' : 'Coquille'} : porte-clé magnétique en forme de goutte avec anneau métal`];
       }
+      case 'scene': return ['scene-cuisine', 'Une Pastille posée en haut d’un placard de cuisine sous l’évier, des cubes d’éveil au sol'];
+      case 'salon': return ['scene-salon', 'Le Nid posé sur une étagère murale dans un salon lumineux'];
+      case 'plus': return ['plus', 'Sérénid+ : l’application Sérénid sur smartphone, à côté du Nid'];
+      default: return photoFor(p, p.gallery[0], variant);
     }
   }
-  const thumbArt = (p, variant) => {
-    if (p.category === 'kits') return useArt('ill-nid', '');
-    if (p.id === 'pastilles-4') return useArt('ill-pastille', '', finishStyle(p, variant));
-    if (p.id === 'cle') return useArt('ill-cle', '', finishStyle(p, variant));
-    if (p.id === 'serenid-plus') return useArt('ill-plus', '');
-    return useArt('ill-nid', '');
-  };
-  const viewName = { kit: 'Composition', pack: 'Le pack', nid: 'Le Nid', 'nid-side': 'En situation', pastille: 'La Pastille', cle: 'La Clé', scene: 'En situation', app: 'Application', plus: 'Sérénid+' };
+  // <img> responsive ; alt vide si l’image est décorative (nom du produit déjà affiché à côté)
+  function photoHTML(file, alt, { sizes = '(min-width: 1000px) 40vw, 90vw', lazy = true, cls = '' } = {}) {
+    const wide = WIDE_PHOTOS.includes(file);
+    const [W, H, w] = wide ? [1264, 848, 640] : [1000, 1000, 480];
+    return `<img${cls ? ` class="${cls}"` : ''} src="${IMG}${file}.jpg" srcset="${IMG}${file}-s.jpg ${w}w, ${IMG}${file}.jpg ${W}w" sizes="${sizes}" width="${W}" height="${H}" alt="${esc(alt)}"${lazy ? ' loading="lazy"' : ''} decoding="async">`;
+  }
+  function productArt(p, view = 'main', variant, opts) {
+    const [file, alt] = photoFor(p, view, variant);
+    return photoHTML(file, opts && opts.decorative ? '' : alt, opts);
+  }
+  // Vignette (panier, récapitulatif) : toujours la petite version, décorative
+  function thumbArt(p, variant) {
+    const view = p.category === 'kits' ? 'kit' : p.id === 'pastilles-4' ? 'pack' : p.gallery[0];
+    const [file] = photoFor(p, view, variant);
+    return `<img src="${IMG}${file}-s.jpg" width="480" height="480" alt="" loading="lazy" decoding="async">`;
+  }
+  const viewName = { kit: 'Coffret et contenu', pack: 'Le pack', nid: 'Le Nid', 'nid-back': 'Vue de dos', pastille: 'La Pastille', cle: 'La Clé', scene: 'Dans la cuisine', salon: 'Au salon', plus: 'Sérénid+' };
 
   const starsHTML = (r) => {
     let s = '<span class="stars" aria-hidden="true">';
@@ -835,9 +810,8 @@
 
     if (animOK()) {
       const { gsap, ScrollTrigger } = window;
-      const t = gsap.fromTo('.kit__item', { opacity: 0, y: 30, scale: 0.94 }, {
-        opacity: (i, el) => (el.closest('.has-focus') && !el.classList.contains('is-focus') ? 0.32 : 1),
-        y: 0, scale: 1, duration: 1, ease: 'power3.out', stagger: 0.1, clearProps: 'opacity,transform',
+      const t = gsap.fromTo('.kit__photos', { opacity: 0, y: 30, scale: 0.96 }, {
+        opacity: 1, y: 0, scale: 1, duration: 1, ease: 'power3.out', clearProps: 'opacity,transform',
         scrollTrigger: { trigger: '.kit__visual', start: 'top 80%', once: true },
       });
       const p = gsap.to('.hero__waves', { yPercent: 18, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
@@ -918,14 +892,17 @@
 
   function bindKit() {
     const visual = $('[data-kit-visual]');
-    const focusItem = (key) => {
-      visual.classList.add('has-focus');
-      $$('.kit__item', visual).forEach((g) => g.classList.toggle('is-focus', g.dataset.kitItem === key));
-      $$('.hotspot', visual).forEach((h) => h.classList.toggle('is-active', h.dataset.hotspot === key));
+    const names = { all: 'Le Kit Famille', nid: 'Le Nid', pastilles: 'Les Pastilles', cle: 'La Clé Sérénid', app: 'L’application' };
+    const show = (key) => {
+      $$('.kit__photo', visual).forEach((img) => {
+        const on = img.dataset.kitPhoto === key;
+        img.classList.toggle('is-active', on);
+        img.setAttribute('aria-hidden', on ? 'false' : 'true');
+      });
+      $('[data-kit-caption]', visual).textContent = names[key];
     };
-    const select = initTabs($('[data-tabs="kit"]'), (tab) => focusItem(tab.dataset.kitKey));
-    $$('.hotspot', visual).forEach((h) => h.addEventListener('click', () => select($(`[data-kit-key="${h.dataset.hotspot}"]`))));
-    focusItem('nid');
+    initTabs($('[data-tabs="kit"]'), (tab) => show(tab.dataset.kitKey));
+    show('all');
   }
 
   function reviewCard(rv) {
@@ -981,7 +958,7 @@
     return `<li class="product-card${feature ? ' product-card--feature' : ''}">
       <div class="product-card__media">
         ${p.badges.length ? `<div class="product-card__badges">${p.badges.map(badgeHTML).join('')}</div>` : ''}
-        ${productArt(p, feature || p.category === 'kits' ? 'kit' : 'main')}
+        ${productArt(p, feature || p.category === 'kits' ? 'kit' : 'main', undefined, { sizes: feature ? '(min-width: 1000px) 60vw, 92vw' : '(min-width: 1000px) 30vw, (min-width: 640px) 46vw, 92vw' })}
       </div>
       <div class="product-card__body">
         <h3 class="product-card__title"><a href="#/produit/${p.id}">${esc(p.name)}</a></h3>
@@ -1045,11 +1022,11 @@
         <div class="pdp__grid">
           <div class="gallery">
             <div class="gallery__main" data-gallery-main>
-              ${views.map((v, i) => `<div class="gallery__view${i === 0 ? ' is-active' : ''}" data-view="${v}" ${i ? 'aria-hidden="true"' : ''}>${productArt(p, v, variant)}</div>`).join('')}
+              ${views.map((v, i) => `<div class="gallery__view${i === 0 ? ' is-active' : ''}" data-view="${v}" ${i ? 'aria-hidden="true"' : ''}>${productArt(p, v, variant, { lazy: i > 0, sizes: '(min-width: 1000px) 46vw, 92vw' })}</div>`).join('')}
               <span class="gallery__caption" data-gallery-caption>${esc(viewName[views[0]])}</span>
             </div>
             ${views.length > 1 ? `<div class="gallery__thumbs" role="group" aria-label="Vues du produit">
-              ${views.map((v, i) => `<button type="button" class="gallery__thumb" data-thumb="${i}" aria-current="${i === 0}" aria-label="Afficher : ${esc(viewName[v])}">${productArt(p, v, variant).replace(/role="img" aria-label="[^"]*"/, 'aria-hidden="true"')}</button>`).join('')}
+              ${views.map((v, i) => `<button type="button" class="gallery__thumb" data-thumb="${i}" aria-current="${i === 0}" aria-label="Afficher : ${esc(viewName[v])}">${productArt(p, v, variant, { decorative: true, sizes: '120px' })}</button>`).join('')}
             </div>` : ''}
           </div>
           <div class="pdp__info">
@@ -1133,8 +1110,8 @@
     $$('input[name="variant"]', pdp).forEach((r) => r.addEventListener('change', () => {
       current = r.value;
       $('[data-variant-name]', pdp).textContent = p.variants.options.find((o) => o.id === current).name;
-      $$('.gallery__view', pdp).forEach((v) => { v.innerHTML = productArt(p, v.dataset.view, current); });
-      $$('.gallery__thumb', pdp).forEach((t, k) => { t.innerHTML = productArt(p, views[k], current).replace(/role="img" aria-label="[^"]*"/, 'aria-hidden="true"'); });
+      $$('.gallery__view', pdp).forEach((v) => { v.innerHTML = productArt(p, v.dataset.view, current, { lazy: false, sizes: '(min-width: 1000px) 46vw, 92vw' }); });
+      $$('.gallery__thumb', pdp).forEach((t, k) => { t.innerHTML = productArt(p, views[k], current, { decorative: true, sizes: '120px' }); });
     }));
     // Quantité
     const qInput = $('[data-pdp-qty-input]', pdp);
@@ -1246,7 +1223,7 @@
           <h2 class="h2">${esc(kit.name)}${lines.length > 1 ? ' + compléments' : ''}</h2>
           <p>Pour ${niveaux} niveau${niveaux > 1 ? 'x' : ''}, environ ${need} zone${need > 1 ? 's' : ''} sensibles et ${keysNeed} personne${keysNeed > 1 ? 's' : ''} équipée${keysNeed > 1 ? 's' : ''} d’une Clé.</p>
         </div>
-        ${kitArt(kit.contents, '')}
+        ${productArt(kit, 'kit', 'coquille', { cls: 'result__photo', sizes: '(min-width: 680px) 280px, 80vw' })}
       </div>
       <ul class="result__lines">
         ${lines.map((l) => { const p = PRODUCTS[l.id]; return `<li><span><strong>${l.qty} × ${esc(p.name)}</strong><small>${esc(p.short)}</small></span><b>${euro(p.price * l.qty)}</b></li>`; }).join('')}

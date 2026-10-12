@@ -15,11 +15,30 @@ Porteuse du projet : Hailley Labonne.
 | `app.js` | Catalogue `PRODUCTS`, panier (localStorage), code promo, tunnel de commande, diagnostic, Nid 3D, animations GSAP |
 | `assets/logo/` | Logo SVG (version Encre et inversée), symbole, favicon, PNG |
 | `assets/og-image.jpg` | Image de partage (Open Graph) |
+| `assets/img/` | Photos produit et d’ambiance en JPEG (< 200 Ko), avec une version `-s` pour les vignettes |
+| `tools/compose.html` · `tools/compose.mjs` | Montage local des photos composées (packs, kits avec coffret, Sérénid+) |
+| `tools/cutouts/` | Produits détourés servant au montage |
 
 Pages : Accueil, Boutique, Fiche produit, Diagnostic de la maison, Technologie, Application,
 Notre histoire, FAQ, Livraison & retours, Contact, Mentions légales, Commande (3 étapes), Confirmation.
 
 Code promo de test : `BIENVENUE10` (−10 % sur le matériel). Livraison offerte dès 200 €.
+
+## Photos produit
+
+Les photos sont fictives : aucune n’est une photo d’un produit réel.
+
+- **Générées par IA** (Creative Claw, modèle Nano Banana 2) : Nid de face et de dos, Pastille coquille,
+  Clés coquille et encre, ambiances cuisine et salon. Chaque produit est décrit de façon identique d’une
+  image à l’autre, et le packshot du produit sert d’image de référence pour les scènes.
+- **Montées en local**, sans génération supplémentaire : Pastille brume (recoloration), packs de 4 Pastilles,
+  Kits Découverte / Famille / Maison (coffret encre portant le logo officiel, en finitions coquille et brume)
+  et Sérénid+ (capture réelle de l’application `tools/app-screen.png` sur un téléphone).
+  Pour les régénérer : servir `serenid/` sur le port 8080, puis `node tools/compose.mjs`.
+- Aucun texte n’apparaît sur les images, hormis le logo sur le coffret et l’écran de l’application.
+
+`tools/studio.html` et `tools/render.mjs` sont un ancien prototype de rendu 3D : `render.mjs` écrit dans
+`assets/img/` avec les mêmes noms de fichiers et écraserait les photos, ne le relancez pas sans le vouloir.
 
 ## Dépendances (CDN, versions figées)
 

@@ -118,7 +118,7 @@ Offre de lancement visible (bandeau + badge « -15 % » + compte à rebours fict
 
 ## 5. Technique
 
-HTML5 sémantique, CSS moderne, JavaScript vanilla. Dépendances uniquement cdnjs ou Google Fonts, versions figées. Images SVG ou illustrations en code (< 200 Ko). Mobile first, marges ≥ 16 px, aucun défilement horizontal à 360 px. Accessibilité AA (contraste, alt, labels, focus visible, clavier, ARIA panier/onglets). Animations uniquement sur `transform` et `opacity`. SEO de base (title, meta description, Open Graph, `lang="fr"`). Français de France, vouvoiement.
+HTML5 sémantique, CSS moderne, JavaScript vanilla. Dépendances uniquement cdnjs ou Google Fonts, versions figées. Photos produit en JPEG optimisé dans `assets/img/` (< 200 Ko, version `-s` pour les vignettes) ; ailleurs, images SVG ou illustrations en code. Mobile first, marges ≥ 16 px, aucun défilement horizontal à 360 px. Accessibilité AA (contraste, alt, labels, focus visible, clavier, ARIA panier/onglets). Animations uniquement sur `transform` et `opacity`. SEO de base (title, meta description, Open Graph, `lang="fr"`). Français de France, vouvoiement.
 
 ## 6–8. Méthode, définition de « terminé », interdits
 
