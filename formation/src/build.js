@@ -33,6 +33,13 @@ const DASHBOARD_LINKS = [
   'smma/calculer-couts-marges-et-tarifs',
   'smma/indicateurs-et-croissance-de-l-agence',
   'smma/scripts-d-appel-et-objections',
+  'ecommerce/c-est-quoi-l-e-commerce-et-le-dropshipping',
+  'ecommerce/le-mental-et-le-budget',
+  'ecommerce/vendre-en-ligne-dans-les-regles',
+  'ecommerce/trouver-un-produit-les-criteres-et-les-methodes-gratuites',
+  'ecommerce/les-chiffres-qui-comptent',
+  'ecommerce/creer-sa-boutique-shopify',
+  'ecommerce/lancer-et-lire-son-testing-meta',
   'fiscalite/checklists-et-erreurs-frequentes',
 ]
 

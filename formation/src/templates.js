@@ -175,6 +175,20 @@ export function dashboardPage({ site, sectors, chapters, copiesCount, recent, fi
   <div class="path-grid">
     ${path('Je pars de zéro', 'Comprendre la méthode, trouver tes premiers prospects et signer un premier client — dans les règles.', ['demarrer/bienvenue', 'smma/mon-parcours-dans-le-smma', 'smma/la-methode-smma-en-4-etapes', 'smma/valider-la-demande-et-creer-ton-offre', 'smma/trouver-tes-premiers-prospects', 'fiscalite/ce-que-la-loi-autorise-selon-ton-age', 'demarrer/plan-30-jours'], 'rocket')}
     ${path('J’ai déjà des clients', 'Formaliser ton activité, facturer correctement et comprendre ce que tu paies vraiment.', ['fiscalite/choisir-son-statut-juridique', 'fiscalite/micro-entreprise-cotisations-impot-declarations', 'fiscalite/la-tva-sans-prise-de-tete', 'fiscalite/facturation-mentions-et-facture-electronique', 'fiscalite/ca-benefice-tresorerie-revenu-disponible'], 'shield')}
+    ${path(
+      'Je lance ma boutique en ligne',
+      'Comprendre le modèle, trouver un produit rentable, construire la boutique et lancer ses premières publicités — dans les règles.',
+      [
+        'ecommerce/c-est-quoi-l-e-commerce-et-le-dropshipping',
+        'ecommerce/le-mental-et-le-budget',
+        'ecommerce/vendre-en-ligne-dans-les-regles',
+        'ecommerce/trouver-un-produit-les-criteres-et-les-methodes-gratuites',
+        'ecommerce/les-chiffres-qui-comptent',
+        'ecommerce/creer-sa-boutique-shopify',
+        'ecommerce/lancer-et-lire-son-testing-meta',
+      ],
+      'store'
+    )}
     ${path('Je veux structurer et grandir', 'Passer d’un freelance qui bricole à une agence rentable avec des process et des automatisations.', ['smma/construire-ses-offres-packs-et-tarifs', 'smma/onboarding-client-et-process-de-production', 'smma/workflows-d-automatisation-avec-n8n', 'smma/calculer-couts-marges-et-tarifs', 'smma/indicateurs-et-croissance-de-l-agence'], 'chart')}
   </div>
 </section>

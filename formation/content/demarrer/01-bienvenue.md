@@ -20,9 +20,13 @@ La formation est organisée en **secteurs**, eux-mêmes découpés en **modules*
 | --- | --- | --- |
 | **Démarrer ici** | Le mode d'emploi, le plan 30 jours, la FAQ et le glossaire | Tout le monde, en premier |
 | **SMMA — Agence de marketing digital** | La méthode complète pour trouver, signer, livrer et fidéliser des clients | Tu veux vendre des services de visibilité aux entreprises |
+| **E-commerce & dropshipping** | L'ebook complet : produit, sourcing, boutique Shopify, publicité Meta, organique, tracking, scaling, marque | Tu veux lancer ta propre boutique en ligne |
 | **Fiscalité & cadre juridique** | Statuts, création, impôts, cotisations, TVA, factures, contrats, obligations | Tu factures déjà, ou tu vas bientôt le faire |
 
-Le cœur de la formation vient du livre **« Lancer une SMMA à 16 ans »** : une histoire réelle, avec de vrais montants et de vraies erreurs. Chaque chapitre du livre a été intégré sans rien retirer, puis complété par des chapitres exclusifs (niche, audit commercial, appel de découverte, onboarding, IA, n8n, rentabilité, TVA, facture électronique…).
+La formation réunit deux ouvrages, intégrés sans rien retirer :
+
+- le livre **« Lancer une SMMA à 16 ans »** : une histoire réelle, avec de vrais montants et de vraies erreurs, complété par des chapitres exclusifs (niche, audit commercial, appel de découverte, onboarding, IA, n8n, rentabilité, TVA, facture électronique…) ;
+- l'**ebook e-commerce** (23 chapitres et un lexique), avec ses 78 prompts prêts à copier, complété par un chapitre exclusif sur le cadre légal de la vente en ligne.
 
 Sur chaque chapitre, une étiquette t'indique l'origine du contenu :
 
@@ -71,7 +75,8 @@ Si tu as 18 ans ou plus, tout s'applique aussi — avec encore plus d'options de
 1. **Tu pars de zéro** — Lis [Mon parcours dans le SMMA](@smma/mon-parcours-dans-le-smma), puis [la méthode en 4 étapes](@smma/la-methode-smma-en-4-etapes), puis suis le [plan 30 jours](@demarrer/plan-30-jours).
 2. **Tu as une idée d'offre mais aucun client** — Va à [Valider la demande et créer ton offre](@smma/valider-la-demande-et-creer-ton-offre), puis [Trouver tes premiers prospects](@smma/trouver-tes-premiers-prospects).
 3. **Tu as déjà des clients** — Commence par [Ce que la loi autorise selon ton âge](@fiscalite/ce-que-la-loi-autorise-selon-ton-age) et [Choisir son statut juridique](@fiscalite/choisir-son-statut-juridique).
-4. **Tu veux structurer et faire grandir ton agence** — Va au module [Gestion et rentabilité](@smma/calculer-couts-marges-et-tarifs) et aux [workflows d'automatisation](@smma/workflows-d-automatisation-avec-n8n).
+4. **Tu veux lancer ta boutique en ligne** — Commence par [C'est quoi l'e-commerce et le dropshipping](@ecommerce/c-est-quoi-l-e-commerce-et-le-dropshipping), puis [Le mental et le budget](@ecommerce/le-mental-et-le-budget) et [Vendre en ligne dans les règles](@ecommerce/vendre-en-ligne-dans-les-regles).
+5. **Tu veux structurer et faire grandir ton agence** — Va au module [Gestion et rentabilité](@smma/calculer-couts-marges-et-tarifs) et aux [workflows d'automatisation](@smma/workflows-d-automatisation-avec-n8n).
 :::
 
 ## Utiliser la plateforme
@@ -86,7 +91,7 @@ Si tu as 18 ans ou plus, tout s'applique aussi — avec encore plus d'options de
 > Dans ton navigateur, sur l'appareil que tu utilises. Si tu passes de ton ordinateur à ton téléphone, chaque appareil a sa propre progression. Vider les données de navigation l'efface.
 
 :::recap
-- La formation est découpée en 3 secteurs : Démarrer, SMMA, Fiscalité.
+- La formation est découpée en 4 secteurs : Démarrer, SMMA, E-commerce, Fiscalité.
 - Chaque chapitre indique son origine (livre, livre enrichi, exclusif) et sa date de mise à jour.
 - Les règles juridiques et fiscales sont datées : vérifie toujours la source officielle avant une décision.
 - Une seule action par jour vaut mieux qu'un week-end de motivation : commence par le chapitre suivant.

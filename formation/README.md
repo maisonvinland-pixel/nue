@@ -1,6 +1,6 @@
 # Espace membre 100% REQUIN
 
-Plateforme de formation réservée aux acheteurs : 3 secteurs, 42 chapitres, 60 scripts et modèles copiables, recherche plein texte, progression, accès protégé côté serveur.
+Plateforme de formation réservée aux acheteurs : 4 secteurs, 67 chapitres, 142 scripts, prompts et modèles copiables, recherche plein texte, progression, accès protégé côté serveur.
 
 - **Site statique** généré par un petit moteur Node (`src/`), sans framework : rapide, sans base de données, facile à maintenir.
 - **Contenu en Markdown** (`content/`) : ajouter un chapitre = ajouter un fichier.
@@ -26,6 +26,7 @@ formation/
 ├── content/
 │   ├── demarrer/         5 chapitres — bienvenue, plan 30 jours, FAQ, glossaire, mot de la fin
 │   ├── smma/             23 chapitres — 7 modules
+│   ├── ecommerce/        25 chapitres — ebook Notion (23 chapitres + lexique) + 1 chapitre légal exclusif
 │   └── fiscalite/        14 chapitres — 3 modules
 ├── src/
 │   ├── build.js          Générateur : lecture, validation, rendu, index de recherche
@@ -77,6 +78,16 @@ source: Livre, chapitre 04      # libellé de l'origine
 4. `npm run build` : le build échoue avec un message clair si un lien interne, une ancre, un module ou un champ obligatoire est incorrect.
 
 Pour ajouter un **secteur** : ajoute une entrée dans `site.config.js` et crée le dossier `content/<slug>/`.
+
+### Réimporter l'ebook depuis Notion
+
+Le secteur E-commerce est généré à partir des pages Notion publiées (HTML rendu, une page par chapitre `chNN.html`) par `scripts/notion-import.py` (Python 3 + BeautifulSoup) :
+
+```bash
+python3 scripts/notion-import.py <dossier_des_chNN.html> content/ecommerce
+```
+
+Le script conserve gras, italique, listes (imbriquées), tableaux, cases à cocher, encadrés (« À retenir », « Erreur à éviter », « Astuce de pro », « L'IA peut t'aider »), missions (exercices) et transforme chaque bloc de code en prompt ou modèle copiable. Il écrase les fichiers `01` à `24` ; le chapitre exclusif `25-vendre-en-ligne-dans-les-regles.md` n'est pas touché.
 
 ## Contrôle d'accès
 
@@ -132,4 +143,4 @@ Le script affiche le code à transmettre à l'acheteur (`RQ-XXXX-XXXX-XXXX-XXXX`
 
 ## Maintenance du contenu juridique et fiscal
 
-Les chapitres du secteur Fiscalité affichent « Règles vérifiées le … ». Les seuils et taux changent souvent au 1er janvier et au 1er juillet : à chaque changement, mets à jour le chapitre concerné, puis les champs `updated` et `verified`. Les chiffres 2026 cités se trouvent principalement dans `fiscalite/04`, `05`, `06`, `07`, `08` et `smma/22`.
+Les chapitres du secteur Fiscalité affichent « Règles vérifiées le … ». Les seuils et taux changent souvent au 1er janvier et au 1er juillet : à chaque changement, mets à jour le chapitre concerné, puis les champs `updated` et `verified`. Les chiffres 2026 cités se trouvent principalement dans `fiscalite/04`, `05`, `06`, `07`, `08`, `smma/22` et `ecommerce/25`.

@@ -743,7 +743,7 @@ a.card:hover {
 
 .path-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 18px;
 }
 .path {
@@ -1393,8 +1393,12 @@ mark,
 .callout--erreur {
   --c: var(--danger);
 }
-.callout--legal {
+.callout--legal,
+.callout--ia {
   --c: var(--legal);
+}
+.callout--retenir {
+  --c: var(--accent);
 }
 .callout--exemple,
 .callout--pdf {

@@ -82,8 +82,14 @@ test('les chapitres sont complets : sommaire, récapitulatif, description', () =
     assert.ok(ch.description.length > 30, `${ch.file} : description trop courte`)
     if (ch.words > 500) assert.ok(ch.toc.length >= 2, `${ch.file} : sommaire insuffisant`)
   }
-  const withRecap = chapters.filter(c => c.html.includes('class="recap"')).length
-  assert.ok(withRecap >= chapters.length - 3, `récapitulatifs : ${withRecap}/${chapters.length}`)
+  // chaque chapitre se termine par une synthèse : récapitulatif, exercice/mission ou checklist
+  const withoutWrapUp = chapters.filter(
+    c => !c.html.includes('class="recap"') && !c.hasExercise && !c.tasks && c.words > 500
+  )
+  assert.ok(
+    withoutWrapUp.length <= 3,
+    `sans synthèse : ${withoutWrapUp.map(c => c.file).join(', ')}`
+  )
 })
 
 test('les chapitres de fiscalité affichent une date de vérification', () => {

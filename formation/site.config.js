@@ -79,6 +79,57 @@ export default {
       ],
     },
     {
+      slug: 'ecommerce',
+      title: 'E-commerce & dropshipping',
+      short: 'E-commerce',
+      icon: 'store',
+      description:
+        'Lancer une boutique en ligne rentable : trouver le produit, sourcer, construire la boutique, acheter du trafic (Meta, organique), tracker, scaler et transformer la boutique en vraie marque.',
+      modules: [
+        {
+          id: 'bases',
+          title: 'Les bases',
+          description:
+            'Comprendre le modèle, préparer son mental et son budget, choisir la stratégie de niche brandée et vendre dans les règles.',
+        },
+        {
+          id: 'produit',
+          title: 'Produit, chiffres et sourcing',
+          description:
+            'Trouver et valider un produit, maîtriser les chiffres, choisir son fournisseur, son marché et ses moyens de paiement.',
+        },
+        {
+          id: 'boutique',
+          title: 'La boutique',
+          description:
+            'Créer la boutique Shopify, la page produit qui convertit, l’offre et le panier.',
+        },
+        {
+          id: 'acquisition',
+          title: 'Acquisition',
+          description:
+            'Préparer Meta Ads, produire les créatives, lancer et lire ses tests, l’organique et les autres canaux.',
+        },
+        {
+          id: 'scaler',
+          title: 'Mesurer et scaler',
+          description: 'Un tracking fiable, puis augmenter les budgets sans casser la rentabilité.',
+        },
+        {
+          id: 'fideliser',
+          title: 'Fidéliser et optimiser',
+          description:
+            'E-mail, SMS, rétention, service client, litiges, avis et optimisation continue.',
+        },
+        {
+          id: 'grandir',
+          title: 'Grandir',
+          description:
+            'Déléguer, préparer le Q4, construire une marque, éviter les erreurs de débutant — et le lexique complet.',
+        },
+      ],
+    },
+    {
       slug: 'fiscalite',
       title: 'Fiscalité & cadre juridique',
       short: 'Fiscalité',

@@ -22,6 +22,8 @@ export const CALLOUTS = {
   EXEMPLE: { label: 'Exemple', icon: 'pen' },
   CHIFFRE: { label: 'Le chiffre à retenir', icon: 'chart' },
   PDF: { label: 'Dans le livre', icon: 'book' },
+  RETENIR: { label: 'À retenir', icon: 'target' },
+  IA: { label: "L'IA peut t'aider", icon: 'bot' },
 }
 
 export const COPY_KINDS = {
