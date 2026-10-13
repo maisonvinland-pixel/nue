@@ -1,0 +1,19 @@
+{
+  "name": "requin-formation",
+  "private": true,
+  "type": "module",
+  "description": "Espace membre 100% REQUIN : plateforme de formation statique protégée par un middleware Vercel",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "node src/build.js",
+    "dev": "node src/build.js && node scripts/dev-server.js",
+    "test": "node --test tests/*.check.js",
+    "code:new": "node scripts/new-access-code.js"
+  },
+  "dependencies": {
+    "@vercel/functions": "3.9.11",
+    "marked": "18.1.1"
+  }
+}
