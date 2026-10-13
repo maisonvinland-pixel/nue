@@ -8,7 +8,7 @@ const esc = s =>
   )
 
 const FIN =
-  '<svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linejoin="round" aria-hidden="true"><path d="M4 19c0-6 2.5-11.5 8.5-15 1.5 4.5.8 8.6-1 11.6 1.4.9 3.7 2 7.5 3.4H4Z"/></svg>'
+  '<svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linejoin="round" aria-hidden="true"><path d="M4 19c0-6 2.5-11.5 8.5-15 1.5 4.5.8 8.6-1 11.6 1.4.9 3.7 2 7.5 3.4H4Z"/></svg>'
 
 const ERRORS = {
   code: 'Ce code d’accès n’est pas reconnu. Vérifie qu’il est complet (format RQ-XXXX-XXXX-XXXX-XXXX).',
@@ -23,31 +23,33 @@ const ERRORS = {
 }
 
 const STYLE = `
-:root{--bg:#04070e;--surface:#0a1422;--line:#172a3c;--text:#d5e8e7;--dim:#93b2b2;--faint:#62807f;--accent:#42e6db;--ink:#022320;--ice:#ecfbfb;--danger:#ff8a7a;--ok:#5fe3a1;color-scheme:dark}
-@media (prefers-color-scheme:light){:root{--bg:#f5f7f7;--surface:#fff;--line:#dde5e6;--text:#15242a;--dim:#465d63;--faint:#6c8086;--accent:#0a7c76;--ink:#fff;--ice:#071419;--danger:#b2382a;--ok:#157a4c;color-scheme:light}}
+:root{--bg:#f6f8f9;--surface:#fff;--line:#e1e7eb;--text:#33434d;--ink:#0c1820;--dim:#66767f;--faint:#8c99a1;--accent:#0a7c86;--cover:#07131b;--cyan:#42e6db;--danger:#b4372a;--danger-soft:#fdebe8;--ok:#17804e;--ok-soft:#e3f5ec;color-scheme:light}
+@media (prefers-color-scheme:dark){:root{--bg:#091117;--surface:#0e181f;--line:#1c2a33;--text:#bccad1;--ink:#e9f0f3;--dim:#8a9ca6;--faint:#687b85;--accent:#4fd2dc;--cover:#060f15;--danger:#ff8b7c;--danger-soft:#2e1714;--ok:#5ad69a;--ok-soft:#10281e;color-scheme:dark}}
 *{box-sizing:border-box}
-body{margin:0;min-height:100vh;display:grid;place-items:center;padding:24px 16px;background:radial-gradient(circle at 70% 0%,rgba(66,230,219,.10),transparent 55%),var(--bg);color:var(--text);font:400 16px/1.6 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
-.box{width:100%;max-width:440px;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:34px 30px;box-shadow:0 30px 80px -40px rgba(0,0,0,.8)}
-.brand{display:flex;align-items:center;gap:10px;color:var(--accent);margin-bottom:26px}
-.brand b{font:800 1.05rem/1 Orbitron,"Chakra Petch",system-ui,sans-serif;color:var(--ice);letter-spacing:.02em}
-h1{font:700 1.6rem/1.2 "Chakra Petch",system-ui,sans-serif;color:var(--ice);margin:0 0 8px}
+body{margin:0;min-height:100vh;display:grid;place-items:center;padding:24px 16px;background:radial-gradient(70% 50% at 50% 0%,color-mix(in srgb,var(--cyan) 12%,transparent),transparent 70%),var(--bg);color:var(--text);font:400 16px/1.6 Geist,system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+.box{width:100%;max-width:440px;background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:36px 32px;box-shadow:0 2px 6px rgb(12 24 32 / .05),0 30px 60px -30px rgb(12 24 32 / .25)}
+.brand{display:flex;align-items:center;gap:11px;margin-bottom:28px}
+.brand i{display:grid;place-items:center;width:38px;height:38px;border-radius:11px;background:var(--cover);color:var(--cyan)}
+.brand b{font:800 .95rem/1 Orbitron,Geist,system-ui,sans-serif;color:var(--ink);letter-spacing:.04em}
+h1{font:700 1.85rem/1.1 "Bricolage Grotesque",Geist,system-ui,sans-serif;letter-spacing:-.03em;color:var(--ink);margin:0 0 10px}
 p{margin:0}
 .sub{color:var(--dim);margin-bottom:26px}
-.btn{display:flex;width:100%;align-items:center;justify-content:center;gap:10px;border:0;border-radius:11px;padding:14px 18px;font:600 1rem/1 Inter,system-ui,sans-serif;cursor:pointer;text-decoration:none}
+.btn{display:flex;width:100%;align-items:center;justify-content:center;gap:10px;border:0;border-radius:999px;padding:15px 18px;font:600 1rem/1 Geist,system-ui,sans-serif;cursor:pointer;text-decoration:none}
 .btn-discord{background:#5865f2;color:#fff}
 .btn-discord:hover{background:#4752c4}
-.btn-primary{background:var(--accent);color:var(--ink);margin-top:12px}
+.btn-primary{background:var(--ink);color:var(--bg);margin-top:14px}
 .or{display:flex;align-items:center;gap:12px;color:var(--faint);font-size:.82rem;margin:22px 0}
 .or::before,.or::after{content:"";flex:1;height:1px;background:var(--line)}
-label{display:block;font-weight:600;font-size:.9rem;margin-bottom:8px;color:var(--ice)}
-input{width:100%;padding:13px 14px;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--ice);font:500 1rem/1.2 "JetBrains Mono",ui-monospace,monospace;letter-spacing:.04em;text-transform:uppercase}
+label{display:block;font-weight:600;font-size:.9rem;margin-bottom:8px;color:var(--ink)}
+input{width:100%;padding:14px 16px;border-radius:12px;border:1px solid var(--line);background:transparent;color:var(--ink);font:500 1rem/1.2 "Geist Mono",ui-monospace,monospace;letter-spacing:.04em;text-transform:uppercase}
 input:focus{outline:2px solid var(--accent);outline-offset:1px}
 .hint{font-size:.8rem;color:var(--faint);margin-top:8px}
-.msg{border-radius:10px;padding:12px 14px;font-size:.9rem;margin-bottom:20px;border:1px solid}
-.msg-err{color:var(--danger);border-color:color-mix(in srgb,var(--danger) 40%,transparent);background:color-mix(in srgb,var(--danger) 8%,transparent)}
-.msg-ok{color:var(--ok);border-color:color-mix(in srgb,var(--ok) 40%,transparent);background:color-mix(in srgb,var(--ok) 8%,transparent)}
-.foot{margin-top:26px;padding-top:18px;border-top:1px solid var(--line);font-size:.86rem;color:var(--dim)}
-.foot a{color:var(--accent)}
+.msg{border-radius:12px;padding:12px 14px;font-size:.9rem;margin-bottom:20px}
+.msg-err{color:var(--danger);background:var(--danger-soft)}
+.msg-ok{color:var(--ok);background:var(--ok-soft)}
+.foot{margin-top:28px;padding-top:18px;border-top:1px solid var(--line);font-size:.86rem;color:var(--dim)}
+.foot a{color:var(--accent);font-weight:600}
+code{font-family:"Geist Mono",ui-monospace,monospace;font-size:.9em}
 :focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 `
 
@@ -62,12 +64,12 @@ function shell(title, inner) {
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@700&family=Inter:wght@400;600&family=JetBrains+Mono:wght@500&family=Orbitron:wght@800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700&family=Geist:wght@400;600&family=Geist+Mono:wght@500&family=Orbitron:wght@800&display=swap">
 <style>${STYLE}</style>
 </head>
 <body>
 <main class="box">
-<p class="brand">${FIN}<b>100% REQUIN</b></p>
+<p class="brand"><i>${FIN}</i><b>100% REQUIN</b></p>
 ${inner}
 </main>
 </body>

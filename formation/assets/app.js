@@ -114,10 +114,10 @@
       const target = sec.ids.find(id => !progress.isDone(id))
       const label = $('span', btn)
       if (!target) {
-        label.textContent = 'Revoir ce secteur'
+        label.textContent = 'Revoir ce programme'
         btn.href = catalog.chapters[sec.ids[0]].u
       } else if (started) {
-        label.textContent = 'Reprendre ce secteur'
+        label.textContent = 'Reprendre ce programme'
         btn.href = catalog.chapters[target].u
       }
     })
