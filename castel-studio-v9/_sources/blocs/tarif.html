@@ -1,0 +1,22 @@
+<div class="tarif" id="commander" data-commande>
+  <div class="tarif-prix">
+    <span class="etiq">Pack Monopole Local Immobilier</span>
+    <p class="tp-ligne"><b>990&nbsp;€</b><span>HT &middot; mise en place, une seule fois</span></p>
+    <p class="tp-ligne tp-abo"><b>+&nbsp;149&nbsp;€</b><span>HT / mois &middot; gestion, avis, suivi de position</span></p>
+    <ul class="puces mt-s">
+      <li>{{i:coche}}<span>Abonnement <b>sans engagement de durée</b>, résiliable chaque mois avec 30 jours de préavis.</span></li>
+      <li>{{i:coche}}<span>Il démarre à la mise en service, pas à la commande.</span></li>
+      <li>{{i:coche}}<span>Couvert par la <a href="index.html#garantie">Garantie Castel</a>.</span></li>
+    </ul>
+  </div>
+  <div class="tarif-choix">
+    <p class="tc-t">Comment souhaitez-vous régler la mise en place&nbsp;?</p>
+    <div class="tc-options" role="radiogroup" aria-label="Mode de paiement de la mise en place">
+      <label class="tc-option"><input type="radio" name="mode-paiement" value="1x" checked><span><b>En une fois</b><i>990&nbsp;€&nbsp;HT aujourd'hui</i></span></label>
+      <label class="tc-option"><input type="radio" name="mode-paiement" value="2x"><span><b>En deux fois</b><i>495&nbsp;€&nbsp;HT aujourd'hui, 495&nbsp;€&nbsp;HT à la mise en service</i></span></label>
+    </div>
+    <a class="btn btn-plein tc-payer" href="contact.html?offre=pack-1x" data-payer>{{i:cadenas}} <span data-payer-txt>Payer 990&nbsp;€&nbsp;HT et réserver</span></a>
+    <a class="btn btn-ligne tc-appel" href="contact.html?objet=appel" data-reserver>{{i:horloge}} Réserver d'abord un appel de 20&nbsp;min</a>
+    <p class="tc-note">{{i:cadenas}} Paiement sécurisé par Stripe &middot; facture au nom de votre agence &middot; {{bloc:tva}}</p>
+  </div>
+</div>

@@ -1,0 +1,198 @@
+<section class="page-tete">
+  <div class="aplats" aria-hidden="true"><div class="aplat aplat-1"></div><div class="aplat aplat-2"></div></div>
+  <div class="shell">
+    <div class="rev vu" style="max-width:720px">
+      <nav class="fil" aria-label="Fil d'Ariane"><a href="index.html">Accueil</a><span>/</span><em>Contact</em></nav>
+      <span class="page-icone">{{i:message}}</span>
+      <h1>Parlons de<br>votre agence.</h1>
+      <p class="lead mt-s">Une question sur le Pack Monopole, un déploiement pour un réseau, ou un premier échange de vingt minutes&nbsp;: on répond sous 24&nbsp;h ouvrées, par écrit, et le premier appel ne vous engage à rien.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sect fond-blanc" style="padding-top:0">
+  <div class="shell">
+    {{bloc:bandeau}}
+
+    <div class="split split-haut rev">
+      <div>
+        <h2>Écrivez-nous.</h2>
+        <p class="lead mt-s">Deux minutes de votre part. Plus vous êtes précis sur votre secteur, plus la réponse est utile.</p>
+
+        <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field"
+              class="form-pro mt-m" data-form-contact novalidate>
+          <input type="hidden" name="form-name" value="contact">
+          <input type="hidden" name="audit" data-form-audit value="">
+          <input type="hidden" name="page-origine" data-form-origine value="">
+          <p hidden><label>Ne pas remplir : <input name="bot-field"></label></p>
+
+          <fieldset class="fs">
+            <legend><span class="fs-n">1</span>Qui êtes-vous&nbsp;?</legend>
+            <div class="champ-duo">
+              <label class="champ"><span>Nom et prénom <em>*</em></span>
+                <input type="text" name="nom" autocomplete="name" required
+                       data-erreur="Indiquez au moins votre nom, qu'on sache à qui répondre.">
+              </label>
+              <label class="champ"><span>Agence ou réseau <em>*</em></span>
+                <input type="text" name="entreprise" autocomplete="organization" required
+                       placeholder="Nom de l'agence, ou réseau + votre nom"
+                       data-erreur="Le nom de l'agence nous permet de regarder votre fiche avant de répondre.">
+              </label>
+            </div>
+            <div class="champ-duo">
+              <label class="champ"><span>Email professionnel <em>*</em></span>
+                <input type="email" name="email" autocomplete="email" required
+                       placeholder="vous@votre-agence.fr"
+                       data-erreur="Cette adresse ne ressemble pas à un email valide.">
+              </label>
+              <label class="champ"><span>Téléphone <em>*</em></span>
+                <input type="tel" name="telephone" autocomplete="tel" required
+                       inputmode="tel" placeholder="06 12 34 56 78"
+                       data-erreur="Un numéro à dix chiffres, pour pouvoir vous rappeler.">
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset class="fs">
+            <legend><span class="fs-n">2</span>Votre activité</legend>
+            <div class="champ-duo">
+              <label class="champ"><span>Ville ou secteur <em>*</em></span>
+                <input type="text" name="ville" autocomplete="address-level2" required
+                       placeholder="Angers, Lyon 6e, Bordeaux Chartrons…"
+                       data-erreur="On travaille secteur par secteur : dites-nous lequel.">
+              </label>
+              <label class="champ"><span>Vous êtes</span>
+                <select name="secteur">
+                  <option value="">— Choisir —</option>
+                  <option>Agence immobilière indépendante</option>
+                  <option>Agence franchisée</option>
+                  <option>Mandataire indépendant</option>
+                  <option>Animateur ou dirigeant d'un réseau de mandataires</option>
+                  <option>Autre</option>
+                </select>
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset class="fs">
+            <legend><span class="fs-n">3</span>Votre demande</legend>
+
+            <div class="champ">
+              <span class="champ-t">Objet</span>
+              <div class="cases" data-form-objets>
+                <label class="case"><input type="radio" name="objet" value="Pack Monopole Local Immobilier" data-objet="pack" checked><span><b>Pack Monopole</b><i>990 € HT + 149 €/mois</i></span></label>
+                <label class="case"><input type="radio" name="objet" value="Réserver un appel de 20 minutes" data-objet="appel"><span><b>Appel de 20 min</b><i>Gratuit</i></span></label>
+                <label class="case"><input type="radio" name="objet" value="Déploiement réseau de mandataires" data-objet="reseau"><span><b>Déploiement réseau</b><i>Sur devis</i></span></label>
+                <label class="case"><input type="radio" name="objet" value="Appel de lancement (client)" data-objet="lancement"><span><b>Lancement</b><i>Déjà client</i></span></label>
+                <label class="case"><input type="radio" name="objet" value="Autre question" data-objet="autre"><span><b>Autre question</b><i>On vous oriente</i></span></label>
+              </div>
+              <p class="form-panier" data-form-rappel hidden></p>
+            </div>
+
+            <div class="champ-duo">
+              <label class="champ"><span>Mandats visés par mois</span>
+                <select name="mandats">
+                  <option value="">— Choisir —</option>
+                  <option>1 à 2</option>
+                  <option>3 à 5</option>
+                  <option>6 à 10</option>
+                  <option>Plus de 10</option>
+                </select>
+              </label>
+              <label class="champ"><span>Quand démarrer&nbsp;?</span>
+                <select name="echeance">
+                  <option value="">— Choisir —</option>
+                  <option>Dès que possible</option>
+                  <option>Dans le mois</option>
+                  <option>Dans les trois mois</option>
+                  <option>Je me renseigne</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="champ-duo">
+              <div class="champ">
+                <span class="champ-t">On vous recontacte par</span>
+                <div class="radios">
+                  <label class="pastille"><input type="radio" name="canal" value="Téléphone" checked><span>Téléphone</span></label>
+                  <label class="pastille"><input type="radio" name="canal" value="WhatsApp"><span>WhatsApp</span></label>
+                  <label class="pastille"><input type="radio" name="canal" value="Email"><span>Email</span></label>
+                </div>
+              </div>
+              <label class="champ"><span>Créneau qui vous arrange</span>
+                <select name="creneau">
+                  <option>Peu importe</option>
+                  <option>Le matin (9 h – 12 h)</option>
+                  <option>L'après-midi (12 h – 17 h)</option>
+                  <option>En fin de journée (17 h – 19 h)</option>
+                </select>
+              </label>
+            </div>
+
+            <label class="champ"><span>Votre message <em>*</em></span>
+              <textarea name="message" required minlength="20" rows="5"
+                        placeholder="Votre secteur, vos concurrents directs, ce qui bloque aujourd'hui sur Google. Deux ou trois phrases suffisent."
+                        data-erreur="Vingt caractères au minimum — dites-nous simplement ce qui bloque."></textarea>
+              <small class="aide compteur" data-compteur>0 caractère</small>
+            </label>
+          </fieldset>
+
+          <label class="case case-rgpd">
+            <input type="checkbox" name="consentement" required
+                   data-erreur="On a besoin de votre accord pour vous répondre.">
+            <span><span><b>J'accepte d'être recontacté par Castel Studio</b>
+              <i>Vos données servent uniquement à traiter votre demande. Elles ne sont ni revendues
+                 ni transmises. <a href="confidentialite.html">Politique de confidentialité</a>.</i></span></span>
+          </label>
+
+          <div class="form-bas">
+            <button class="btn btn-plein" type="submit" data-form-envoi>
+              <span>Envoyer ma demande</span>
+              {{i:fleche}}
+            </button>
+            <p class="form-promesse">
+              {{i:coche}}
+              Réponse écrite sous 24 h ouvrées · Aucun engagement · Aucune revente de données
+            </p>
+          </div>
+
+          <p class="form-bilan" data-form-bilan hidden role="alert"></p>
+        </form>
+
+        <div class="form-merci" data-form-merci hidden role="status">
+          <span class="fm-i" aria-hidden="true">{{i:coche}}</span>
+          <h3>C'est envoyé.</h3>
+          <p>Votre demande est bien arrivée. Réponse écrite sous 24 h ouvrées — et si c'est urgent, WhatsApp reste le plus rapide.</p>
+          <div class="btn-rang mt-m">
+            <a class="btn btn-plein" href="{{WA}}" target="_blank" rel="noopener">Écrire sur WhatsApp</a>
+            <a class="btn btn-ligne" href="audit.html">Faire l'audit en attendant</a>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="encart">
+          <h3>WhatsApp, téléphone, email.</h3>
+          <div class="btn-rang mt-m">
+            <a class="btn btn-plein" href="{{WA}}" target="_blank" rel="noopener">{{i:wa}} {{TEL_AFF}}</a>
+          </div>
+          <div class="pied-contact mt-m">
+            <a href="tel:{{TEL}}">{{i:tel}} {{TEL_AFF}}</a>
+            <a href="mailto:{{EMAIL}}">{{i:mail}} {{EMAIL}}</a>
+            <span>{{i:horloge}} Du lundi au vendredi, 9 h – 19 h</span>
+            <span>{{i:carte}} 100&nbsp;% à distance, partout en France</span>
+          </div>
+        </div>
+        <div class="encart mt-s encart-vert">
+          <h3>L'audit est gratuit.</h3>
+          <p class="lead mt-s" style="font-size:.92rem">Six questions, deux minutes, un score sur 100 et vos trois priorités.</p>
+          <a class="lien mt-s" href="audit.html">Lancer l'audit <span class="fl" aria-hidden="true">&rarr;</span></a>
+        </div>
+        <div class="encart mt-s">
+          <h3>Vous êtes un réseau&nbsp;?</h3>
+          <p class="lead mt-s" style="font-size:.92rem">Pour équiper plusieurs mandataires, choisissez «&nbsp;Déploiement réseau&nbsp;» : on vous répond avec une proposition chiffrée par conseiller.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

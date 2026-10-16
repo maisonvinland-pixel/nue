@@ -1,0 +1,36 @@
+{
+  "accueil": [
+    ["Garantissez-vous la première place sur Google Maps ?",
+     "Non. Personne ne contrôle le classement de Google, et une agence qui vous promet la première place vous ment. Ce qu'on garantit par contrat, c'est ce qui se compte : 10 avis Google 5 étoiles authentiques sur votre fiche en 30 jours, ou les 30 jours de suivi suivants offerts. Le volume et la note des avis font partie des critères que Google cite lui-même pour le classement local."],
+    ["Les avis sont-ils de vrais avis ?",
+     "Oui, uniquement. Ils viennent de vos clients — vendeurs, acquéreurs, bailleurs, locataires — sollicités après une vraie transaction. On n'achète pas d'avis, on n'en rédige pas, on ne propose aucune contrepartie et on ne filtre pas les clients : tout le monde reçoit le même message. C'est la règle de Google, et c'est la loi française sur les avis en ligne."],
+    ["Faut-il se déplacer ou nous recevoir ?",
+     "Non. Tout se fait à distance : un appel de lancement de vingt minutes, un accès gestionnaire à votre fiche Google, l'export de vos clients des 24 derniers mois, et vos validations par email ou WhatsApp. Nous travaillons avec des agences partout en France."],
+    ["Que se passe-t-il si j'arrête l'abonnement ?",
+     "L'abonnement de 149 € HT par mois est sans engagement de durée et se résilie avec 30 jours de préavis. La fiche Google et tous les avis restent à vous : ils ont toujours été à votre nom. Les textes de la landing page vous sont remis sur demande."],
+    ["Est-ce adapté aux mandataires d'un réseau ?",
+     "Oui. Un mandataire peut avoir sa propre fiche en zone desservie, sans adresse affichée, quand son réseau l'autorise. On construit alors une page personnelle par secteur et on centralise ses avis. Pour équiper plusieurs conseillers d'un même réseau, on chiffre un déploiement sur devis."]
+  ],
+  "services": [
+    ["Que comprend exactement la mise en place à 990 € HT ?",
+     "Trois livrables : la reprise complète de votre fiche Google Business (propriété, catégories, zone, services, photos, liens, cohérence des annuaires), le système automatisé de collecte d'avis après signature par SMS ou WhatsApp, avec la sollicitation de vos clients des 24 derniers mois, et une landing page hyper-locale de demande d'estimation reliée à votre fiche."],
+    ["Et que couvre l'abonnement à 149 € HT par mois ?",
+     "La gestion continue de la fiche (actualités, photos, horaires, services), la réponse à chaque avis sous 48 heures ouvrées, le fonctionnement du système d'avis, l'hébergement et la maintenance de la landing page, et un suivi de position mensuel sur une grille géolocalisée de votre secteur, avec un rapport écrit."],
+    ["Comment fonctionne le paiement en deux fois ?",
+     "495 € HT à la commande, par Stripe, puis 495 € HT à la mise en service, par facture payable en ligne. L'abonnement mensuel démarre lui aussi à la mise en service, pas à la commande."],
+    ["Combien de temps prend la mise en service ?",
+     "Quatorze jours ouvrés au plus à partir du moment où nous recevons l'accès gestionnaire à votre fiche, vos photos et l'export de vos clients. La plupart des agences sont en service avant."],
+    ["Dois-je changer de logiciel de transaction ?",
+     "Non. Les nouvelles signatures arrivent dans le système par un formulaire de saisie de vingt secondes, par un export régulier, ou par une connexion directe quand votre logiciel le permet. On choisit la solution la plus simple pour votre équipe lors de l'appel de lancement."],
+    ["Mes clients ont-ils donné leur accord pour recevoir un message ?",
+     "Vos clients ont une relation contractuelle avec votre agence : un message unique leur demandant leur avis sur la prestation qu'ils viennent de recevoir est un usage reconnu. Chaque message permet de s'opposer aux envois suivants, et nous agissons comme sous-traitant de vos données au sens du RGPD, avec un accord de traitement annexé aux CGV."]
+  ],
+  "audit": [
+    ["L'audit est-il vraiment gratuit ?",
+     "Oui, sans contrepartie. Vous obtenez votre score et vos priorités immédiatement à l'écran. Si vous le souhaitez, on vous rappelle pour vérifier les chiffres sur votre vraie fiche, toujours gratuitement."],
+    ["Comment est calculé le score sur 100 ?",
+     "Trois blocs, pondérés selon leur poids réel dans la décision d'un vendeur : votre position estimée dans le pack local (40 points), votre volume d'avis (28 points) et l'existence d'une collecte automatisée (32 points). Le barème est fixe : deux agences qui répondent la même chose obtiennent le même score."],
+    ["Que faites-vous de mes coordonnées ?",
+     "Elles servent uniquement à vous envoyer votre résultat et, si vous le demandez, à vous rappeler. Elles ne sont ni revendues ni transmises. Le détail est dans notre politique de confidentialité."]
+  ]
+}

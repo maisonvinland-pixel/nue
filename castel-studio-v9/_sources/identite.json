@@ -1,0 +1,7 @@
+{
+  "_mode_emploi": "Renseignez les quatre valeurs ci-dessous puis relancez : python3 construire.py <dossier_du_site>. Une valeur vide s'affiche surlignée dans les mentions légales et les CGV.",
+  "entrepreneur": "",
+  "siren": "",
+  "domiciliation": "",
+  "tva_mention": ""
+}

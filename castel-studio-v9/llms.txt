@@ -1,0 +1,24 @@
+# Castel Studio
+
+> Castel Studio — « Bâtisseurs de marques royales » — est une agence de visibilité Google Maps spécialisée dans les agences immobilières indépendantes et les réseaux de mandataires, en France. L'agence travaille entièrement à distance.
+
+Castel Studio vend une offre unique, le Pack Monopole Local Immobilier :
+- reprise et optimisation complète de la fiche Google Business Profile de l'agence ;
+- système automatisé de collecte d'avis après chaque signature, par SMS ou WhatsApp ;
+- landing page hyper-locale de demande d'estimation, reliée à la fiche.
+
+Prix : 990 € HT de mise en place (payable en une fois ou en deux fois 495 € HT via Stripe), puis 149 € HT par mois pour la gestion de la fiche, les réponses aux avis, l'hébergement de la landing page et le suivi de positionnement. Abonnement sans engagement de durée, résiliable avec 30 jours de préavis.
+
+Garantie Castel (contractuelle) : 10 avis Google 5 étoiles authentiques publiés sur la fiche de l'agence dans les 30 jours suivant la mise en service, ou les 30 jours de suivi suivants sont offerts. Castel Studio ne garantit aucun classement Google, n'achète ni ne rédige d'avis, et sollicite tous les clients sans tri.
+
+Contact : WhatsApp et téléphone +33 6 23 06 90 05.
+
+## Pages principales
+
+- [Accueil](https://castelstudio.netlify.app/): positionnement, démonstration, garantie
+- [Pack Monopole Local Immobilier](https://castelstudio.netlify.app/services.html): contenu, prix, cas d'usage, commande
+- [Audit gratuit](https://castelstudio.netlify.app/audit.html): score de visibilité Google Maps sur 100 en six questions
+- [Réalisations](https://castelstudio.netlify.app/realisations.html): simulations de fiches, grilles de positionnement et landing pages (noms fictifs)
+- [Blog](https://castelstudio.netlify.app/blog.html): référencement local et acquisition de mandats pour l'immobilier
+- [Le studio](https://castelstudio.netlify.app/studio.html): présentation de l'agence
+- [Contact](https://castelstudio.netlify.app/contact.html): demande d'information, appel, déploiement réseau

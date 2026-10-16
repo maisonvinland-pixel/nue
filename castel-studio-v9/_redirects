@@ -1,0 +1,19 @@
+# Castel Studio v9 — les pages de l'ancien catalogue v8 pointent vers l'offre unique.
+/seo-local.html                               /services.html                              301
+/site-vitrine.html                            /services.html                              301
+/fiche-google.html                            /services.html                              301
+/collecte-avis.html                           /services.html                              301
+/page-locale.html                             /services.html                              301
+/suivi.html                                   /services.html                              301
+/blog-fiche-google-business-reglages.html     /blog-fiche-google-agence-immobiliere.html  301
+/blog-obtenir-plus-davis-google.html          /blog-avis-google-apres-signature.html      301
+/blog-site-ou-page-facebook.html              /blog-page-estimation-locale.html           301
+/blog-google-ou-meta-commerce-local.html      /blog-mandats-exclusifs-google-maps.html    301
+/blog-instagram-quoi-publier.html             /blog.html                                  301
+/blog-automatiser-sans-devenir-robot.html     /blog-avis-google-apres-signature.html      301
+
+# Fichiers de travail : jamais servis.
+/_sources/*            /404.html   404!
+/supabase/*            /404.html   404!
+/LISEZMOI.md           /404.html   404!
+/changer-domaine.py    /404.html   404!

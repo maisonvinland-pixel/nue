@@ -1,0 +1,64 @@
+<section class="page-tete">
+  <div class="aplats" aria-hidden="true"><div class="aplat aplat-1"></div><div class="aplat aplat-2"></div></div>
+  <div class="shell">
+    <div class="page-tete-grille">
+      <div class="rev vu">
+        <nav class="fil" aria-label="Fil d'Ariane"><a href="index.html">Accueil</a><span>/</span><em>Audit gratuit</em></nav>
+        <span class="page-icone">{{i:jauge}}</span>
+        <h1>Combien de mandats<br>vous échappent<br>sur Google Maps&nbsp;?</h1>
+        <p class="lead mt-s">Six questions, deux minutes. Vous obtenez votre score de visibilité sur 100, vos trois priorités dans l'ordre, et la proposition qui y répond. Vous pouvez réserver un appel ou commander dans la foulée — ou simplement repartir avec le résultat.</p>
+        <ul class="puces mt-m">
+          <li>{{i:coche}}<span>Barème fixe et vérifiable, détaillé plus bas.</span></li>
+          <li>{{i:coche}}<span>Résultat immédiat, à l'écran.</span></li>
+          <li>{{i:coche}}<span>Aucun démarchage&nbsp;: on ne vous rappelle que si vous le demandez.</span></li>
+        </ul>
+      </div>
+      <div class="rev vu rev-d2"><div class="audit" data-audit><div class="audit-jauge" aria-hidden="true"></div><div data-audit-corps><noscript><p>L'audit interactif nécessite JavaScript. <a href="contact.html">Écrivez-nous</a> : on le fait avec vous par téléphone.</p></noscript></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Formulaire statique lu par Netlify Forms au déploiement : l'audit y poste ses résultats. -->
+<form name="audit" data-netlify="true" netlify-honeypot="bot-field" hidden>
+  <input name="agence"><input name="ville"><input name="position"><input name="avis"><input name="collecte">
+  <input name="mandats"><input name="email"><input name="telephone"><input name="score"><input name="priorites"><input name="bot-field">
+</form>
+
+<section class="sect fond-blanc">
+  <div class="shell">
+    {{bloc:bandeau}}
+    <div class="split rev">
+      <div>
+        <h2 data-lignes>Ce que mesure<br>le score.</h2>
+        <p class="lead mt-s">Trois blocs, pondérés selon ce qui décide un vendeur entre trois fiches. Deux agences qui répondent la même chose obtiennent le même score&nbsp;: il n'y a rien d'arbitraire.</p>
+      </div>
+      <div class="bareme" data-cascade>
+        <div class="bar-l"><b>40</b><div><h3>Position estimée dans le pack local</h3><p>Sur «&nbsp;agence immobilière + votre ville&nbsp;». Hors des trois premières places, la fiche n'est presque plus vue.</p></div></div>
+        <div class="bar-l"><b>28</b><div><h3>Volume d'avis</h3><p>Le nombre et la note des avis comptent parmi les critères que Google cite pour le classement local, et c'est la première chose que lit un vendeur.</p></div></div>
+        <div class="bar-l"><b>32</b><div><h3>Collecte automatisée</h3><p>C'est ce qui sépare une agence qui plafonne d'une agence dont les avis montent chaque semaine. Le levier le plus sous-utilisé.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sect fond-nuit">
+  <div class="shell">
+    <div class="split rev">
+      <div>
+        <h2 data-lignes>Et ensuite&nbsp;?</h2>
+        <p class="lead mt-s">Le résultat débouche sur une proposition claire&nbsp;: le Pack Monopole Local Immobilier, 990&nbsp;€&nbsp;HT de mise en place puis 149&nbsp;€&nbsp;HT par mois. Vous choisissez&nbsp;:</p>
+        <ul class="puces mt-m">
+          <li>{{i:coche}}<span><b>Réserver un appel de vingt minutes</b> pour vérifier les chiffres sur votre vraie fiche.</span></li>
+          <li>{{i:coche}}<span><b>Commander directement</b> la mise en place, en une ou deux fois, par Stripe.</span></li>
+          <li>{{i:coche}}<span><b>Repartir avec le résultat</b>, sans suite. Il est à vous.</span></li>
+        </ul>
+        <div class="btn-rang mt-m"><a class="btn btn-clair" href="services.html">Voir le détail du Pack {{i:fleche}}</a></div>
+      </div>
+      <div>{{bloc:comparatif}}</div>
+    </div>
+  </div>
+</section>
+
+{{faq:audit}}
+
+{{bloc:cta}}

@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Castel Studio — Le Pack Monopole en 30 secondes</title>
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://castelstudio.netlify.app/film.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --nuit:#0E1F17; --nuit-2:#132A20; --vert:#1F4A38; --ivoire:#F7F6F2; --encre:#14201B;
+  --bronze:#C07A45; --or:#B7861E; --bronze-f:#A65E2E; --doux:rgba(247,246,242,.62); --trait:rgba(247,246,242,.12);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#07110C;overflow:hidden}
+body{font-family:"Montserrat","Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased;color:var(--ivoire);
+  padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}
+#vp{position:fixed;inset:0;display:grid;place-items:center}
+#stage{position:absolute;left:50%;top:50%;transform-origin:0 0;background:var(--nuit);overflow:hidden}
+.abs{position:absolute;will-change:transform,opacity}
+/* fond */
+#glow{width:1600px;height:1600px;border-radius:50%;
+  background:radial-gradient(circle,rgba(192,122,69,.22) 0%,rgba(192,122,69,0) 62%)}
+#grid{inset:0;opacity:.0}
+#grain{inset:-50%;width:200%;height:200%;opacity:.07;pointer-events:none;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+/* barre de recherche */
+#search{height:132px;border-radius:66px;background:var(--ivoire);color:var(--encre);display:flex;align-items:center;gap:30px;padding:0 48px;
+  box-shadow:0 30px 80px -30px rgba(0,0,0,.6)}
+#search svg{flex:none;width:46px;height:46px}
+#q{font-size:48px;font-weight:600;letter-spacing:-.02em;white-space:nowrap}
+#caret{display:inline-block;width:4px;height:54px;background:var(--bronze);vertical-align:-10px;margin-left:4px}
+/* résultats */
+.row{height:132px;border-radius:30px;background:var(--nuit-2);border:1px solid var(--trait);display:flex;align-items:center;gap:30px;padding:0 36px}
+.row .rk{flex:none;width:72px;height:72px;border-radius:20px;display:grid;place-items:center;font-weight:800;font-size:32px;background:rgba(247,246,242,.08);color:var(--ivoire)}
+.row .nm{flex:1;min-width:0}
+.row .nm b{display:block;font-size:34px;font-weight:700;letter-spacing:-.02em;white-space:nowrap}
+.row .nm span{display:flex;gap:6px;margin-top:8px;align-items:center;font-size:24px;color:var(--doux);font-weight:600}
+.st{width:24px;height:24px;color:var(--or)}
+.row.you{background:transparent;border:2px dashed rgba(247,246,242,.28)}
+.row.you .rk{background:transparent;border:2px solid rgba(247,246,242,.3);color:var(--doux)}
+.row.you.lift{background:#1A3529;border:2px solid rgba(192,122,69,.55);box-shadow:0 30px 60px -20px rgba(0,0,0,.6);z-index:5}
+.row.you.win{background:var(--ivoire);border:2px solid var(--bronze);color:var(--encre)}
+.row.you.win .rk{background:var(--bronze);border-color:var(--bronze);color:#fff}
+.row.you.win .nm span{color:var(--bronze-f)}
+#dots{font-size:60px;font-weight:800;letter-spacing:.3em;color:rgba(247,246,242,.25);text-align:center}
+/* typographie */
+.k{font-weight:800;letter-spacing:-.045em;line-height:.98;white-space:nowrap}
+.mask{overflow:hidden;display:block;padding-bottom:.14em;margin-bottom:-.06em}
+.mask>span{display:block;will-change:transform}
+.br{color:var(--bronze)}
+.cap{font-weight:600;color:var(--doux);letter-spacing:-.01em}
+.eyebrow{font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--bronze)}
+/* modules */
+.mod{border-radius:36px;background:var(--ivoire);color:var(--encre);padding:40px;overflow:hidden}
+.mod h3{font-size:32px;font-weight:800;letter-spacing:-.03em}
+.mod .tag{font-size:18px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--bronze-f);margin-bottom:10px}
+.bar{height:16px;border-radius:8px;background:#E6E3DA;overflow:hidden;margin-top:18px}
+.bar i{display:block;height:100%;background:var(--vert);border-radius:8px}
+.big{font-size:84px;font-weight:900;letter-spacing:-.05em;line-height:1}
+.stars{display:flex;gap:8px;margin-top:10px}
+.stars svg{width:40px;height:40px;color:var(--or)}
+.wf{margin-top:18px;display:grid;gap:12px}
+.wf i{display:block;height:18px;border-radius:9px;background:#E6E3DA;transform-origin:left}
+.wf i.cta{width:42%;height:44px;border-radius:22px;background:var(--bronze)}
+/* contrat + tampon */
+#paper{border-radius:44px;background:var(--ivoire);color:var(--encre);padding:56px}
+#paper .lbl{font-size:22px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#77877F}
+#paper h4{font-size:52px;font-weight:800;letter-spacing:-.035em;margin-top:8px}
+#paper .ln{display:flex;align-items:center;gap:22px;margin-top:30px;font-size:32px;font-weight:600}
+#paper .ok{flex:none;width:56px;height:56px;border-radius:16px;background:#EDF3F0;color:var(--vert);display:grid;place-items:center}
+#paper .ok svg{width:32px;height:32px}
+#stamp{width:320px;height:320px;border-radius:50%;border:8px solid var(--bronze-f);color:var(--bronze-f);display:grid;place-items:center;text-align:center;
+  background:rgba(250,242,234,.92)}
+#stamp div{font-weight:900;letter-spacing:-.03em;line-height:.95}
+#stamp small{display:block;font-size:22px;letter-spacing:.24em;font-weight:800}
+#stamp b{display:block;font-size:104px}
+/* wipe */
+.wipe{background:var(--bronze)}
+/* fin */
+#logo svg{display:block}
+#replay{position:fixed;right:max(18px,env(safe-area-inset-right));bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:9;
+  font:600 14px/1 Montserrat,sans-serif;color:var(--ivoire);background:rgba(14,31,23,.7);border:1px solid rgba(247,246,242,.25);
+  padding:12px 18px;border-radius:100px;cursor:pointer;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);opacity:0;transition:opacity .4s}
+#replay.on{opacity:1}
+#prog{position:fixed;left:0;bottom:0;height:3px;background:var(--bronze);z-index:9;width:0}
+</style>
+</head>
+<body>
+<div id="vp"><div id="stage">
+  <div id="glow" class="abs"></div>
+  <svg id="grid" class="abs" aria-hidden="true"></svg>
+
+  <!-- S1/S2 recherche -->
+  <div id="search" class="abs">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#14201B" stroke-width="2.2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L20 20"/></svg>
+    <div><span id="q"></span><span id="caret"></span></div>
+  </div>
+  <div id="rows"></div>
+  <div id="dots" class="abs">···</div>
+
+  <!-- textes -->
+  <div id="t11" class="abs"></div>
+  <div id="tk" class="abs"></div>
+  <div id="tfix" class="abs"></div>
+  <div id="tday" class="abs"></div>
+  <div id="tgar" class="abs"></div>
+
+  <!-- modules -->
+  <div id="m1" class="abs mod"><div class="tag">01 · Fiche Google</div><h3>Reprise point par point</h3>
+    <div class="big" style="margin-top:22px"><span id="m1v">32</span><span style="font-size:.5em">%</span></div>
+    <div class="bar"><i id="m1b"></i></div></div>
+  <div id="m2" class="abs mod"><div class="tag">02 · Avis Google</div><h3>Demandés après chaque signature</h3>
+    <div class="big" style="margin-top:22px">+<span id="m2v">0</span></div><div class="stars" id="m2s"></div></div>
+  <div id="m3" class="abs mod"><div class="tag">03 · Landing page</div><h3>«&nbsp;Estimation Lyon 6<sup>e</sup>&nbsp;»</h3>
+    <div class="wf" id="m3w"><i style="width:88%;height:30px"></i><i style="width:64%"></i><i style="width:76%"></i><i class="cta"></i></div></div>
+
+  <!-- contrat -->
+  <div id="paper" class="abs">
+    <div class="lbl">Engagement contractuel</div>
+    <h4>Garantie Castel</h4>
+    <div class="ln"><span class="ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5l5 5 10-11"/></svg></span>10 avis Google 5 ★ authentiques</div>
+    <div class="ln"><span class="ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5l5 5 10-11"/></svg></span>Publiés en 30 jours</div>
+    <div class="ln"><span class="ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5l5 5 10-11"/></svg></span>Sinon, 30 jours de suivi offerts</div>
+  </div>
+  <div id="stamp" class="abs"><div><small>10 AVIS EN</small><b>30 J</b><small>GARANTI</small></div></div>
+
+  <!-- fin -->
+  <div id="end" class="abs"></div>
+
+  <div id="w1" class="abs wipe"></div>
+  <div id="w2" class="abs wipe" style="background:var(--ivoire)"></div>
+  <div id="grain" class="abs"></div>
+</div></div>
+<div id="prog"></div>
+<button id="replay" type="button">Rejouer</button>
+
+<script>
+(function(){
+"use strict";
+var DUR = 30;
+var P = new URLSearchParams(location.search);
+var forced = P.get("mode");
+var S = document.getElementById("stage");
+var $ = function(id){ return document.getElementById(id); };
+
+/* ── easings ── */
+function cl(x){ return x<0?0:x>1?1:x; }
+function pr(t,a,b){ return cl((t-a)/(b-a)); }
+function expo(x){ return x>=1?1:1-Math.pow(2,-10*x); }
+function cub(x){ return x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2; }
+function back(x){ var c=1.70158,c3=c+1; return 1+c3*Math.pow(x-1,3)+c*Math.pow(x-1,2); }
+function spring(x){ if(x<=0)return 0; if(x>=1)return 1; return 1-Math.exp(-6.5*x)*Math.cos(10.5*x); }
+function lerp(a,b,x){ return a+(b-a)*x; }
+function tf(el,x,y,s,r){ el.style.transform="translate("+x+"px,"+y+"px)"+(s!=null&&s!==1?" scale("+s+")":"")+(r?" rotate("+r+"deg)":""); }
+function op(el,o){ el.style.opacity=o; el.style.visibility=o<=0.001?"hidden":"visible"; }
+
+var STAR='<svg class="st" viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.6 5.6 6 .8-4.4 4.2 1.1 6L10 14.8 4.7 17.6l1.1-6L1.4 7.4l6-.8z"/></svg>';
+var BIGSTAR=STAR.replace('class="st"','');
+
+/* ── mise en page selon le format ── */
+var M, W, H, L;
+function layout(){
+  var vw=innerWidth, vh=innerHeight;
+  M = forced || (vh > vw*1.05 ? "port" : "land");
+  W = M==="land"?1920:1080; H = M==="land"?1080:1920;
+  S.style.width=W+"px"; S.style.height=H+"px";
+  var sc=Math.min(vw/W, vh/H);
+  S.style.transform="scale("+sc+") translate(-50%,-50%)";
+  var land=M==="land";
+  L = {
+    cx: W/2,
+    searchW: land?900:920,
+    rowW: land?900:920,
+    rowX: land?140:(1080-920)/2,
+    k: land?150:122,
+    kc: land?44:40,
+    modW: land?520:860, modH: land?400:330
+  };
+  build();
+}
+
+/* ── construction des éléments dépendant du format ── */
+var rowsEl=$("rows"), rowEls=[];
+var NAMES=[["Immobilière du Parc","4,8","214 avis"],["Agence Foch Habitat","4,7","163 avis"],["Horizon Immobilier","4,6","129 avis"]];
+function rowHTML(rk,name,note,cnt,you){
+  return '<div class="rk">'+rk+'</div><div class="nm"><b>'+name+'</b><span>'+(note?note+" "+STAR+STAR+STAR+STAR+STAR+" · "+cnt:cnt)+'</span></div>';
+}
+function build(){
+  // grille « plan d'architecte »
+  var g=$("grid"); g.setAttribute("width",W); g.setAttribute("height",H); g.setAttribute("viewBox","0 0 "+W+" "+H);
+  var s="", step=120;
+  for(var x=step;x<W;x+=step) s+='<line class="gl" x1="'+x+'" y1="0" x2="'+x+'" y2="'+H+'" stroke="rgba(247,246,242,.06)" stroke-width="1" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>';
+  for(var y=step;y<H;y+=step) s+='<line class="gl" x1="0" y1="'+y+'" x2="'+W+'" y2="'+y+'" stroke="rgba(247,246,242,.06)" stroke-width="1" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>';
+  g.innerHTML=s; g.style.width=W+"px"; g.style.height=H+"px";
+
+  $("search").style.width=L.searchW+"px";
+  rowsEl.innerHTML=""; rowEls=[];
+  for(var i=0;i<3;i++){ var r=document.createElement("div"); r.className="row abs"; r.style.width=L.rowW+"px"; r.innerHTML=rowHTML(i+1,NAMES[i][0],NAMES[i][1],NAMES[i][2]); rowsEl.appendChild(r); rowEls.push(r); }
+  var y=document.createElement("div"); y.className="row abs you"; y.style.width=L.rowW+"px"; y.innerHTML=rowHTML('<span id="yrk">11</span>',"Votre agence","",'<span id="ycnt">4 avis</span>'); rowsEl.appendChild(y); rowEls.push(y);
+  $("dots").style.width=L.rowW+"px";
+
+  var land=M==="land";
+  $("t11").innerHTML='<div class="k" style="font-size:'+(land?180:190)+'px;text-align:'+(land?'left':'center')+'"><span class="mask"><span>11<sup style="font-size:.42em;vertical-align:.95em">e</sup> place.</span></span></div>'
+    +'<div class="cap" style="font-size:'+L.kc+'px;text-align:'+(land?'left':'center')+';margin-top:18px"><span class="mask"><span>Personne ne descend jusque-là.</span></span></div>';
+  $("tk").innerHTML= land
+    ? '<div class="k" style="font-size:'+L.k+'px"><span class="mask"><span>Le vendeur choisit</span></span><span class="mask"><span>en <em class="br" style="font-style:normal">3 secondes.</em></span></span></div>'
+    : '<div class="k" style="font-size:'+L.k+'px"><span class="mask"><span>Le vendeur</span></span><span class="mask"><span>choisit en</span></span><span class="mask"><span class="br">3 secondes.</span></span></div>';
+  $("tk").insertAdjacentHTML("beforeend",'<div class="cap" style="font-size:'+L.kc+'px;margin-top:30px"><span class="mask"><span>Et il appelle la première agence de la carte.</span></span></div>');
+  $("tfix").innerHTML='<div class="eyebrow" style="font-size:'+(land?22:24)+'px"><span class="mask"><span>Castel Studio</span></span></div><div class="k" style="font-size:'+(land?96:104)+'px;margin-top:14px"><span class="mask"><span>Le Pack Monopole.</span></span></div>';
+  $("tday").innerHTML='<div class="eyebrow" style="font-size:'+(land?24:26)+'px"><span class="mask"><span>Mois 6</span></span></div>'+(land?'<div class="k" style="font-size:104px;margin-top:14px"><span class="mask"><span>Vous passez</span></span><span class="mask"><span class="br">devant.</span></span></div>':'<div class="k" style="font-size:100px;margin-top:14px"><span class="mask"><span>Vous passez <span class="br">devant.</span></span></span></div>');
+  $("tgar").innerHTML= '<div class="k" style="font-size:'+(land?80:92)+'px"><span class="mask"><span>10 avis 5 ★</span></span><span class="mask"><span>en 30 jours.</span></span></div>'
+    +'<div class="k" style="font-size:'+(land?80:92)+'px;color:var(--doux);margin-top:.25em"><span class="mask"><span>Sinon&nbsp;?</span></span><span class="mask"><span class="br">Le mois suivant offert.</span></span></div>';
+  $("m2s").innerHTML=BIGSTAR+BIGSTAR+BIGSTAR+BIGSTAR+BIGSTAR;
+  ["m1","m2","m3"].forEach(function(id){ var e=$(id); e.style.width=L.modW+"px"; e.style.height=L.modH+"px"; });
+  $("paper").style.width=(land?700:880)+"px";
+
+  $("end").innerHTML=
+    '<div id="logo" style="display:flex;flex-direction:column;align-items:center;text-align:center">'
+   +'<svg width="'+(land?150:170)+'" height="'+(land?150:170)+'" viewBox="0 0 120 120" fill="none">'
+   +  '<path id="lgArc" d="M86 36 A38 38 0 1 0 86 84" stroke="#F7F6F2" stroke-width="9" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>'
+   +  '<path id="lgCrown" d="M44 50 V40 H52 V46 H58 V40 H66 V46 H72 V40 H80 V50" stroke="#C07A45" stroke-width="7" stroke-linejoin="round" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>'
+   +  '<circle id="lgDot" cx="62" cy="72" r="7" fill="#C07A45"/></svg>'
+   +'<div class="k" style="font-size:'+(land?108:112)+'px;margin-top:34px"><span class="mask"><span>Castel Studio</span></span></div>'
+   +'<div class="eyebrow" style="font-size:'+(land?24:26)+'px;margin-top:20px"><span class="mask"><span>Bâtisseurs de marques royales</span></span></div>'
+   +'<div id="endCta" style="margin-top:'+(land?56:80)+'px;display:flex;flex-direction:'+(land?'row':'column')+';gap:'+(land?28:22)+'px;align-items:center">'
+   +  '<span style="background:var(--ivoire);color:var(--encre);font-weight:800;font-size:'+(land?32:36)+'px;padding:24px 44px;border-radius:100px">Audit gratuit</span>'
+   +  '<span style="font-weight:600;font-size:'+(land?30:32)+'px;color:var(--doux)">castelstudio.netlify.app · Agences & mandataires</span>'
+   +'</div></div>';
+  render(curT);
+}
+
+/* masque : révèle les lignes d'un bloc */
+function lines(root, t, a, stag, outA){
+  var ms=root.querySelectorAll(".mask>span");
+  for(var i=0;i<ms.length;i++){
+    var x=expo(pr(t,a+i*stag,a+i*stag+0.9));
+    var y=(1-x)*110;
+    if(outA!=null){ var o=cub(pr(t,outA+i*0.05,outA+i*0.05+0.45)); y-=o*110; }
+    ms[i].style.transform="translateY("+y+"%)";
+  }
+}
+
+/* ── LE RENDU : tout est fonction de t ── */
+var curT=0;
+function render(t){
+  curT=t;
+  var land=M==="land", cx=L.cx;
+
+  /* fond */
+  var gx=lerp(-300, W-1300, (Math.sin(t*0.22)+1)/2), gy=lerp(-500, H-1100, (Math.cos(t*0.17)+1)/2);
+  tf($("glow"),gx,gy,1+0.1*Math.sin(t*0.5));
+  var gl=document.querySelectorAll(".gl"), gp=cub(pr(t,0.1,2.4));
+  op($("grid"),1);
+  for(var i=0;i<gl.length;i++){ var d=cl(gp*1.6 - (i%9)*0.07); gl[i].setAttribute("stroke-dashoffset",(1-d).toFixed(3)); }
+  $("grain").style.transform="translate("+((t*977)%60-30).toFixed(0)+"px,"+((t*613)%60-30).toFixed(0)+"px)";
+
+  /* S1 — recherche */
+  var se=$("search"), sw=L.searchW;
+  var sIn=back(pr(t,0.15,0.85)), sUp=expo(pr(t,3.0,3.9)), sOut=cub(pr(t,6.9,7.4));
+  var sY0=H/2-66, sY1=land?120:250;
+  var pulse=1-0.035*Math.sin(Math.PI*pr(t,2.55,2.85));
+  tf(se,lerp(cx-sw/2,L.rowX,sUp), lerp(sY0,sY1,sUp) - sOut*60, (0.6+0.4*sIn)*pulse);
+  op(se, cl(pr(t,0.15,0.5)) * (1-sOut));
+  var QUERY="agence immobilière lyon 6", n=Math.round(QUERY.length*pr(t,0.75,2.3));
+  $("q").textContent=QUERY.slice(0,n);
+  op($("caret"), t<2.6 ? (Math.floor(t*2.4)%2?0.15:1) : 0);
+
+  /* S2 — résultats, puis S5 — remontée */
+  var rh=132, gap=24, top0=(land?120:250)+132+48;
+  var climb=pr(t,18.3,21.0), climbE=cub(climb);
+  var rowsOut=cub(pr(t,6.9,7.4)), rowsBack=expo(pr(t,17.7,18.4)), rowsGone=cub(pr(t,22.0,22.5));
+  for(var r=0;r<3;r++){
+    var e=rowEls[r], a=3.3+r*0.14;
+    var x=expo(pr(t,a,a+0.8));
+    var vis = t<7.5 ? x*(1-rowsOut) : rowsBack*(1-rowsGone);
+    var baseY=top0 + r*(rh+gap);
+    var pos = lerp(3.5, 0, climbE);
+    var shift = t<7.5 ? 0 : cub(cl((r+1.25-pos)*1.6));
+    var passY = (rh+gap) * shift;
+    var lab = r+1+(shift>0.5?1:0), rkEl=e.firstChild; if(rkEl.textContent!=String(lab)) rkEl.textContent=lab;
+    var yy = t<7.5 ? baseY + (1-x)*60 - rowsOut*40 : baseY + passY + (1-rowsBack)*50 + rowsGone*30;
+    tf(e,L.rowX,yy,1);
+    op(e,vis*(t>17 && climb>0 ? 0.55+0.45*(1-climbE) : 1));
+  }
+  var dots=$("dots"), dY=top0+3*(rh+gap)-12;
+  var dv = t<7.5 ? expo(pr(t,3.75,4.4))*(1-rowsOut) : rowsBack*(1-cub(pr(climb,0,.3)));
+  tf(dots,L.rowX,dY,1); op(dots,dv);
+  var you=rowEls[3], yIn=expo(pr(t,4.3,5.1));
+  var yBase=top0+3*(rh+gap)+80;
+  var yUp=top0 + lerp(3.5,0,climbE)*(rh+gap);
+  var yy2 = t<7.5 ? yBase+(1-yIn)*80 - rowsOut*40 : yUp + (1-rowsBack)*50 + rowsGone*30;
+  var ys = 1 + 0.06*Math.sin(Math.PI*pr(t,20.6,21.3));
+  tf(you,L.rowX,yy2,ys);
+  op(you, t<7.5 ? yIn*(1-rowsOut) : rowsBack*(1-rowsGone));
+  var posY=lerp(3.5,0,climbE); var rank = t<18.3 ? 11 : (posY>2.5 ? Math.max(4, Math.round(11 - 7*cl(climbE/0.3))) : Math.max(1, Math.ceil(posY+0.5)));
+  var yr=$("yrk"); if(yr && yr.textContent!=String(rank)) yr.textContent=rank;
+  var avis = t<18.3 ? 4 : Math.round(4 + 43*climbE);
+  var yc=$("ycnt"); if(yc){ var txt=(t>=18.3?'4,9 '+STAR+' · ':'')+avis+' avis'; if(yc.dataset.v!==txt){ yc.innerHTML=txt; yc.dataset.v=txt; } }
+  you.classList.toggle("win", t>=20.4); you.classList.toggle("lift", t>=18.3);
+  // légère secousse de « vous » quand il est relégué
+  if(t>5.1 && t<5.5){ var sh=Math.sin((t-5.1)*60)*6*(1-pr(t,5.1,5.5)); you.style.transform+=" translateX("+sh+"px)"; }
+
+  /* texte 11e place */
+  var t11=$("t11"), t11v=t>=4.9&&t<7.6;
+  op(t11, t11v?1:0);
+  if(t11v){
+    if(land) tf(t11, 1130, H/2 - t11.offsetHeight/2 + 40, 1); else tf(t11, cx - t11.offsetWidth/2, H-430, 1);
+    lines(t11,t,5.0,0.35,6.85);
+  }
+
+  /* wipe 1 */
+  var w1=$("w1"), w1p=pr(t,7.15,7.95);
+  if(w1p>0&&w1p<1){ op(w1,1); var wx=cub(w1p); w1.style.width=W+"px"; w1.style.height=H+"px";
+    tf(w1, land? lerp(-W, W, wx) : 0, land? 0 : lerp(H,-H,wx)); } else op(w1,0);
+
+  /* S3 — 3 secondes */
+  var tk=$("tk"), tkv=t>=7.6&&t<11.2;
+  op(tk,tkv?1:0);
+  if(tkv){
+    tf(tk, land?150:80, land?H/2-230:H/2-330, 1);
+    lines(tk,t,7.7,0.16,10.55);
+    var sc3=1+0.015*Math.sin(Math.PI*pr(t,8.5,10.5)); tk.style.transform+=" scale("+sc3+")";
+  }
+
+  /* S4 — on reprend tout */
+  var tfx=$("tfix"), tfv=t>=11.0&&t<17.9;
+  op(tfx,tfv?1:0);
+  if(tfv){ tf(tfx, land?150:80, land?110:200, 1); lines(tfx,t,11.05,0.12,17.3); }
+  var mods=[$("m1"),$("m2"),$("m3")];
+  for(var m=0;m<3;m++){
+    var a2=11.7+m*0.55, mi=spring(pr(t,a2,a2+1.1)), mo=cub(pr(t,17.25+m*0.06,17.75+m*0.06));
+    var mx, my;
+    if(land){ mx=150 + m*(L.modW+45); my=430; }
+    else { mx=(W-L.modW)/2; my=520 + m*(L.modH+48); }
+    tf(mods[m], mx, my + (1-mi)*140 - mo*60, 0.92+0.08*mi);
+    op(mods[m], cl(pr(t,a2,a2+0.3))*(1-mo));
+  }
+  var f1=cub(pr(t,12.3,14.6)); $("m1v").textContent=Math.round(32+68*f1); $("m1b").style.width=(32+68*f1)+"%";
+  var f2=cub(pr(t,12.9,15.4)); $("m2v").textContent=Math.round(43*f2);
+  var stars=$("m2s").children; for(var s2=0;s2<stars.length;s2++){ var sp=back(pr(t,13.0+s2*0.16,13.4+s2*0.16)); stars[s2].style.transform="scale("+sp+") rotate("+((1-sp)*-40)+"deg)"; stars[s2].style.opacity=cl(sp); }
+  var wf=$("m3w").children; for(var k=0;k<wf.length;k++){ var wp=expo(pr(t,13.4+k*0.22,14.2+k*0.22)); wf[k].style.transform="scaleX("+wp+")"; }
+
+  /* S5 — jour 60 */
+  var td=$("tday"), tdv=t>=17.8&&t<22.6;
+  op(td,tdv?1:0);
+  if(tdv){ if(land){ tf(td, 1130, H/2 - td.offsetHeight/2 + 40, 1); td.style.textAlign="left"; } else { tf(td, cx - td.offsetWidth/2, H-420, 1); td.style.textAlign="center"; } lines(td,t,19.0,0.18,21.95); }
+
+  /* wipe 2 (ivoire) */
+  var w2=$("w2"), w2p=pr(t,22.05,22.95);
+  if(w2p>0&&w2p<1){ op(w2,1); var wy=cub(w2p); w2.style.width=W+"px"; w2.style.height=H+"px"; tf(w2,0,lerp(H,-H,wy)); } else op(w2,0);
+
+  /* S6 — contrat + tampon */
+  var pa=$("paper"), pw=land?700:880;
+  var pIn=expo(pr(t,22.6,23.5)), pOut=cub(pr(t,26.2,26.7));
+  var px = land ? 1110 : (W-pw)/2, py = land ? 250 : 1010;
+  tf(pa, px, py + (1-pIn)*120 - pOut*80, 1, lerp(4,-2,pIn));
+  op(pa, cl(pr(t,22.6,22.9))*(1-pOut));
+  var st=$("stamp"), sp2=pr(t,23.7,24.05);
+  var stS = sp2<=0 ? 2.4 : lerp(2.4,.82,expo(sp2));
+  var sx = land ? px+pw-190 : px+pw-210, sy = land ? py-190 : py-210;
+  var shake = (t>24.05&&t<24.4) ? Math.sin((t-24.05)*90)*10*(1-pr(t,24.05,24.4)) : 0;
+  tf(st, sx, sy, stS, -14);
+  op(st, sp2>0 ? cl(sp2*3)*(1-pOut) : 0);
+  if(shake) pa.style.transform += " translate("+shake+"px,"+(-shake/2)+"px)";
+  var tg=$("tgar"), tgv=t>=22.5&&t<26.9;
+  op(tg,tgv?1:0);
+  if(tgv){ tf(tg, land?150:80, land?H/2-200:250, 1); lines(tg,t,24.15,0.2,26.15); }
+
+  /* S7 — fin */
+  var en=$("end"), env=t>=26.5;
+  op(en, env?1:0);
+  if(env){
+    tf(en, cx - en.offsetWidth/2, H/2 - en.offsetHeight/2 - (land?10:30), 1);
+    var arc=$("lgArc"), cr=$("lgCrown"), dt=$("lgDot");
+    arc.setAttribute("stroke-dashoffset",(1-cub(pr(t,26.6,27.6))).toFixed(3));
+    cr.setAttribute("stroke-dashoffset",(1-cub(pr(t,27.2,28.0))).toFixed(3));
+    var ds=back(pr(t,27.8,28.2)); dt.setAttribute("r",(7*ds).toFixed(2));
+    lines(en,t,27.4,0.15,null);
+    var ec=$("endCta"), ep=expo(pr(t,28.3,29.1)); ec.style.opacity=ep; ec.style.transform="translateY("+((1-ep)*30)+"px)";
+  }
+  $("prog").style.width=(t/DUR*100)+"%";
+}
+
+/* ── lecture ── */
+var capture = P.has("capture"), embed = P.has("embed");
+window.__seek=function(t){ render(t); };
+window.__ready=false;
+layout();
+addEventListener("resize", function(){ if(!forced) layout(); });
+document.fonts.ready.then(function(){ layout(); window.__ready=true; if(!capture) play(); });
+
+var t0=null, raf=null, rb=$("replay");
+function frame(now){
+  if(t0===null) t0=now;
+  var t=(now-t0)/1000;
+  if(t>=DUR){ render(DUR); raf=null; if(embed){ setTimeout(play,1800); } else rb.classList.add("on"); return; }
+  render(t); raf=requestAnimationFrame(frame);
+}
+function play(){ rb.classList.remove("on"); t0=null; if(raf) cancelAnimationFrame(raf); raf=requestAnimationFrame(frame); }
+rb.addEventListener("click", play);
+if(capture||embed){ $("prog").style.display="none"; rb.style.display="none"; }
+})();
+</script>
+</body>
+</html>
