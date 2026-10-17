@@ -27,7 +27,15 @@ TEL = "+33623069005"
 TEL_AFF = "06 23 06 90 05"
 EMAIL = "agency75240@gmail.com"
 INSTA = "https://www.instagram.com/castelstudio.fr/"
-V = "9"  # version des ressources (cache)
+# Version des ressources : empreinte du CSS et des scripts. Les fichiers /assets/*
+# sont mis en cache un an (_headers) : l'adresse doit changer dès que leur contenu change.
+def _empreinte():
+    import hashlib, glob
+    h = hashlib.sha1()
+    for f in sorted([os.path.join(ICI, "assets", "castel.css")] + glob.glob(os.path.join(ICI, "js", "*.js"))):
+        h.update(open(f, "rb").read())
+    return h.hexdigest()[:8]
+V = _empreinte()
 
 IDENTITE = json.load(open(os.path.join(ICI, "identite.json"), encoding="utf-8"))
 ETIQ_ID = {"entrepreneur": "Nom et prénom de l'entrepreneur", "siren": "SIREN",
