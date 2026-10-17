@@ -18,3 +18,4 @@
 /supabase/*            /404.html   404!
 /LISEZMOI.md           /404.html   404!
 /changer-domaine.py    /404.html   404!
+/netlify.toml          /404.html   404!

@@ -1,0 +1,6 @@
+# Castel Studio — configuration Netlify.
+# Site statique : aucune commande de build, on publie le dossier tel quel.
+# Si le dépôt Git est relié, régler « Base directory » sur castel-studio-v9.
+[build]
+  publish = "."
+  command = ""
