@@ -1,0 +1,3 @@
+Déposez ici les captures de VOS scans Local Falcon (une par agence prospectée ou cliente),
+au format .webp ou .jpg, puis indiquez leur chemin dans la colonne « scan » de prospects.csv.
+N'y mettez jamais la capture d'une autre agence.

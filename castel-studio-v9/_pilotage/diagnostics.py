@@ -18,6 +18,11 @@ déclencher l'alerte d'ouverture.
 Relevé des données : tapez la requête sur Google Maps (navigation privée,
 depuis le secteur), notez la position de l'agence, sa note, son nombre d'avis,
 la date du dernier avis, et les trois premières fiches. Cinq minutes par agence.
+
+Colonnes facultatives :
+  scan   chemin d'une capture de VOTRE scan Local Falcon pour cette agence,
+         déposée dans assets/scans/ (ex. assets/scans/agence-angers.webp)
+  video  lien YouTube non répertorié ou fichier MP4 de votre explication
 """
 import csv, datetime, hashlib, html, os, re, sys, unicodedata
 
@@ -92,6 +97,14 @@ def page(p, slug, jusqu_au):
         for ok, t, bon, mauvais in constats)
     a_corriger = sum(1 for c in constats if not c[0])
 
+    scan = (p.get("scan") or "").strip()
+    bloc_scan = ""
+    if scan:
+        src = scan if re.match(r"https?://", scan) else "/" + scan.lstrip("/")
+        bloc_scan = (f'<figure class="photo-cadre mt-m"><img src="{e(src)}" alt="Grille de positionnement de {e(agence)} sur « {e(requete)} »" loading="lazy" decoding="async" style="height:auto">'
+                     f'<figcaption>Votre position, point par point, sur « {e(requete)} » : relevé du {date_fr(datetime.date.today())}. '
+                     f'Chaque pastille est un point de recherche autour de l\'agence, le chiffre est votre rang.</figcaption></figure>')
+
     video = (p.get("video") or "").strip()
     bloc_video = ""
     if video:
@@ -152,6 +165,7 @@ def page(p, slug, jusqu_au):
       <div class="de-c"><b>{a_corriger}/4</b><span>réglages de la fiche à corriger, relevés ci-dessous.</span></div>
     </div>
     <div class="diag-constats mt-m" data-cascade>{ck}</div>
+    {bloc_scan}
     {bloc_video}
   </div>
 </section>

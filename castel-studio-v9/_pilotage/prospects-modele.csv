@@ -1,3 +1,3 @@
-agence,ville,email,prenom,requete,position,note,avis,dernier_avis,categorie_ok,lien_estimation,photos_recentes,reponses_avis,c1_nom,c1_note,c1_avis,c2_nom,c2_note,c2_avis,c3_nom,c3_note,c3_avis,video
-Agence Exemple Lisière,Angers,contact@exemple-agence.fr,Thomas,,9,"4,9",11,il y a 7 mois,non,non,non,non,Immobilière du Square,"4,8",212,Agence des Remparts,"4,7",126,Cabinet Ardoise,"4,6",98,
-Exemple Habitat,Poitiers,bonjour@exemple-habitat.fr,,,5,"4,6",38,il y a 3 semaines,oui,non,oui,non,Maison Centre Immo,"4,9",164,Poitou Transactions,"4,7",91,Clos & Pierre,"4,8",77,
+agence,ville,email,prenom,requete,position,note,avis,dernier_avis,categorie_ok,lien_estimation,photos_recentes,reponses_avis,c1_nom,c1_note,c1_avis,c2_nom,c2_note,c2_avis,c3_nom,c3_note,c3_avis,video,scan
+Agence Exemple Lisière,Angers,contact@exemple-agence.fr,Thomas,,9,"4,9",11,il y a 7 mois,non,non,non,non,Immobilière du Square,"4,8",212,Agence des Remparts,"4,7",126,Cabinet Ardoise,"4,6",98,,
+Exemple Habitat,Poitiers,bonjour@exemple-habitat.fr,,,5,"4,6",38,il y a 3 semaines,oui,non,oui,non,Maison Centre Immo,"4,9",164,Poitou Transactions,"4,7",91,Clos & Pierre,"4,8",77,,
