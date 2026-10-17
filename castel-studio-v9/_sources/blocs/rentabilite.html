@@ -1,0 +1,25 @@
+<section class="sect fond-ivoire" id="rentabilite">
+  <div class="shell">
+    <div class="split rev">
+      <div>
+        <span class="etiq">Le calcul</span>
+        <h2 data-lignes>Un seul mandat<br>rembourse le Pack.</h2>
+        <p class="lead mt-s">Ajustez le prix moyen des biens de votre secteur et vos honoraires. Le calcul compare les honoraires hors taxes d'une seule vente à ce que coûte le Pack sur une année complète.</p>
+        <p class="lead mt-s">On ne vous promet pas de mandats&nbsp;: on vous montre qu'il en suffit d'<b>un seul</b> de plus par an pour que l'investissement soit largement couvert.</p>
+      </div>
+      <div class="calc" data-calcul>
+        <label class="calc-l"><span>Prix de vente moyen dans votre secteur <output data-sortie="prix">280 000 €</output></span>
+          <input type="range" name="prix" min="100000" max="1500000" step="10000" value="280000"></label>
+        <label class="calc-l"><span>Honoraires moyens (TTC) <output data-sortie="taux">5 %</output></span>
+          <input type="range" name="taux" min="2" max="8" step="0.5" value="5"></label>
+        <div class="calc-res">
+          <p><span>Honoraires d'une vente, hors taxes</span><b data-res="hono">11 667 €</b></p>
+          <p><span>Coût du Pack sur 12 mois, hors taxes</span><b data-res="cout">2 778 €</b></p>
+          <p class="calc-x"><span>Une seule vente de plus par an couvre le Pack</span><b data-res="ratio">4,2 ×</b></p>
+        </div>
+        <p class="calc-note">990&nbsp;€ de mise en place + 12 × 149&nbsp;€. Calcul indicatif&nbsp;: honoraires TTC ÷ 1,2.</p>
+        <a class="btn btn-clair calc-cta" href="services.html#commander">Réserver mon secteur {{i:fleche}}</a>
+      </div>
+    </div>
+  </div>
+</section>

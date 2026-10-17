@@ -115,6 +115,8 @@
   <input name="agence"><input name="ville"><input name="position"><input name="avis"><input name="collecte">
   <input name="mandats"><input name="email"><input name="telephone"><input name="score"><input name="priorites"><input name="bot-field">
 </form>
+<!-- Signal d'ouverture des diagnostics personnalisés (d/*.html) : déclaré ici pour que Netlify le détecte toujours. -->
+<form name="ouverture" data-netlify="true" hidden><input name="agence"><input name="page"><input name="quand"></form>
 
 <section class="sect fond-blanc">
   <div class="shell">
@@ -250,6 +252,7 @@
     </div>
   </div>
 </footer>
+<nav class="barre-mobile" aria-label="Actions rapides"><a class="btn btn-ligne" href="audit.html">Audit gratuit</a><a class="btn btn-plein" href="services.html#commander">Réserver le Pack</a></nav>
 <script src="assets/js/config.js?v=9"></script>
 <script src="assets/js/donnees.js?v=9" defer></script>
 <script src="assets/js/castel.js?v=9" defer></script>

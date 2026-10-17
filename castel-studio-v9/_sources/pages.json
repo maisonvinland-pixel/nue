@@ -123,7 +123,8 @@
       "couv": "avis",
       "cat": "Avis Google",
       "minutes": 6,
-      "chapo": "Un client heureux n'écrit pas d'avis spontanément. Il en écrit un si on le lui demande au bon moment, par le bon canal, en un seul geste."
+      "chapo": "Un client heureux n'écrit pas d'avis spontanément. Il en écrit un si on le lui demande au bon moment, par le bon canal, en un seul geste.",
+      "photo": "signature"
     }
   },
   "blog-mandats-exclusifs-google-maps.html": {
@@ -146,7 +147,8 @@
       "couv": "mandats",
       "cat": "Mandats",
       "minutes": 7,
-      "chapo": "Avant de vous appeler, le propriétaire a comparé trois agences sur son téléphone. Ce qu'il regarde, dans quel ordre, et comment être celle qu'il appelle."
+      "chapo": "Avant de vous appeler, le propriétaire a comparé trois agences sur son téléphone. Ce qu'il regarde, dans quel ordre, et comment être celle qu'il appelle.",
+      "photo": "cles"
     }
   },
   "blog-page-estimation-locale.html": {
@@ -169,7 +171,8 @@
       "couv": "page",
       "cat": "Landing page",
       "minutes": 7,
-      "chapo": "Le vendeur clique sur « Site Web » et tombe sur vos annonces. Il ne cherchait pas un bien : il cherchait à savoir combien vaut le sien."
+      "chapo": "Le vendeur clique sur « Site Web » et tombe sur vos annonces. Il ne cherchait pas un bien : il cherchait à savoir combien vaut le sien.",
+      "photo": "facades"
     }
   },
   "blog-mandataire-visibilite-google.html": {
@@ -215,7 +218,8 @@
       "couv": "reseaux",
       "cat": "Stratégie",
       "minutes": 6,
-      "chapo": "Les réseaux nationaux ont la notoriété et les procédures. L'indépendant a la proximité, la réactivité et la qualité de service. Sur Google Maps, c'est ça qui se voit — à condition de le montrer."
+      "chapo": "Les réseaux nationaux ont la notoriété et les procédures. L'indépendant a la proximité, la réactivité et la qualité de service. Sur Google Maps, c'est ça qui se voit — à condition de le montrer.",
+      "photo": "rue-centre"
     }
   },
   "cgv.html": {

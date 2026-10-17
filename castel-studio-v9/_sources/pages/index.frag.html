@@ -1,27 +1,21 @@
-<section class="hero">
+<section class="hero hero-centre">
   <div class="aplats" aria-hidden="true">
     <div class="aplat aplat-1"></div><div class="aplat aplat-2"></div><div class="aplat aplat-3"></div>
   </div>
   <div class="shell">
-    <div class="hero-grille">
-      <div class="rev vu">
-        <span class="etiq">Agences immobilières &middot; Réseaux de mandataires</span>
-        <h1>Vos mandats exclusifs<br>se signent sur Google Maps.<br><span class="surligne">Pas <em>chez vous&nbsp;?</em></span></h1>
-        <p class="lead mt-s">Un propriétaire qui veut vendre tape «&nbsp;agence immobilière&nbsp;» suivi de sa ville. Il compare trois fiches, lit les avis, appelle la première qui le rassure.
-          Le <b>Pack Monopole Local Immobilier</b> fait de votre agence cette fiche-là — et la maintient en tête.</p>
-        <div class="btn-rang mt-m">
-          <a class="btn btn-plein" href="audit.html">Auditer ma fiche gratuitement {{i:fleche}}</a>
-          <a class="btn btn-ligne" href="services.html#commander">Réserver le Pack &mdash; 990&nbsp;€&nbsp;HT</a>
-        </div>
-        <div class="hero-note">
-          <span>{{i:bouclier}} 10 avis 5&nbsp;&#9733; garantis en 30 jours</span>
-          <span>{{i:carte}} 100&nbsp;% à distance</span>
-          <span>{{i:cle}} Tout reste à votre nom</span>
-        </div>
+    <div class="hero-texte rev vu">
+      <a class="hero-puce" href="index.html#garantie"><i>{{i:bouclier}}</i><span>Garantie contractuelle&nbsp;: 10 avis 5&nbsp;&#9733; en 30 jours</span><b>Lire {{i:fleche}}</b></a>
+      <h1>Vos mandats exclusifs se signent<br>sur Google Maps. <span class="surligne">Pas <em>chez vous&nbsp;?</em></span></h1>
+      <p class="lead">Le propriétaire qui veut vendre tape «&nbsp;agence immobilière&nbsp;» et le nom de sa ville. Il compare trois fiches, lit les avis, appelle la première qui le rassure. Le <b>Pack Monopole Local Immobilier</b> fait de votre agence cette fiche-là.</p>
+      <div class="btn-rang">
+        <a class="btn btn-plein" href="audit.html">Auditer ma fiche gratuitement {{i:fleche}}</a>
+        <a class="btn btn-ligne" href="#demo">{{i:lecture}} Voir la démo (30 s)</a>
       </div>
-      <div class="rev vu rev-d2">
-        {{bloc:comparatif}}
-      </div>
+      {{bloc:fondateurs}}
+    </div>
+    <div class="rev vu rev-d2">{{bloc:trio}}</div>
+    <div class="pilules rev vu" aria-label="Ce que comprend le Pack">
+      <span>{{i:loupe}} Fiche Google reprise</span><span>{{i:message}} Avis après chaque signature</span><span>{{i:document}} Page d'estimation locale</span><span>{{i:courbe}} Suivi de position mensuel</span><span>{{i:carte}} 100&nbsp;% à distance</span><span>{{i:cle}} Tout reste à votre nom</span>
     </div>
   </div>
 </section>
@@ -62,7 +56,21 @@
   </div>
 </section>
 
-<section class="sect fond-blanc" id="demo">
+<section class="sect fond-blanc" id="avant-apres">
+  <div class="shell">
+    <div class="split rev">
+      <div>
+        <span class="etiq">Avant / après</span>
+        <h2 data-lignes>Glissez.<br>C'est tout le métier.</h2>
+        <p class="lead mt-s">À gauche, ce que voit aujourd'hui un vendeur qui cherche une agence dans votre ville. À droite, la même recherche après le Pack Monopole&nbsp;: votre fiche en tête, une note solide, un bouton «&nbsp;Estimer mon bien&nbsp;».</p>
+        <div class="btn-rang mt-m"><a class="btn btn-plein" href="audit.html">Voir où j'en suis {{i:fleche}}</a><a class="btn btn-ligne" href="realisations.html">Toutes les simulations</a></div>
+      </div>
+      <div>{{bloc:comparatif}}</div>
+    </div>
+  </div>
+</section>
+
+<section class="sect fond-ivoire" id="demo">
   <div class="shell">
     <div class="split split-large rev">
       <div>
@@ -80,7 +88,7 @@
   </div>
 </section>
 
-<section class="sect fond-ivoire" id="pack">
+<section class="sect fond-blanc" id="pack">
   <div class="shell">
     <div class="sect-tete-large rev">
       <div><span class="etiq">Une seule offre</span><h2 data-lignes>Le Pack Monopole<br>Local Immobilier.</h2></div>
@@ -113,6 +121,8 @@
     </div>
   </div>
 </section>
+
+{{bloc:rentabilite}}
 
 {{bloc:garantie}}
 

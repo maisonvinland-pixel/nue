@@ -3,5 +3,6 @@ Allow: /
 Disallow: /admin.html
 Disallow: /bienvenue.html
 Disallow: /film.html
+Disallow: /d/
 
 Sitemap: https://castelstudio.netlify.app/sitemap.xml

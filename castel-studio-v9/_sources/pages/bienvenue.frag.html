@@ -4,21 +4,67 @@
     <div class="rev vu" style="max-width:760px">
       <span class="page-icone">{{i:coche}}</span>
       <h1>Votre secteur<br>est réservé.</h1>
-      <p class="lead mt-s">Merci pour votre confiance. Le paiement est confirmé et le reçu Stripe arrive dans votre boîte mail. Voici ce qui se passe maintenant.</p>
+      <p class="lead mt-s">Merci pour votre confiance. Le paiement est confirmé et le reçu Stripe arrive dans votre boîte mail. Il reste une seule étape de votre côté&nbsp;: le formulaire de lancement ci-dessous, dix minutes, sans appel.</p>
     </div>
   </div>
 </section>
 
 <section class="sect fond-blanc" style="padding-top:0">
   <div class="shell">
-    <div class="etapes" data-cascade>
-      <div class="etape"><span class="etape-num">1</span><h3>Sous 48 h ouvrées</h3><p>On vous appelle pour fixer l'appel de lancement de vingt minutes. Vous pouvez aussi le réserver tout de suite ci-dessous.</p></div>
-      <div class="etape"><span class="etape-num">2</span><h3>À préparer</h3><p>L'accès gestionnaire à votre fiche Google, une dizaine de photos récentes, et l'export de vos clients des 24 derniers mois (nom, téléphone, date de signature).</p></div>
-      <div class="etape"><span class="etape-num">3</span><h3>Quatorze jours ouvrés au plus</h3><p>Fiche reconstruite, avis en route, landing page en ligne. L'abonnement et la Garantie Castel démarrent à la mise en service.</p></div>
-    </div>
-    <div class="btn-rang mt-m">
-      <a class="btn btn-plein" href="contact.html?objet=lancement" data-reserver>{{i:horloge}} Réserver mon appel de lancement</a>
-      <a class="btn btn-ligne" href="{{WA}}" target="_blank" rel="noopener">Écrire sur WhatsApp</a>
+    <div class="split split-haut">
+      <div>
+        <form name="lancement" method="POST" action="bienvenue.html?envoye=1#lancement" data-netlify="true" netlify-honeypot="bot-field" enctype="multipart/form-data" class="form-pro" id="lancement">
+          <input type="hidden" name="form-name" value="lancement">
+          <p hidden><label>Ne pas remplir : <input name="bot-field"></label></p>
+          <fieldset class="fs">
+            <legend><span class="fs-n">1</span>L'agence</legend>
+            <div class="champ-duo">
+              <label class="champ"><span>Nom de l'agence <em>*</em></span><input type="text" name="agence" required autocomplete="organization"></label>
+              <label class="champ"><span>Ville ou secteur visé <em>*</em></span><input type="text" name="ville" required></label>
+            </div>
+            <div class="champ-duo">
+              <label class="champ"><span>Email de facturation <em>*</em></span><input type="email" name="email" required autocomplete="email"></label>
+              <label class="champ"><span>Téléphone</span><input type="tel" name="telephone" autocomplete="tel"></label>
+            </div>
+            <label class="champ"><span>Lien de votre fiche Google</span><input type="url" name="fiche" placeholder="https://maps.app.goo.gl/…"><small class="aide">Sur Google Maps : votre fiche → Partager → Copier le lien. Laissez vide si vous n'avez pas encore de fiche.</small></label>
+          </fieldset>
+          <fieldset class="fs">
+            <legend><span class="fs-n">2</span>Les accès</legend>
+            <label class="case case-rgpd"><input type="checkbox" name="acces" value="J'ai ajouté Castel Studio comme gestionnaire" required><span><span><b>J'ajoute Castel Studio comme gestionnaire de ma fiche</b><i>Google Business Profile → Paramètres → Personnes et accès → Ajouter → {{EMAIL}}, rôle « Gestionnaire ». Vous restez propriétaire.</i></span></span></label>
+          </fieldset>
+          <fieldset class="fs">
+            <legend><span class="fs-n">3</span>Les avis</legend>
+            <label class="champ"><span>Export de vos clients des 24 derniers mois</span><input type="file" name="clients" accept=".csv,.xlsx,.xls,.txt"><small class="aide">Prénom, nom, téléphone, date de signature. Un export de votre logiciel suffit. Fichier transmis de façon chiffrée, utilisé uniquement pour la demande d'avis (CGV, article 11).</small></label>
+            <div class="champ">
+              <span class="champ-t">Quand envoyer la demande d'avis&nbsp;?</span>
+              <div class="cases">
+                <label class="case"><input type="checkbox" name="moments" value="Compromis" checked><span><b>Au compromis</b></span></label>
+                <label class="case"><input type="checkbox" name="moments" value="Acte authentique" checked><span><b>À l'acte</b></span></label>
+                <label class="case"><input type="checkbox" name="moments" value="Remise des clés (location)"><span><b>À la remise des clés</b></span></label>
+                <label class="case"><input type="checkbox" name="moments" value="Gestion locative"><span><b>En gestion locative</b></span></label>
+              </div>
+            </div>
+            <label class="champ"><span>Prénoms des agents qui signeront les messages</span><input type="text" name="agents" placeholder="Thomas, Julie…"></label>
+          </fieldset>
+          <label class="champ"><span>Une précision&nbsp;?</span><textarea name="message" rows="3" placeholder="Concurrents directs, quartiers prioritaires, contraintes de votre réseau…"></textarea></label>
+          <div class="form-bas"><button class="btn btn-plein" type="submit"><span>Envoyer et lancer la mise en service</span> {{i:fleche}}</button>
+            <p class="form-promesse">{{i:coche}} Mise en service en quatorze jours ouvrés au plus · tout se valide par écrit</p></div>
+        </form>
+      </div>
+      <div>
+        <div class="encart">
+          <h3>Ce qui se passe ensuite.</h3>
+          <div class="etapes mt-m" style="grid-template-columns:1fr">
+            <div class="etape"><span class="etape-num">J1</span><h3>Relevé de départ</h3><p>Position, avis, état de la fiche&nbsp;: capturés et datés, envoyés par email.</p></div>
+            <div class="etape"><span class="etape-num">J7</span><h3>Textes à valider</h3><p>Fiche, message d'avis, landing page&nbsp;: vous validez ou corrigez par écrit.</p></div>
+            <div class="etape"><span class="etape-num">J14</span><h3>Mise en service</h3><p>L'abonnement et la Garantie Castel démarrent.</p></div>
+          </div>
+          <div class="btn-rang mt-m">
+            <a class="btn btn-ligne" href="{{WA}}" target="_blank" rel="noopener">{{i:wa}} Une question sur WhatsApp</a>
+            <a class="btn btn-ligne" href="contact.html?objet=lancement" data-reserver>{{i:horloge}} Préférer un appel</a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>

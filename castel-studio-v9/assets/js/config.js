@@ -21,6 +21,12 @@ window.CASTEL = {
     setup2x: ""
   },
 
+  /* ── L'offre de lancement « agences fondatrices » ──────────────────────
+     Premier mois d'abonnement offert aux premières agences. Mettez à jour
+     « restantes » à chaque signature ; à 0 (ou actif: false), le bandeau
+     disparaît partout. Ne l'affichez que si c'est vrai.                     */
+  fondateurs: { actif: true, places: 5, restantes: 5 },
+
   /* ── La prise de rendez-vous ────────────────────────────────────────────
      Lien public de votre agenda (Calendly, Cal.com, Google Agenda…) pour
      l'appel de 20 minutes. Vide → formulaire de contact.                     */

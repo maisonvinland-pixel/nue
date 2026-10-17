@@ -1,7 +1,9 @@
 # Castel Studio v9 — refonte immobilier
 
 Dossier prêt à déposer tel quel sur Netlify (glisser-déposer, ou dépôt Git avec ce dossier comme racine).
-`LISEZMOI.md`, `_sources/`, `supabase/` et `changer-domaine.py` ne sont jamais servis (voir `_redirects`).
+`LISEZMOI.md`, `_sources/`, `_pilotage/`, `supabase/` et `changer-domaine.py` ne sont jamais servis (voir `_redirects`).
+
+**Le plan d'acquisition et l'outil de prospection sont dans `_pilotage/`** : commencez par `_pilotage/PLAN-ACQUISITION.md`.
 
 ## À faire avant la mise en ligne
 
@@ -19,6 +21,17 @@ Dossier prêt à déposer tel quel sur Netlify (glisser-déposer, ou dépôt Git
 4. **Vidéo** (`config.js` → `videoDemo`) : MP4, YouTube ou Vimeo. Vide → le film animé `film.html` est joué.
 5. **Netlify Forms** : activer la détection des formulaires. Deux formulaires remontent : `contact` et `audit`.
 6. **Supabase** : exécuter `supabase/01-securite-et-citations.sql` (vérification RLS, verrou sur `demandes` et `audits`).
+
+## Prospection : les diagnostics personnalisés
+
+1. Copier `_pilotage/prospects-modele.csv` en `_pilotage/prospects.csv` et le remplir (une ligne par agence).
+2. `python3 _pilotage/diagnostics.py _pilotage/prospects.csv` → pages `d/*.html` + `_pilotage/envois.csv` (emails J0, J3, J7).
+3. Redéployer. Relire une page avec `?apercu` (n'envoie pas l'alerte d'ouverture).
+4. Chaque ouverture de diagnostic arrive comme une soumission du formulaire Netlify « ouverture ».
+
+## Offre de lancement
+
+`config.js` → `fondateurs` : premier mois offert, nombre de places. Mettre `restantes` à jour à chaque vente ; à 0, le bandeau disparaît.
 
 ## Ce qui a changé par rapport à la v8
 

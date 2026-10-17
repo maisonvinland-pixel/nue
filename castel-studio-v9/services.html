@@ -232,6 +232,33 @@
   </div>
 </section>
 
+<section class="sect fond-ivoire" id="rentabilite">
+  <div class="shell">
+    <div class="split rev">
+      <div>
+        <span class="etiq">Le calcul</span>
+        <h2 data-lignes>Un seul mandat<br>rembourse le Pack.</h2>
+        <p class="lead mt-s">Ajustez le prix moyen des biens de votre secteur et vos honoraires. Le calcul compare les honoraires hors taxes d'une seule vente à ce que coûte le Pack sur une année complète.</p>
+        <p class="lead mt-s">On ne vous promet pas de mandats&nbsp;: on vous montre qu'il en suffit d'<b>un seul</b> de plus par an pour que l'investissement soit largement couvert.</p>
+      </div>
+      <div class="calc" data-calcul>
+        <label class="calc-l"><span>Prix de vente moyen dans votre secteur <output data-sortie="prix">280 000 €</output></span>
+          <input type="range" name="prix" min="100000" max="1500000" step="10000" value="280000"></label>
+        <label class="calc-l"><span>Honoraires moyens (TTC) <output data-sortie="taux">5 %</output></span>
+          <input type="range" name="taux" min="2" max="8" step="0.5" value="5"></label>
+        <div class="calc-res">
+          <p><span>Honoraires d'une vente, hors taxes</span><b data-res="hono">11 667 €</b></p>
+          <p><span>Coût du Pack sur 12 mois, hors taxes</span><b data-res="cout">2 778 €</b></p>
+          <p class="calc-x"><span>Une seule vente de plus par an couvre le Pack</span><b data-res="ratio">4,2 ×</b></p>
+        </div>
+        <p class="calc-note">990&nbsp;€ de mise en place + 12 × 149&nbsp;€. Calcul indicatif&nbsp;: honoraires TTC ÷ 1,2.</p>
+        <a class="btn btn-clair calc-cta" href="services.html#commander">Réserver mon secteur <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
 <section class="sect garantie" id="garantie" aria-labelledby="garantie-titre">
   <div class="shell">
     <div class="gar-grille">
@@ -269,7 +296,7 @@
 
 <section class="sect fond-ivoire">
   <div class="shell">
-    <div class="sect-tete rev"><span class="etiq">Commander</span><h2>Réservez votre secteur.</h2><p class="lead mt-s">Nous n'accompagnons jamais deux agences concurrentes sur la même zone. Dès que la commande est passée, votre secteur vous est réservé et l'appel de lancement est planifié sous 48&nbsp;h ouvrées.</p></div>
+    <div class="sect-tete rev"><span class="etiq">Commander</span><h2>Réservez votre secteur.</h2><p class="lead mt-s">Nous n'accompagnons jamais deux agences concurrentes sur la même zone. Dès que la commande est passée, votre secteur vous est réservé. La suite se fait par écrit, ou par un appel de vingt minutes si vous le préférez.</p></div>
     <div class="mt-m rev"><div class="tarif" id="commander" data-commande>
   <div class="tarif-prix">
     <span class="etiq">Pack Monopole Local Immobilier</span>
@@ -282,6 +309,8 @@
     </ul>
   </div>
   <div class="tarif-choix">
+    <p class="fondateurs" data-fondateurs hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5l2.7 5.6 6.1.8-4.5 4.3 1.1 6.1L12 17.4l-5.4 2.9 1.1-6.1L3.2 9.9l6.1-.8z"/></svg><span><b>Offre de lancement</b> &mdash; il reste <b data-f-restantes>5</b> places «&nbsp;agence fondatrice&nbsp;» sur <span data-f-places>5</span>&nbsp;: <em>le premier mois d'abonnement est offert.</em></span></p>
+
     <p class="tc-t">Comment souhaitez-vous régler la mise en place&nbsp;?</p>
     <div class="tc-options" role="radiogroup" aria-label="Mode de paiement de la mise en place">
       <label class="tc-option"><input type="radio" name="mode-paiement" value="1x" checked><span><b>En une fois</b><i>990&nbsp;€&nbsp;HT aujourd'hui</i></span></label>
@@ -293,11 +322,16 @@
   </div>
 </div>
 </div>
-    <div class="etapes mt-m" data-cascade>
-      <div class="etape"><span class="etape-num">1</span><h3>Vous réglez la mise en place</h3><p>En une ou deux fois, par carte via Stripe. La facture part au nom de votre agence.</p></div>
-      <div class="etape"><span class="etape-num">2</span><h3>Appel de lancement</h3><p>Vingt minutes&nbsp;: accès à la fiche, export de vos clients, choix des moments d'envoi.</p></div>
-      <div class="etape"><span class="etape-num">3</span><h3>Mise en service</h3><p>Fiche reconstruite, avis en route, page en ligne. L'abonnement et la garantie démarrent.</p></div>
-    </div>
+    <div class="sans-appel rev">
+  <div class="sa-t"><span class="etiq">Pas besoin d'appel</span><h3>Tout peut se faire par écrit.</h3><p>Vous préférez avancer sans rendez-vous&nbsp;? Commandez en ligne, posez vos questions sur WhatsApp ou par email, validez chaque texte par écrit. L'appel de vingt minutes reste possible, jamais obligatoire.</p></div>
+  <ol class="sa-etapes">
+    <li><b>1</b><span>Paiement en ligne de la mise en place</span></li>
+    <li><b>2</b><span>Formulaire d'accès et export de vos clients, en 10 minutes</span></li>
+    <li><b>3</b><span>Vous validez les textes par email ou WhatsApp</span></li>
+    <li><b>4</b><span>Mise en service, puis un rapport écrit chaque mois</span></li>
+  </ol>
+</div>
+
   </div>
 </section>
 
@@ -372,6 +406,7 @@
     </div>
   </div>
 </footer>
+<nav class="barre-mobile" aria-label="Actions rapides"><a class="btn btn-ligne" href="audit.html">Audit gratuit</a><a class="btn btn-plein" href="services.html#commander">Réserver le Pack</a></nav>
 <script src="assets/js/config.js?v=9"></script>
 <script src="assets/js/donnees.js?v=9" defer></script>
 <script src="assets/js/castel.js?v=9" defer></script>

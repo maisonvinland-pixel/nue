@@ -177,10 +177,10 @@
   var Paiement = window.CastelPaiement = {
     lien: function (mode) {
       var url = mode === "2x" ? STRIPE.setup2x : STRIPE.setup1x;
-      return url || ("contact.html?offre=pack-" + (mode === "2x" ? "2x" : "1x"));
+      return url || ("/contact.html?offre=pack-" + (mode === "2x" ? "2x" : "1x"));
     },
     reservation: function (objet) {
-      return CFG.reservation || ("contact.html?objet=" + (objet || "appel"));
+      return CFG.reservation || ("/contact.html?objet=" + (objet || "appel"));
     },
     externe: function (url) { return /^https?:/.test(url); }
   };
@@ -209,6 +209,75 @@
     var objet = (/objet=([a-z]+)/.exec(a.getAttribute("href") || "") || [])[1];
     brancherLien(a, Paiement.reservation(objet));
   });
+
+
+  /* ══════════════════════════════════════════════════════════════════════
+     LES LEVIERS DE CONVERSION — offre de lancement, calcul de rentabilité,
+     barre d'action mobile, confirmation du formulaire de lancement, et le
+     signal d'ouverture des diagnostics personnalisés.
+     ══════════════════════════════════════════════════════════════════════ */
+  var FOND = CFG.fondateurs || {};
+  var fondActif = !!(FOND.actif && FOND.restantes > 0);
+  document.querySelectorAll("[data-fondateurs]").forEach(function (el) {
+    if (!fondActif) return;
+    el.hidden = false;
+    var r = el.querySelector("[data-f-restantes]"), t = el.querySelector("[data-f-places]");
+    if (r) r.textContent = FOND.restantes;
+    if (t) t.textContent = FOND.places || FOND.restantes;
+  });
+  window.CastelFondateurs = fondActif ? FOND : null;
+
+  function euros(n) { return Math.round(n).toLocaleString("fr-FR").replace(/\u202f|\u00a0/g, " ") + " €"; }
+  document.querySelectorAll("[data-calcul]").forEach(function (calc) {
+    var prix = calc.querySelector('input[name="prix"]'), taux = calc.querySelector('input[name="taux"]');
+    var COUT = 990 + 12 * 149;
+    function maj() {
+      var p = +prix.value, t = +taux.value;
+      var hono = p * t / 100 / 1.2;
+      calc.querySelector('[data-sortie="prix"]').textContent = euros(p);
+      calc.querySelector('[data-sortie="taux"]').textContent = String(t).replace(".", ",") + " %";
+      calc.querySelector('[data-res="hono"]').textContent = euros(hono);
+      calc.querySelector('[data-res="cout"]').textContent = euros(COUT);
+      calc.querySelector('[data-res="ratio"]').textContent = (hono / COUT).toFixed(1).replace(".", ",") + " ×";
+    }
+    prix.addEventListener("input", maj);
+    taux.addEventListener("input", maj);
+    maj();
+  });
+
+  var barreM = document.querySelector(".barre-mobile");
+  if (barreM) {
+    var majBarreM = function () { barreM.classList.toggle("on", window.scrollY > 520); };
+    majBarreM();
+    window.addEventListener("scroll", majBarreM, { passive: true });
+  }
+
+  var lancement = document.getElementById("lancement");
+  if (lancement && /[?&]envoye=1/.test(location.search)) {
+    var ok = document.createElement("div");
+    ok.className = "form-merci";
+    ok.setAttribute("role", "status");
+    ok.innerHTML = '<h3>C\'est parti.</h3><p>Vos informations sont bien arrivées. Le relevé de départ vous parvient par email sous 24 h ouvrées, puis les textes à valider à J7.</p>';
+    lancement.replaceWith(ok);
+  }
+
+  /* Un diagnostic personnalisé ouvert = un prospect chaud. On le signale
+     une fois par visite (Netlify Forms envoie l'email), jamais quand vous
+     ouvrez vous-même la page avec ?apercu. */
+  var diag = document.querySelector("[data-diag-slug]");
+  if (diag && !/[?&]apercu/.test(location.search)) {
+    var cle = "castel-diag-" + diag.getAttribute("data-diag-slug");
+    var deja = false;
+    try { deja = !!sessionStorage.getItem(cle); sessionStorage.setItem(cle, "1"); } catch (e) {}
+    if (!deja) {
+      fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: "form-name=ouverture&agence=" + encodeURIComponent(diag.getAttribute("data-diag-agence") || "") +
+              "&page=" + encodeURIComponent(location.pathname) + "&quand=" + encodeURIComponent(new Date().toISOString())
+      }).catch(function () {});
+    }
+  }
 
   /* ══════════════════════════════════════════════════════════════════════
      LE COMPARATIF AVANT / APRÈS — le curseur découvre la carte « après ».
@@ -555,11 +624,13 @@
             '<span class="ao-t">La proposition</span>' +
             '<b class="ao-n">Pack Monopole Local Immobilier</b>' +
             '<p class="ao-p"><b>990&nbsp;€&nbsp;HT</b> de mise en place, puis <b>149&nbsp;€&nbsp;HT/mois</b> sans engagement.</p>' +
+            (window.CastelFondateurs ? '<p class="fondateurs"><span><b>Offre de lancement</b> — il reste <b>' + window.CastelFondateurs.restantes + '</b> places « agence fondatrice » : <em>le premier mois d\'abonnement est offert.</em></span></p>' : "") +
             '<div class="ao-btns">' +
-              lienHTML(P.reservation("appel"), "btn-clair", "Réserver mon appel de 20 min") +
-              lienHTML(P.lien("1x"), "btn-or", cadenas + " Payer la mise en place — 990&nbsp;€&nbsp;HT") +
-              lienHTML(P.lien("2x"), "btn-fantome", "En deux fois — 2 × 495&nbsp;€&nbsp;HT") +
+              lienHTML(P.lien("1x"), "btn-or", cadenas + " Réserver mon secteur — 990&nbsp;€&nbsp;HT") +
+              lienHTML(P.lien("2x"), "btn-clair", "En deux fois — 2 × 495&nbsp;€&nbsp;HT") +
+              lienHTML("https://wa.me/33623069005?text=" + encodeURIComponent("Bonjour, j'ai une question sur le Pack Monopole pour " + rep.agence + " (" + rep.ville + ")."), "btn-fantome", "Poser une question par écrit") +
             "</div>" +
+            '<p class="ao-note" style="margin-top:8px">Vous préférez en parler&nbsp;? <a href="' + echapper(P.reservation("appel")) + '">Réserver un appel de 20 min</a>.</p>' +
             '<p class="ao-note">' + (reseau
               ? 'Plusieurs agences ou mandataires ? <a href="contact.html?objet=reseau">Demandez un déploiement réseau</a>, chiffré par conseiller.'
               : 'Paiement sécurisé par Stripe. Votre secteur vous est réservé dès la commande. <a href="services.html">Le détail du Pack</a>.') + "</p>" +

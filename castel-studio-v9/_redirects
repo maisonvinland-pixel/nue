@@ -14,6 +14,7 @@
 
 # Fichiers de travail : jamais servis.
 /_sources/*            /404.html   404!
+/_pilotage/*           /404.html   404!
 /supabase/*            /404.html   404!
 /LISEZMOI.md           /404.html   404!
 /changer-domaine.py    /404.html   404!

@@ -317,10 +317,12 @@ def date_fr(d):
 ARTICLES = [f for f, m in PAGES.items() if m.get("article")]
 ARTICLES.sort(key=lambda f: PAGES[f]["article"]["date"], reverse=True)
 
-def couv(f, lazy=True):
+def couv(f, lazy=True, photo=True):
     a = PAGES[f]["article"]
-    return (f'<img src="assets/img/blog/{a["couv"]}.svg" alt="" width="1200" height="750" decoding="async"'
-            + (' loading="lazy"' if lazy else ' loading="eager" fetchpriority="high"') + '>')
+    charge = ' loading="lazy"' if lazy else ' loading="eager" fetchpriority="high"'
+    if photo and a.get("photo"):
+        return (f'<img src="assets/img/photos/{a["photo"]}.webp" alt="" width="512" height="341" decoding="async"' + charge + '>')
+    return (f'<img src="assets/img/blog/{a["couv"]}.svg" alt="" width="1200" height="750" decoding="async"' + charge + '>')
 
 def billet(f):
     a = PAGES[f]["article"]
@@ -357,7 +359,7 @@ def gabarit_article(f, meta):
 
 <section class="sect fond-blanc" style="padding-top:10px">
   <div class="shell">
-    <figure class="art-couv volet rev" style="max-width:980px;margin:0 auto 46px">{couv(f, False)}</figure>
+    <figure class="art-couv volet rev" style="max-width:980px;margin:0 auto 46px">{couv(f, False, False)}</figure>
     <div class="article rev">
 {corps.strip()}
       <div class="btn-rang mt-m">
@@ -456,6 +458,7 @@ def page(fichier, meta):
 </main>
 
 {pied()}
+<nav class="barre-mobile" aria-label="Actions rapides"><a class="btn btn-ligne" href="audit.html">Audit gratuit</a><a class="btn btn-plein" href="services.html#commander">Réserver le Pack</a></nav>
 {balises}
 </body>
 </html>
