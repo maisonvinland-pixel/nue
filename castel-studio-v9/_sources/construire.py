@@ -275,7 +275,7 @@ def faq_html(cle):
         f'<details class="faq-i"><summary>{html.escape(q)}</summary><div class="faq-r"><p>{r}</p></div></details>'
         for q, r in FAQS[cle])
     return (f'<section class="sect fond-blanc" id="faq">\n  <div class="shell">\n'
-            f'    <div class="sect-tete rev"><h2>Les questions que posent les agences.</h2></div>\n'
+            f'    <div class="sect-tete rev"><h2>Vos questions.</h2></div>\n'
             f'    <div class="faq rev">{items}</div>\n'
             f'    <p class="pitch mt-m rev">Une question qui n\'est pas là&nbsp;? <a href="contact.html">Écrivez-nous</a> ou appelez le <a href="tel:{TEL}">{TEL_AFF}</a>.</p>\n'
             f'  </div>\n</section>')
@@ -458,7 +458,7 @@ def page(fichier, meta):
 </main>
 
 {pied()}
-<nav class="barre-mobile" aria-label="Actions rapides"><a class="btn btn-ligne" href="audit.html">Audit gratuit</a><a class="btn btn-plein" href="services.html#commander">Réserver le Pack</a></nav>
+<nav class="barre-mobile" aria-label="Actions rapides"><a class="btn btn-ligne" href="audit.html">Score gratuit</a><a class="btn btn-plein" href="services.html#commander">Réserver</a></nav>
 {balises}
 </body>
 </html>

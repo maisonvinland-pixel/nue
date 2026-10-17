@@ -487,6 +487,14 @@
     ];
 
     var rep = { agence: "", ville: "", email: "", telephone: "", rappel: false };
+    // Arrivée depuis le champ « Votre ville » de l'accueil : la ville est déjà saisie.
+    var depuisAccueil = false;
+    try {
+      var qp = new URLSearchParams(location.search);
+      rep.ville = (qp.get("ville") || "").trim().slice(0, 80);
+      rep.agence = (qp.get("agence") || "").trim().slice(0, 80);
+      depuisAccueil = !!rep.ville;
+    } catch (e) {}
     var pts = {}, libelles = {};
     var etape = 0;
 
@@ -547,7 +555,7 @@
       var form = corps.querySelector("[data-saisie]");
       if (form) {
         var premier = form.querySelector("input");
-        if (premier && etape > 0) setTimeout(function () { premier.focus({ preventScroll: true }); }, 60);
+        if (premier && (etape > 0 || depuisAccueil)) setTimeout(function () { premier.focus({ preventScroll: true }); }, 60);
         form.addEventListener("submit", function (e) {
           e.preventDefault();
           var err = form.querySelector("[data-err]");
@@ -710,5 +718,7 @@
     }
 
     poser();
+    // Sur téléphone, on amène directement l'audit à l'écran.
+    if (depuisAccueil && window.innerWidth < 900) setTimeout(function () { bloc.scrollIntoView({ block: "start" }); }, 80);
   })();
 })();
