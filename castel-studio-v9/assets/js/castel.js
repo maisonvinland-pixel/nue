@@ -253,6 +253,25 @@
   }
 
   var lancement = document.getElementById("lancement");
+  // Le lancement part aussi dans la base, pour que le cockpit démarre la livraison.
+  // Netlify reçoit toujours le formulaire complet (fichier clients compris) juste après.
+  if (lancement && !/[?&]envoye=1/.test(location.search)) {
+    var lancementParti = false;
+    lancement.addEventListener("submit", function (e) {
+      if (lancementParti || !window.CastelDonnees || !CastelDonnees.actif || !lancement.checkValidity()) return;
+      e.preventDefault();
+      lancementParti = true;
+      var f = new FormData(lancement), v = function (k) { return String(f.get(k) || "").trim(); };
+      var suite = function () { HTMLFormElement.prototype.submit.call(lancement); };
+      CastelDonnees.enregistrer("lancements", {
+        agence: v("agence").slice(0, 160), ville: v("ville").slice(0, 120),
+        email: v("email").slice(0, 160), telephone: v("telephone").slice(0, 30),
+        details: { fiche: v("fiche").slice(0, 300), agents: v("agents").slice(0, 200),
+          moments: f.getAll("moments").map(String).slice(0, 6), message: v("message").slice(0, 2000),
+          fichier_clients: !!(f.get("clients") && f.get("clients").size) }
+      }).then(suite, suite);
+    });
+  }
   if (lancement && /[?&]envoye=1/.test(location.search)) {
     var ok = document.createElement("div");
     ok.className = "form-merci";

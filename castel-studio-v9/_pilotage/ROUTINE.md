@@ -11,11 +11,15 @@ du moteur Castel ».
 |---|---|
 | Cockpit (base de données) | https://claude.ai/artifact/EMEMURXfE46dAScMbUu2Lg — outil `ArtifactData` |
 | Site | dépôt `maisonvinland-pixel/nue`, branche `castel-studio-v9`, dossier `castel-studio-v9/` |
-| Ouvertures et leads | Supabase, projet `ponwkdlasixpmxagxlxk` : tables `ouvertures`, `audits`, `demandes` |
+| Ouvertures, leads, paiements | Supabase, projet `ponwkdlasixpmxagxlxk` : tables `ouvertures`, `audits`, `demandes`, `lancements` |
+| Emails (quand le connecteur est relié) | Gmail : brouillons et lecture des réponses |
 | Relevé Google Maps | Firecrawl (`firecrawl_scrape` sur `google.com/maps/search/...`) |
 
 Collections du cockpit : `reglages/principal`, `prospects/<slug>`, `leads/<id>`,
-`taches/<id>`, `journal/<id>`.
+`clients/<id>`, `taches/<id>`, `journal/<id>`.
+
+Le cockpit lit aussi Supabase en direct (toutes les minutes quand il est ouvert) : le
+moteur couvre les moments où personne ne l'a ouvert.
 
 ## Passage du matin (complet)
 
@@ -61,7 +65,24 @@ Collections du cockpit : `reglages/principal`, `prospects/<slug>`, `leads/<id>`,
 2. **Leads du site** : `audits` avec email non nul et `demandes`, créés depuis le
    dernier passage. Créer `leads/<id Supabase>` `{type: "audit"|"contact", nom, entreprise, email, telephone, score, message, quand, statut: "nouveau"}`
    si absent.
-3. **Journal** : une ligne `journal/<AAAAMMJJ-midi>` et `dernier_passage`.
+3. **Paiements** : pour chaque ligne de `lancements` qui n'a pas encore de client
+   (`clients` dont `lancement_id` = son id), créer `clients/<slug du prospect ou l-<8 premiers caractères de l'id>>`
+   `{agence, ville, email, telephone, lancement_id, slug, details, debut: <cree_le>, abonnement_actif: false, etapes}`
+   avec les étapes du cockpit (bienvenue J+1, acces J+2, avis J+5, fiche J+7, page J+7,
+   historique J+10, service J+14, garantie J+44, chacune `{cle, j, titre, fait: false}`),
+   et passer le prospect lié en `gagne`. Notifier : c'est un client qui vient de payer.
+4. **Gmail** (seulement si le connecteur répond) :
+   - réponses : chercher les fils reçus depuis le dernier passage dont l'expéditeur
+     est l'email d'un prospect `envoye` ou `ouvert` ; passer le prospect en `repondu`,
+     `repondu_le`, et créer un brouillon de réponse dans le fil (règles du Kit : écrit,
+     court, vers la réservation, aucun chiffre inventé). Un « stop » passe en `stop`, sans brouillon ;
+   - matin uniquement : créer les brouillons J0 des prospects `pret` (au plus `quota`, par
+     potentiel décroissant) et les brouillons J3/J7 des relances dues, puis noter
+     `brouillon_le` sur le prospect. Ne jamais envoyer.
+5. **Vendredi, passage de l'après-midi** : écrire `journal/<AAAAMMJJ-bilan>` avec le bilan de
+   la semaine (envoyés, ouvertures, réponses, ventes, taux, la décision pour la semaine
+   suivante : villes à garder ou changer, objet d'email à tester).
+6. **Journal** : une ligne `journal/<AAAAMMJJ-midi>` et `dernier_passage`.
 
 ## Règles
 
