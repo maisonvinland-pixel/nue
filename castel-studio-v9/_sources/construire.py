@@ -32,7 +32,11 @@ INSTA = "https://www.instagram.com/castelstudio.fr/"
 def _empreinte():
     import hashlib, glob
     h = hashlib.sha1()
-    for f in sorted([os.path.join(ICI, "assets", "castel.css")] + glob.glob(os.path.join(ICI, "js", "*.js"))):
+    fichiers = [os.path.join(ICI, "assets", "castel.css")] + glob.glob(os.path.join(ICI, "js", "*.js"))
+    if not os.path.exists(fichiers[0]):  # copie livrée dans _sources/ : on lit les ressources du site
+        site = os.path.dirname(ICI)
+        fichiers = [os.path.join(site, "assets", "css", "castel.css")] + glob.glob(os.path.join(site, "assets", "js", "*.js"))
+    for f in sorted(f for f in fichiers if os.path.exists(f)):
         h.update(open(f, "rb").read())
     return h.hexdigest()[:8]
 V = _empreinte()

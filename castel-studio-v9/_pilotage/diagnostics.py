@@ -24,7 +24,7 @@ Colonnes facultatives :
          déposée dans assets/scans/ (ex. assets/scans/agence-angers.webp)
   video  lien YouTube non répertorié ou fichier MP4 de votre explication
 """
-import csv, datetime, hashlib, html, os, re, sys, unicodedata
+import csv, datetime, hashlib, html, json, os, re, sys, unicodedata
 
 ICI = os.path.dirname(os.path.abspath(__file__))
 SITE_RACINE = os.path.dirname(ICI)
@@ -41,6 +41,13 @@ def slugifier(s):
 
 def oui(v):
     return (v or "").strip().lower() in ("oui", "o", "yes", "y", "1", "x", "vrai")
+
+def etat(v):
+    """True / False si le point a été vérifié, None s'il ne l'a pas été (case vide)."""
+    v = (v or "").strip().lower()
+    if not v:
+        return None
+    return v in ("oui", "o", "yes", "y", "1", "x", "vrai")
 
 def entier(v, defaut=0):
     m = re.search(r"\d+", v or "")
@@ -79,23 +86,29 @@ def page(p, slug, jusqu_au):
                f'<span class="dc-avis"><em>★</em> {avis} avis</span></div>')
 
     constats = [
-        (oui(p.get("categorie_ok")), "Catégorie principale",
+        (etat(p.get("categorie_ok")), "Catégorie principale",
          "« Agence immobilière » est bien votre catégorie principale.",
          "La catégorie principale n'est pas « Agence immobilière » : c'est le réglage qui pèse le plus sur cette recherche."),
-        (oui(p.get("lien_estimation")), "Bouton « Site Web »",
+        (etat(p.get("lien_estimation")), "Bouton « Site Web »",
          "Le bouton mène à une page qui parle aux vendeurs.",
          "Le bouton « Site Web » mène à vos annonces, pas à une page d'estimation : le vendeur qui clique ne trouve pas ce qu'il cherche."),
-        (oui(p.get("photos_recentes")), "Photos",
+        (etat(p.get("photos_recentes")), "Photos",
          "Des photos récentes rassurent le vendeur.",
          "Pas de photos récentes de l'agence, de l'équipe ou des biens vendus."),
-        (oui(p.get("reponses_avis")), "Réponses aux avis",
+        (etat(p.get("reponses_avis")), "Réponses aux avis",
          "Vous répondez aux avis : c'est lu par les vendeurs.",
          "Les avis restent sans réponse : un vendeur qui compare trois agences lit aussi les réponses."),
     ]
+    # Un point non vérifié n'est jamais affiché : on n'affirme que ce qu'on a constaté.
+    constats = [c for c in constats if c[0] is not None]
     ck = "".join(
         f'<div class="dk {"dk-ok" if ok else "dk-ko"}"><i>{"✓" if ok else "!"}</i><div><b>{t}</b><span>{bon if ok else mauvais}</span></div></div>'
         for ok, t, bon, mauvais in constats)
     a_corriger = sum(1 for c in constats if not c[0])
+    if constats:
+        carte3 = f'<div class="de-c"><b>{a_corriger}/{len(constats)}</b><span>réglages de la fiche à corriger, relevés ci-dessous.</span></div>'
+    else:
+        carte3 = f'<div class="de-c"><b>{leader}</b><span>avis pour la fiche la plus fournie du pack local. C\'est la barre à viser.</span></div>'
 
     scan = (p.get("scan") or "").strip()
     bloc_scan = ""
@@ -162,7 +175,7 @@ def page(p, slug, jusqu_au):
     <div class="diag-ecart mt-m" data-cascade>
       <div class="de-c"><b>{ecart}</b><span>avis d'écart avec la fiche la mieux notée du pack local.</span></div>
       <div class="de-c"><b>{titre_pos}</b><span>position sur « {e(requete)} ». Seules les trois premières sont vues sans faire défiler.</span></div>
-      <div class="de-c"><b>{a_corriger}/4</b><span>réglages de la fiche à corriger, relevés ci-dessous.</span></div>
+      {carte3}
     </div>
     <div class="diag-constats mt-m" data-cascade>{ck}</div>
     {bloc_scan}
@@ -250,11 +263,14 @@ def main():
         open(os.path.join(sortie, slug + ".html"), "w", encoding="utf-8").write(page(p, slug, jusqu_au))
         lien = f"{C.SITE}/d/{slug}.html"
         objet, j0, j3, j7 = emails(p, lien, jusqu_au)
-        rangs.append({"email": p.get("email", ""), "agence": p["agence"], "ville": p["ville"], "lien": lien,
+        rangs.append({"slug": slug, "email": p.get("email", ""), "agence": p["agence"], "ville": p["ville"], "lien": lien,
                       "objet": objet, "email_j0": j0, "relance_j3": j3, "relance_j7": j7})
     with open(os.path.join(ICI, "envois.csv"), "w", encoding="utf-8-sig", newline="") as f:
         w = csv.DictWriter(f, fieldnames=list(rangs[0].keys()) if rangs else ["email"])
         w.writeheader(); w.writerows(rangs)
+    # La même chose en JSON, pour le cockpit.
+    with open(os.path.join(ICI, "envois.json"), "w", encoding="utf-8") as f:
+        json.dump(rangs, f, ensure_ascii=False, indent=1)
     print(f"{len(rangs)} diagnostics écrits dans d/ · emails dans _pilotage/envois.csv")
 
 if __name__ == "__main__":

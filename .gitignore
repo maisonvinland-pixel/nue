@@ -12,3 +12,8 @@ performance.js
 .idea
 .vscode
 .env
+# Castel : fichiers de travail du moteur
+castel-studio-v9/_pilotage/prospects.csv
+castel-studio-v9/_pilotage/envois.csv
+castel-studio-v9/_pilotage/envois.json
+__pycache__/

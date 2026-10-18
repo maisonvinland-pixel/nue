@@ -276,6 +276,13 @@
         body: "form-name=ouverture&agence=" + encodeURIComponent(diag.getAttribute("data-diag-agence") || "") +
               "&page=" + encodeURIComponent(location.pathname) + "&quand=" + encodeURIComponent(new Date().toISOString())
       }).catch(function () {});
+      // Le même signal part dans la base : le cockpit le relève chaque matin.
+      if (window.CastelDonnees && CastelDonnees.actif) {
+        CastelDonnees.enregistrer("ouvertures", {
+          slug: diag.getAttribute("data-diag-slug"),
+          agence: (diag.getAttribute("data-diag-agence") || "").slice(0, 200)
+        }).catch(function () {});
+      }
     }
   }
 
