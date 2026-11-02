@@ -584,7 +584,7 @@ section { position: relative; }
 @media (min-width: 900px) { .product-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .product-card--feature { grid-column: span 2; } }
 .product-card { position: relative; display: flex; flex-direction: column; border-radius: var(--radius-lg); background: var(--coquille); border: 1px solid var(--line); overflow: hidden; transition: transform var(--t-slow) var(--ease), box-shadow var(--t-slow) var(--ease), border-color var(--t); }
 .product-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: var(--brume); }
-.product-card__media { position: relative; display: grid; place-items: center; aspect-ratio: 4 / 3; background: var(--brume-soft); overflow: hidden; }
+.product-card__media { position: relative; display: grid; place-items: center; aspect-ratio: 1 / 1; background: var(--brume-soft); overflow: hidden; }
 .product-card--feature .product-card__media { aspect-ratio: 1; background: var(--brume); }
 @media (min-width: 900px) {
   .product-card--feature { display: grid; grid-template-columns: 1fr 1fr; }
@@ -1253,3 +1253,46 @@ section { position: relative; }
 .kit-switch strong { font-size: .95rem; }
 .kit-switch span { font-size: var(--fs-sm); font-variant-numeric: tabular-nums; }
 .kit-switch small { font-size: .75rem; line-height: 1.3; color: var(--muted); }
+
+/* ---------- Héros : mini-carte produit ---------- */
+.hero-product { position: absolute; right: 0; bottom: 4%; z-index: 4; display: flex; align-items: center; gap: 12px; padding: 8px 14px 8px 8px; border-radius: 20px; background: color-mix(in srgb, var(--coquille) 90%, transparent); border: 1px solid color-mix(in srgb, var(--brume) 70%, transparent); box-shadow: var(--shadow-md); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); color: var(--encre); text-decoration: none; transition: transform var(--t) var(--ease), box-shadow var(--t) var(--ease); }
+.hero-product:hover { transform: translateY(-3px); }
+.hero-product img { width: 64px; height: 64px; border-radius: 14px; object-fit: cover; }
+.hero-product__txt { display: grid; line-height: 1.25; }
+.hero-product small { font-size: .72rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--bleu); }
+.hero-product strong { font-size: .98rem; }
+.hero-product__price { font-size: .9rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+.hero-product s { font-weight: 400; color: var(--muted); margin-left: 4px; }
+.hero-product .icon { width: 18px; height: 18px; color: var(--bleu); }
+@media (max-width: 979px) { .hero-product { right: 50%; transform: translateX(50%); bottom: 0; } .hero-product:hover { transform: translateX(50%) translateY(-3px); } .float-card--c { display: none; } }
+
+/* ---------- Cartes produit : seconde photo au survol ---------- */
+.product-card__alt { opacity: 0; transition: opacity 450ms var(--ease), transform 600ms var(--ease) !important; }
+@media (hover: hover) and (pointer: fine) { .product-card:hover .product-card__alt { opacity: 1; } }
+@media (hover: none), (pointer: coarse) { .product-card__alt { display: none; } }
+
+/* ---------- Galerie : flèches, zoom ---------- */
+.gallery__main { cursor: zoom-in; }
+.gallery__zoom, .gallery__nav { position: absolute; z-index: 3; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; border: 1px solid color-mix(in srgb, var(--brume) 70%, transparent); background: color-mix(in srgb, var(--coquille) 88%, transparent); color: var(--encre); box-shadow: var(--shadow-sm); cursor: pointer; transition: transform var(--t) var(--ease), opacity var(--t) var(--ease); }
+.gallery__zoom { top: 14px; right: 14px; }
+.gallery__nav { top: 50%; margin-top: -22px; }
+.gallery__nav--prev { left: 14px; }
+.gallery__nav--next { right: 14px; }
+.gallery__zoom:hover, .gallery__nav:hover { transform: scale(1.06); }
+@media (hover: hover) and (pointer: fine) { .gallery__nav { opacity: 0; } .gallery__main:hover .gallery__nav, .gallery__nav:focus-visible { opacity: 1; } }
+
+/* ---------- Visionneuse plein écran ---------- */
+.lightbox { width: 100vw; height: 100dvh; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; background: color-mix(in srgb, var(--coquille) 97%, var(--brume)); color: var(--encre); }
+.lightbox::backdrop { background: rgb(31 58 77 / .5); }
+.lightbox[open] { display: grid; grid-template-rows: 1fr auto; }
+.lightbox__stage { position: relative; display: grid; place-items: center; overflow: hidden; padding: 64px 16px 8px; }
+.lightbox__stage img { max-width: min(100%, 1100px); max-height: calc(100dvh - 140px); width: auto; height: auto; object-fit: contain; border-radius: var(--radius-lg); cursor: zoom-in; transition: transform 350ms var(--ease); }
+.lightbox__stage.is-zoomed img { transform: scale(2.2); cursor: zoom-out; }
+.lightbox__bar { display: flex; justify-content: center; gap: 16px; margin: 0; padding: 12px 16px 20px; font-size: var(--fs-sm); font-weight: 600; }
+.lightbox__bar span:last-child { color: var(--muted); font-variant-numeric: tabular-nums; }
+.lightbox__btn { position: absolute; z-index: 2; display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; border: 1px solid var(--line-strong); background: var(--coquille); color: var(--encre); box-shadow: var(--shadow-sm); cursor: pointer; }
+.lightbox__close { top: 12px; right: 12px; }
+.lightbox__prev, .lightbox__next { top: 50%; margin-top: -24px; }
+.lightbox__prev { left: 12px; }
+.lightbox__next { right: 12px; }
+.lb-open { overflow: hidden; }

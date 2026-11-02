@@ -39,6 +39,9 @@ Les photos sont fictives : aucune n’est une photo d’un produit réel.
   dans lesquels le vrai Nid détouré est posé par montage, pour qu’il reste identique aux autres photos.
 - **Gros plans** (`detail-*.jpg`) : recadrages des photos haute définition (voyant, USB-C, bouton, gravure).
 - **Gamme** (`gamme.jpg`) : montage de tous les produits sur un même fond.
+- **Haute définition** : les sources IA (1024 px) sont agrandies ×2 en local avec Real-ESRGAN (modèle ONNX,
+  sans service payant), puis détourées à nouveau ; les montages sont rendus en densité 2.
+  Chaque photo existe en trois tailles : `-s` (vignettes), standard et `-xl` (écrans haute densité, zoom).
 - **Image de partage** (`assets/og-image.jpg`) : montage `og` de `tools/compose.html` (logo, titre, photo de gamme).
 - Aucun texte n’apparaît sur les images, hormis le logo sur le coffret et l’écran de l’application.
 

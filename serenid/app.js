@@ -250,7 +250,9 @@
   /* ---------- Photos produit (assets/img : version grande + « -s » pour les vignettes) ---------- */
   const IMG = 'assets/img/';
   // Dimensions des fichiers : [largeur, hauteur, largeur de la version -s]
-  const photoSize = (f) => (f.startsWith('scene-') ? [1264, 848, 640] : f === 'gamme' ? [1264, 843, 640] : f.startsWith('detail-') ? [720, 720, 360] : [1000, 1000, 480]);
+  // Dimensions des fichiers : [largeur, hauteur, largeur -s, largeur -xl (0 = pas de version -xl)]
+  const photoSize = (f) => (f.startsWith('scene-') ? [1264, 848, 640, 2400] : f === 'gamme' ? [1264, 843, 640, 2400] : f.startsWith('detail-') ? [900, 900, 450, 0] : [1000, 1000, 600, 1800]);
+  const xlSrc = (f) => `${IMG}${f}${photoSize(f)[3] ? '-xl' : ''}.jpg`;
   const finishOf = (variant) => (variant === 'brume' ? 'brume' : 'coquille');
   const finishName = (variant) => (variant === 'brume' ? 'Brume' : 'Coquille');
   function contentsText(c) {
@@ -290,8 +292,9 @@
   }
   // <img> responsive ; alt vide si l’image est décorative (nom du produit déjà affiché à côté)
   function photoHTML(file, alt, { sizes = '(min-width: 1000px) 40vw, 90vw', lazy = true, cls = '' } = {}) {
-    const [W, H, w] = photoSize(file);
-    return `<img${cls ? ` class="${cls}"` : ''} src="${IMG}${file}.jpg" srcset="${IMG}${file}-s.jpg ${w}w, ${IMG}${file}.jpg ${W}w" sizes="${sizes}" width="${W}" height="${H}" alt="${esc(alt)}"${lazy ? ' loading="lazy"' : ''} decoding="async">`;
+    const [W, H, w, X] = photoSize(file);
+    const xl = X ? `, ${IMG}${file}-xl.jpg ${X}w` : '';
+    return `<img${cls ? ` class="${cls}"` : ''} src="${IMG}${file}.jpg" srcset="${IMG}${file}-s.jpg ${w}w, ${IMG}${file}.jpg ${W}w${xl}" sizes="${sizes}" width="${W}" height="${H}" alt="${esc(alt)}"${lazy ? ' loading="lazy"' : ''} decoding="async">`;
   }
   // « Dans la boîte » : contenu réel du colis, avec vignettes photo
   function boxHTML(p, variant) {
@@ -306,7 +309,7 @@
     extra.push('guide de pose illustré');
     return `<div class="inbox" data-inbox>
       <h2 class="inbox__title">Dans la boîte</h2>
-      <ul class="inbox__list">${rows.map((r) => `<li><img src="${IMG}${r[0]}.jpg" width="480" height="480" alt="" loading="lazy" decoding="async"><span><strong>${esc(r[1])}</strong><small>${esc(r[2])}</small></span></li>`).join('')}</ul>
+      <ul class="inbox__list">${rows.map((r) => `<li><img src="${IMG}${r[0]}.jpg" width="600" height="600" alt="" loading="lazy" decoding="async"><span><strong>${esc(r[1])}</strong><small>${esc(r[2])}</small></span></li>`).join('')}</ul>
       <p class="inbox__extra">${icon('i-check')}Et aussi : ${esc(extra.join(', '))}.</p>
     </div>`;
   }
@@ -318,7 +321,7 @@
   function thumbArt(p, variant) {
     const view = p.category === 'kits' ? 'kit' : p.id === 'pastilles-4' ? 'pack' : p.gallery[0];
     const [file] = photoFor(p, view, variant);
-    return `<img src="${IMG}${file}-s.jpg" width="480" height="480" alt="" loading="lazy" decoding="async">`;
+    return `<img src="${IMG}${file}-s.jpg" width="600" height="600" alt="" loading="lazy" decoding="async">`;
   }
   const viewName = { kit: 'Coffret et contenu', pack: 'Le pack', nid: 'Le Nid', 'nid-back': 'Vue de dos', pastille: 'La Pastille', cle: 'La Clé', scene: 'Dans la cuisine', salon: 'Au salon', chambre: 'Dans la chambre', entree: 'Dans l’entrée', 'detail-led': 'Le voyant', 'detail-usbc': 'Le port USB-C', 'detail-cadenas': 'Le bouton', 'detail-cle': 'La gravure', plus: 'Sérénid+' };
 
@@ -934,6 +937,46 @@
     show('all');
   }
 
+  /* ---------- Visionneuse plein écran (zoom photo) ---------- */
+  function openLightbox(items, start = 0) {
+    const dlg = $('[data-lightbox]');
+    if (!dlg || typeof dlg.showModal !== 'function') return;
+    const img = $('[data-lb-img]', dlg), cap = $('[data-lb-caption]', dlg), count = $('[data-lb-count]', dlg), stage = $('.lightbox__stage', dlg);
+    let i = start;
+    const show = (n) => {
+      i = (n + items.length) % items.length;
+      stage.classList.remove('is-zoomed'); img.style.transformOrigin = '';
+      img.src = items[i].src; img.alt = items[i].alt;
+      cap.textContent = items[i].caption || '';
+      count.textContent = `${i + 1} / ${items.length}`;
+      $$('[data-lb-step]', dlg).forEach((b) => (b.hidden = items.length < 2));
+    };
+    dlg._step = (d) => show(i + d);
+    show(start);
+    dlg.showModal();
+    document.documentElement.classList.add('lb-open');
+  }
+  (function bindLightbox() {
+    const dlg = $('[data-lightbox]');
+    if (!dlg) return;
+    const stage = $('.lightbox__stage', dlg), img = $('[data-lb-img]', dlg);
+    $$('[data-lb-step]', dlg).forEach((b) => b.addEventListener('click', () => dlg._step(+b.dataset.lbStep)));
+    $('[data-lb-close]', dlg).addEventListener('click', () => dlg.close());
+    dlg.addEventListener('close', () => document.documentElement.classList.remove('lb-open'));
+    dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
+    dlg.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') { e.preventDefault(); dlg._step(1); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); dlg._step(-1); }
+    });
+    // Clic : zoom ×2 à l’endroit visé ; le zoom suit ensuite la souris
+    const origin = (e) => { const r = img.getBoundingClientRect(); img.style.transformOrigin = `${((e.clientX - r.left) / r.width) * 100}% ${((e.clientY - r.top) / r.height) * 100}%`; };
+    img.addEventListener('click', (e) => { stage.classList.toggle('is-zoomed'); origin(e); });
+    img.addEventListener('pointermove', (e) => { if (stage.classList.contains('is-zoomed') && e.pointerType === 'mouse') origin(e); });
+    let sx = null;
+    stage.addEventListener('pointerdown', (e) => { if (e.pointerType !== 'mouse') sx = e.clientX; });
+    stage.addEventListener('pointerup', (e) => { if (sx !== null && !stage.classList.contains('is-zoomed') && Math.abs(e.clientX - sx) > 50) dlg._step(e.clientX < sx ? 1 : -1); sx = null; });
+  })();
+
   /* ---------- Conversion : offres, sélecteur de kit, délai de livraison ---------- */
   const KITS = ['kit-decouverte', 'kit-famille', 'kit-maison'];
   // Date estimée (fictive) : +2 à +5 jours ouvrés
@@ -1041,6 +1084,7 @@
       <div class="product-card__media">
         ${p.badges.length ? `<div class="product-card__badges">${p.badges.map(badgeHTML).join('')}</div>` : ''}
         ${productArt(p, feature || p.category === 'kits' ? 'kit' : 'main', undefined, { sizes: feature ? '(min-width: 1000px) 60vw, 92vw' : '(min-width: 1000px) 30vw, (min-width: 640px) 46vw, 92vw' })}
+        ${feature ? '' : productArt(p, p.gallery[p.category === 'kits' ? 4 : 1] || p.gallery[1], undefined, { decorative: true, cls: 'product-card__alt', sizes: '(min-width: 1000px) 30vw, 46vw' })}
       </div>
       <div class="product-card__body">
         <h3 class="product-card__title"><a href="#/produit/${p.id}">${esc(p.name)}</a></h3>
@@ -1106,6 +1150,8 @@
             <div class="gallery__main" data-gallery-main>
               ${views.map((v, i) => `<div class="gallery__view${i === 0 ? ' is-active' : ''}" data-view="${v}" ${i ? 'aria-hidden="true"' : ''}>${productArt(p, v, variant, { lazy: i > 0, sizes: '(min-width: 1000px) 46vw, 92vw' })}</div>`).join('')}
               <span class="gallery__caption" data-gallery-caption>${esc(viewName[views[0]])}</span>
+              <button type="button" class="gallery__zoom" data-gal-zoom aria-label="Agrandir la photo">${icon('i-search')}</button>
+              ${views.length > 1 ? `<button type="button" class="gallery__nav gallery__nav--prev" data-gal-step="-1" aria-label="Vue précédente">${icon('i-arrow-left')}</button><button type="button" class="gallery__nav gallery__nav--next" data-gal-step="1" aria-label="Vue suivante">${icon('i-arrow')}</button>` : ''}
             </div>
             ${views.length > 1 ? `<div class="gallery__thumbs" role="group" aria-label="Vues du produit">
               ${views.map((v, i) => `<button type="button" class="gallery__thumb" data-thumb="${i}" aria-current="${i === 0}" aria-label="Afficher : ${esc(viewName[v])}">${productArt(p, v, variant, { decorative: true, sizes: '120px' })}</button>`).join('')}
@@ -1187,12 +1233,30 @@
     const pdp = $('.pdp', root);
     let current = variant;
     // Galerie
+    let viewIdx = 0;
     const showView = (i) => {
+      i = (i + views.length) % views.length; viewIdx = i;
       $$('.gallery__view', pdp).forEach((v, k) => { v.classList.toggle('is-active', k === i); v.setAttribute('aria-hidden', k !== i); });
       $$('.gallery__thumb', pdp).forEach((t, k) => t.setAttribute('aria-current', k === i));
       $('[data-gallery-caption]', pdp).textContent = viewName[views[i]];
     };
     $$('.gallery__thumb', pdp).forEach((t) => t.addEventListener('click', () => showView(+t.dataset.thumb)));
+    $$('[data-gal-step]', pdp).forEach((b) => b.addEventListener('click', () => showView(viewIdx + +b.dataset.galStep)));
+    // Balayage tactile sur la grande photo, clic pour agrandir
+    const gMain = $('[data-gallery-main]', pdp);
+    let sx = null, sy = 0;
+    gMain.addEventListener('pointerdown', (e) => { if (e.pointerType !== 'mouse') { sx = e.clientX; sy = e.clientY; } });
+    gMain.addEventListener('pointerup', (e) => {
+      if (sx === null) return;
+      const dx = e.clientX - sx, dy = e.clientY - sy; sx = null;
+      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) { gMain.dataset.swiped = '1'; showView(viewIdx + (dx < 0 ? 1 : -1)); }
+    });
+    const openZoom = () => openLightbox(views.map((v) => { const [f, a] = photoFor(p, v, current); return { src: xlSrc(f), alt: a, caption: viewName[v] }; }), viewIdx);
+    $('[data-gal-zoom]', pdp).addEventListener('click', openZoom);
+    gMain.addEventListener('click', (e) => {
+      if (gMain.dataset.swiped) { delete gMain.dataset.swiped; return; }
+      if (e.target.closest('.gallery__view')) openZoom();
+    });
     // Variantes : on régénère les visuels
     $$('input[name="variant"]', pdp).forEach((r) => r.addEventListener('change', () => {
       current = r.value;
