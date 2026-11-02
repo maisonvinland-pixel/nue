@@ -79,7 +79,7 @@
 
   const PRODUCTS = {
     'kit-famille': {
-      id: 'kit-famille', name: 'Kit Famille', category: 'kits', order: 1, feature: true,
+      id: 'kit-famille', name: 'Kit Famille', category: 'kits', order: 1, feature: true, ideal: 'Maison de plain-pied ou grand appartement',
       price: round2(329 * 0.85), compareAt: 329, badges: [['-15 %', ''], ['Le plus choisi', 'encre']],
       short: '1 Nid, 10 Pastilles et 2 Clés pour une maison de plain-pied ou un grand appartement.',
       contents: { nids: 1, pastilles: 10, cles: 2 }, rating: 4.7, reviews: 486, variants: FINISH,
@@ -96,7 +96,7 @@
       ],
     },
     'kit-decouverte': {
-      id: 'kit-decouverte', name: 'Kit Découverte', category: 'kits', order: 2,
+      id: 'kit-decouverte', name: 'Kit Découverte', category: 'kits', order: 2, ideal: 'Appartement ou première pièce à sécuriser',
       price: 189, badges: [],
       short: '1 Nid, 4 Pastilles et 1 Clé : l’essentiel pour un appartement ou une première pièce.',
       contents: { nids: 1, pastilles: 4, cles: 1 }, rating: 4.6, reviews: 212, variants: FINISH,
@@ -113,7 +113,7 @@
       ],
     },
     'kit-maison': {
-      id: 'kit-maison', name: 'Kit Maison', category: 'kits', order: 3,
+      id: 'kit-maison', name: 'Kit Maison', category: 'kits', order: 3, ideal: 'Maison sur deux niveaux, escalier compris',
       price: 549, badges: [['2 étages', 'soft']],
       short: '2 Nids, 16 Pastilles et 3 Clés pour une maison sur deux niveaux, escalier compris.',
       contents: { nids: 2, pastilles: 16, cles: 3 }, rating: 4.5, reviews: 138, variants: FINISH,
@@ -808,10 +808,13 @@
     if (!homeBound) {
       homeBound = true;
       bindKit();
+      renderOffers();
       renderHomeReviews();
       bindRail();
       fillCompare();
     }
+
+    setupMobileCta(cleanups);
 
     // Intro du hero (une fois)
     const hero = $('.hero');
@@ -929,6 +932,59 @@
     };
     initTabs($('[data-tabs="kit"]'), (tab) => show(tab.dataset.kitKey));
     show('all');
+  }
+
+  /* ---------- Conversion : offres, sélecteur de kit, délai de livraison ---------- */
+  const KITS = ['kit-decouverte', 'kit-famille', 'kit-maison'];
+  // Date estimée (fictive) : +2 à +5 jours ouvrés
+  function etaText(from = new Date()) {
+    const add = (d, n) => { const r = new Date(d); while (n > 0) { r.setDate(r.getDate() + 1); if (r.getDay() % 6) n--; } return r; };
+    const f = (d) => d.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' });
+    return `${f(add(from, 2))} et le ${f(add(from, 5))}`;
+  }
+  function kitSwitchHTML(p) {
+    return `<nav class="kit-switch" aria-label="Choisir un autre kit"><p class="kit-switch__label">Taille du kit</p><ul>${KITS.map((id) => {
+      const k = PRODUCTS[id];
+      return `<li><a href="#/produit/${id}"${id === p.id ? ' aria-current="page"' : ''}><strong>${esc(k.name.replace('Kit ', ''))}</strong><span>${euro(k.price)}</span><small>${esc(k.ideal)}</small></a></li>`;
+    }).join('')}</ul></nav>`;
+  }
+  function offerCard(p) {
+    const c = p.contents, featured = !!p.feature;
+    const items = [[`${c.nids} Nid${c.nids > 1 ? 's' : ''}`, 'i-radar'], [`${c.pastilles} Pastilles`, 'i-lock'], [`${c.cles} Clé${c.cles > 1 ? 's' : ''} Sérénid`, 'i-key'], ['Application gratuite', 'i-phone']];
+    return `<li class="offer${featured ? ' offer--featured' : ''}">
+      ${featured ? '<p class="offer__flag">Le plus choisi</p>' : ''}
+      <figure class="offer__media">${productArt(p, 'kit', 'coquille', { sizes: '(min-width: 1000px) 30vw, 86vw' })}</figure>
+      <div class="offer__body">
+        <h3 class="offer__name">${esc(p.name)}</h3>
+        <p class="offer__ideal">${esc(p.ideal)}</p>
+        <p class="offer__price">${priceHTML(p)}${p.compareAt ? `<span class="offer__save">−${euro(p.compareAt - p.price)}</span>` : ''}</p>
+        <ul class="offer__list">${items.map((i) => `<li>${icon(i[1])}${esc(i[0])}</li>`).join('')}</ul>
+        <div class="offer__actions">
+          <button class="btn ${featured ? 'btn--light' : 'btn--primary'} btn--block" type="button" data-quick-add="${p.id}" aria-label="Ajouter le ${esc(p.name)} au panier">${icon('i-plus')}Ajouter au panier</button>
+          <a class="offer__more" href="#/produit/${p.id}">Voir le détail du ${esc(p.name)}</a>
+        </div>
+      </div>
+    </li>`;
+  }
+  function renderOffers() {
+    const el = $('[data-offers]');
+    if (el) el.innerHTML = KITS.map((id) => offerCard(PRODUCTS[id])).join('');
+  }
+  // Barre d’achat mobile de l’accueil : visible après le hero, masquée sur les offres et en bas de page
+  function setupMobileCta(cleanups) {
+    const bar = $('[data-mobile-cta]');
+    if (!bar || !('IntersectionObserver' in window)) return;
+    const link = $('a', bar);
+    const seen = new Map();
+    const update = () => {
+      const show = seen.get('hero') === false && !seen.get('offres') && !seen.get('final') && !seen.get('footer');
+      bar.classList.toggle('is-visible', show);
+      bar.setAttribute('aria-hidden', show ? 'false' : 'true');
+      link.tabIndex = show ? 0 : -1;
+    };
+    const io = new IntersectionObserver((entries) => { entries.forEach((en) => seen.set(en.target.dataset.ctaWatch, en.isIntersecting)); update(); });
+    [['hero', $('.hero')], ['offres', $('#offres')], ['final', $('.final-cta')], ['footer', $('.site-footer')]].forEach(([k, el]) => { if (el) { el.dataset.ctaWatch = k; io.observe(el); } });
+    cleanups.push(() => { io.disconnect(); bar.classList.remove('is-visible'); bar.setAttribute('aria-hidden', 'true'); link.tabIndex = -1; });
   }
 
   function reviewCard(rv) {
@@ -1060,9 +1116,10 @@
             <h1 class="h1">${esc(p.name)}</h1>
             <a class="pdp__rating" href="#pdp-reviews" data-scroll-to="pdp-reviews">${starsHTML(p.rating)}<span><strong>${ratingFR(p.rating)}</strong> · ${p.reviews} avis</span></a>
             <p class="lead">${esc(p.short)}</p>
-            <div class="pdp__price">${priceHTML(p)}</div>
+            <div class="pdp__price">${priceHTML(p)}${p.compareAt ? `<span class="pdp__save">Vous économisez ${euro(p.compareAt - p.price)}</span>` : ''}</div>
             <p class="pdp__tax">${p.recurring ? 'TTC, sans engagement · résiliable à tout moment' : 'TTC · Livraison offerte dès 200 €'}</p>
             ${p.compareAt ? `<div class="pdp__offer"><span class="announce__dot" aria-hidden="true"></span><span>Offre de lancement −15 %, encore <strong data-countdown></strong></span></div>` : ''}
+            ${p.category === 'kits' ? kitSwitchHTML(p) : ''}
             ${contents.length ? `<ul class="pdp__contents" aria-label="Contenu">${contents.map((c) => `<li>${icon(c[0])}${c[1]}</li>`).join('')}</ul>` : ''}
             ${p.variants ? `<fieldset class="variant"><legend>${esc(p.variants.label)} : <span data-variant-name>${esc(p.variants.options[0].name)}</span></legend><div class="swatches">
               ${p.variants.options.map((o, i) => `<label class="swatch"><input type="radio" name="variant" value="${o.id}" ${i === 0 ? 'checked' : ''}><span><i style="background:${o.swatch}"></i>${esc(o.name)}</span></label>`).join('')}
@@ -1071,6 +1128,7 @@
               ${p.recurring ? '' : `<div class="qty"><button type="button" data-pdp-qty="-1" aria-label="Diminuer la quantité">${icon('i-minus')}</button><input type="number" min="1" max="20" value="1" aria-label="Quantité" data-pdp-qty-input><button type="button" data-pdp-qty="1" aria-label="Augmenter la quantité">${icon('i-plus')}</button></div>`}
               <button class="btn btn--primary btn--lg" type="button" data-pdp-add>${p.recurring ? 'Activer Sérénid+' : 'Ajouter au panier'} ${icon('i-arrow')}</button>
             </div>
+            ${p.recurring ? '' : `<p class="pdp__eta">${icon('i-clock')}<span>Commandé aujourd’hui, livré entre le <strong>${etaText()}</strong></span></p>`}
             <ul class="assure">
               <li>${icon('i-truck')}Expédié sous 24 h ouvrées · offert dès 200 €</li>
               <li>${icon('i-return')}Retours gratuits sous 30 jours, même ouvert</li>
@@ -1628,7 +1686,7 @@
      Routeur (navigation SPA par hash)
      ========================================================= */
   const TITLES = {
-    home: 'Sérénid — Protéger sans enfermer',
+    home: 'Sérénid — Sécurité bébé sans caméra ni perçage',
     boutique: 'Boutique — Sérénid',
     diagnostic: 'Diagnostic de la maison — Sérénid',
     technologie: 'Technologie — Sérénid',

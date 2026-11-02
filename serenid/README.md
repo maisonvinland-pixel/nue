@@ -39,6 +39,7 @@ Les photos sont fictives : aucune n’est une photo d’un produit réel.
   dans lesquels le vrai Nid détouré est posé par montage, pour qu’il reste identique aux autres photos.
 - **Gros plans** (`detail-*.jpg`) : recadrages des photos haute définition (voyant, USB-C, bouton, gravure).
 - **Gamme** (`gamme.jpg`) : montage de tous les produits sur un même fond.
+- **Image de partage** (`assets/og-image.jpg`) : montage `og` de `tools/compose.html` (logo, titre, photo de gamme).
 - Aucun texte n’apparaît sur les images, hormis le logo sur le coffret et l’écran de l’application.
 
 `tools/studio.html` et `tools/render.mjs` sont un ancien prototype de rendu 3D : `render.mjs` écrit dans

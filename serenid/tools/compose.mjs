@@ -19,16 +19,21 @@ const ALL = {
   'plus': ['plus', 'coquille'],
   'scene-chambre': ['chambre', 'coquille', true], 'scene-entree': ['entree', 'coquille', true],
   'gamme': ['gamme', 'coquille', true],
+  'og': ['og', 'coquille', 'og'],
 };
 const want = process.argv.slice(2).length ? process.argv.slice(2) : Object.keys(ALL);
 const b = await chromium.launch({ executablePath: process.env.CHROMIUM || undefined });
 for (const name of want) {
   const [shot, finish, wide] = ALL[name];
-  const p = await b.newPage({ viewport: wide ? { width: 1488, height: 992 } : { width: 1200, height: 1200 }, deviceScaleFactor: 1 });
+  const p = await b.newPage({ viewport: wide === 'og' ? { width: 1200, height: 630 } : wide ? { width: 1488, height: 992 } : { width: 1200, height: 1200 }, deviceScaleFactor: 1 });
   await p.goto(`http://localhost:8080/tools/compose.html?shot=${shot}&finish=${finish}`);
   await p.waitForFunction(() => window.__done, null, { timeout: 30000 });
   const png = TMP + name + '.png';
   await p.locator('#stage').screenshot({ path: png });
+  if (wide === 'og') { // image de partage : un seul fichier, à la racine des assets
+    execFileSync('convert', [png, '-strip', '-sampling-factor', '4:2:0', '-quality', '84', '-interlace', 'Plane', OUT + '../og-image.jpg']);
+    console.log('ok', name); await p.close(); continue;
+  }
   execFileSync('convert', [png, '-filter', 'Lanczos', '-resize', wide ? '1264x' : '1000x', '-strip', '-sampling-factor', '4:2:0', '-quality', '82', '-interlace', 'Plane', OUT + name + '.jpg']);
   execFileSync('convert', [png, '-filter', 'Lanczos', '-resize', wide ? '640x' : '480x', '-strip', '-quality', '78', '-interlace', 'Plane', OUT + name + '-s.jpg']);
   console.log('ok', name);

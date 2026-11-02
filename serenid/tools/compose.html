@@ -8,11 +8,19 @@
   à partir des détourages de photos générées (tools/cutouts/). Voir tools/compose.mjs.
   Aucun texte n’est ajouté sur les images, à l’exception du logo officiel sur le coffret.
 -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..700,0..100&family=Hanken+Grotesk:wght@400..700&display=swap">
 <style>
   :root { --encre: #1F3A4D; --bleu: #4F7A96; --brume: #C9DBE6; --abricot: #E8A07A; --coquille: #F7F5F1; }
   html, body { margin: 0; overflow: hidden; background: #C9DBE6; }
   .stage { position: relative; width: 1200px; height: 1200px; overflow: hidden; }
   .stage.wide { width: 1488px; height: 992px; background-size: cover; }
+  .stage.og { width: 1200px; height: 630px; display: grid; grid-template-columns: 1fr 1fr; align-items: center; background: #F7F5F1; }
+  .og__copy { padding: 0 24px 0 64px; color: var(--encre); font-family: 'Hanken Grotesk', sans-serif; }
+  .og__copy img { width: 170px; display: block; margin-bottom: 40px; }
+  .og__copy h1 { font-family: 'Fraunces', serif; font-variation-settings: 'SOFT' 100; font-weight: 420; font-size: 58px; line-height: 1.02; letter-spacing: -.02em; margin: 0 0 22px; }
+  .og__copy p { font-size: 21px; line-height: 1.45; color: #3c5566; margin: 0 0 26px; }
+  .og__copy small { font-size: 14px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--bleu); }
+  .og__photo { height: 100%; background: url(../assets/img/gamme.jpg) 50% 55% / cover; }
   .stage.wide .obj { filter: sepia(.06) saturate(1.02) brightness(.98); }
   .bg-brume { background: radial-gradient(120% 90% at 30% 22%, #D3E2EA 0%, #CADCE6 45%, #C1D3DE 100%); }
   .bg-coquille { background: radial-gradient(120% 90% at 30% 22%, #FBFAF7 0%, #F4F1EC 50%, #E9E6E0 100%); }
@@ -130,6 +138,10 @@ const SHOTS = {
     backdrop('entree.jpg');
     put('nid', 1070, 640, 200);
   },
+  'og': () => {
+    stage.classList.add('og');
+    stage.insertAdjacentHTML('beforeend', '<div class="og__copy"><img src="../assets/logo/serenid-logo.svg" alt=""><h1>Les placards se ferment quand votre enfant approche.</h1><p>Sécurité bébé sans caméra ni perçage. Le reste de la maison reste ouvert.</p><small>Site fictif · projet scolaire</small></div><div class="og__photo"></div>');
+  },
   'gamme': () => {
     stage.classList.add('wide', 'bg-brume');
     put('nid', 760, 600, 330);
@@ -143,8 +155,8 @@ const SHOTS = {
   },
 };
 SHOTS[SHOT]();
-const bgs = [...document.querySelectorAll('.stage.wide')].map((st) => { const i = new Image(); i.src = getComputedStyle(st).backgroundImage.slice(5, -2); return i; });
-Promise.all([...document.images, ...bgs].map((i) => i.complete ? 1 : new Promise((r) => { i.onload = i.onerror = r; }))).then(() => { window.__done = true; });
+const bgs = [...document.querySelectorAll('.stage.wide, .og__photo')].map((st) => { const i = new Image(); i.src = getComputedStyle(st).backgroundImage.slice(5, -2); return i; });
+Promise.all([document.fonts.load('420 58px Fraunces'), document.fonts.load('400 21px "Hanken Grotesk"'), document.fonts.load('700 14px "Hanken Grotesk"')]).catch(() => 0).then(() => Promise.all([...document.images, ...bgs].map((i) => i.complete ? 1 : new Promise((r) => { i.onload = i.onerror = r; }))).then(() => { window.__done = true; }));
 </script>
 </body>
 </html>
